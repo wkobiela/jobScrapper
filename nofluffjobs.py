@@ -52,5 +52,5 @@ class NoFluffJobs():
             
     
 fluff = NoFluffJobs()
-fluff.updateJobsDict("https://nofluffjobs.com/pl/testing?criteria=employment%3Db2b%20requirement%3DPython")
+fluff.updateJobsDict("https://nofluffjobs.com/pl/testing?criteria=employment%3Db2b%20%20seniority%3Djunior,mid")
 updateExcel("NoFluff", fluff.jobs_dict)
