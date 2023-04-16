@@ -1,31 +1,13 @@
 import requests
-from sys import argv
 from bs4 import BeautifulSoup
-import urllib
 import re
-from openpyxl import load_workbook
-
-def replace_chars(input_string):
-    input_string = input_string.replace("]", "")
-    input_string = input_string.replace("[", "")
-    input_string = input_string.replace("'", "")
-    input_string = input_string.replace("\\xa0", "")
-    input_string = input_string.replace("\\n", "")
-    return input_string
+from common import getDomainName, updateExcel
 
 class NoFluffJobs():
     # URL = argv[1]
     def __init__(self):
         self.jobs_dict = {}
     
-    def getDomainName(self, url):
-        try:
-            parsed_uri = urllib.request.urlparse(url)
-            domainName = '{uri.scheme}://{uri.netloc}'.format(uri=parsed_uri)
-            return domainName
-        except Exception as e:
-            print(f"Exception {e} on getDomainName.")
-
     def getPagesCount(self, url):
         try:
             page = requests.get(url)
@@ -45,7 +27,7 @@ class NoFluffJobs():
 
     def updateJobsDict(self, url):
         max_pages = self.getPagesCount(url)
-        domainName = self.getDomainName(url)
+        domainName = getDomainName(url)
         try:
             for page_num in range(1, max_pages + 1):
                 page = requests.get(url+f"&page={page_num}")
@@ -67,31 +49,8 @@ class NoFluffJobs():
         # print(self.jobs_dict)
         except Exception as e:
             print(f"Exception {e} on updateJobsDict.")                
-    
-    def updateExcel(self):
-        try:
-            workbook = load_workbook("jobs.xlsx")
-            # sheet = workbook.active
-            sheet = workbook['NoFluff']
-            for k, v in self.jobs_dict.items():
-                exists = False
-                for row in sheet.rows:
-                    if row[0].value is not None and k in row[0].value:
-                        # print(f"Already in excel: {k}")
-                        exists = True
-                if exists is False:
-                    # print(f"Fresh one: {k}")
-                    sheet.insert_rows(2, 1)
-                    sheet.cell(row = 2, column = 1, value = '=HYPERLINK("{}", "{}")'.format(k, f"{k}"))
-                    sheet.cell(row = 2, column = 2, value = replace_chars(str(v["Title"])))
-                    sheet.cell(row = 2, column = 3, value = replace_chars(str(v["Company"])))
-                    sheet.cell(row = 2, column = 4, value = replace_chars(str(v["Salary"])))
-                    sheet.cell(row = 2, column = 5, value = replace_chars(str(v["Salary"])))
-            workbook.save(filename="jobs.xlsx")
-        except Exception as e:
-            print(f"Exception: {e} on updateExcel.")
-        
+            
     
 fluff = NoFluffJobs()
 fluff.updateJobsDict("https://nofluffjobs.com/pl/testing?criteria=employment%3Db2b%20requirement%3DPython")
-fluff.updateExcel()
+updateExcel("NoFluff", fluff.jobs_dict)
