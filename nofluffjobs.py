@@ -47,11 +47,9 @@ class NoFluffJobs():
         max_pages = self.getPagesCount(url)
         domainName = self.getDomainName(url)
         try:
-            for page_num in range(1, max_pages+1):
+            for page_num in range(1, max_pages + 1):
                 page = requests.get(url+f"&page={page_num}")
-                # print(page_num)
                 page_soup = BeautifulSoup(page.content, "html.parser")
-                
                 job_links_list = page_soup.find_all("a", {"class": "posting-list-item"})
 
                 for job in job_links_list:
@@ -61,11 +59,10 @@ class NoFluffJobs():
                     job_salary = job.find('span', class_=re.compile("badgy salary", re.I)).text
                     job_location = job.find('div', class_=re.compile("tw-flex tw-items-center ng-star-inserted", re.I)).text
                     
-                    self.jobs_dict[job_link] = {"Title": [], "Company": [], "Salary": [], "Location": []}
-                    self.jobs_dict[job_link]["Title"].append(job_title)
-                    self.jobs_dict[job_link]["Company"].append(job_company)
-                    self.jobs_dict[job_link]["Salary"].append(job_salary)
-                    self.jobs_dict[job_link]["Location"].append(job_location)
+                    self.jobs_dict[job_link] = {"Title": [job_title], 
+                                                "Company": [job_company], 
+                                                "Salary": [job_salary], 
+                                                "Location": [job_location]}
                     #print(len(self.jobs_dict))
         # print(self.jobs_dict)
         except Exception as e:
