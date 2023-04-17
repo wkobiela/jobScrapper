@@ -3,6 +3,7 @@ import urllib
 import logging
 import requests
 from bs4 import BeautifulSoup
+from datetime import datetime
 from openpyxl import load_workbook
 
 logging.basicConfig(
@@ -13,6 +14,8 @@ logging.basicConfig(
         logging.StreamHandler()
     ]
 )
+
+now = datetime.now()
 
 def replace_chars(input_string):
     input_string = input_string.replace("]", "")
@@ -66,6 +69,7 @@ def updateExcel(sheet, jobs_dict):
                 sheet.cell(row = 2, column = 3, value = replace_chars(str(v["Company"])))
                 sheet.cell(row = 2, column = 4, value = replace_chars(str(v["Salary"])))
                 sheet.cell(row = 2, column = 5, value = replace_chars(str(v["Location"])))
+                sheet.cell(row = 2, column = 6, value = now.strftime("%d/%m/%Y, %H:%M"))
         workbook.save(filename="jobs.xlsx")
     except Exception as e:
         print(f"Exception: {e} on updateExcel.")
