@@ -1,7 +1,7 @@
 import re
 import requests
 from bs4 import BeautifulSoup
-from common import updateExcel, getPagesCount
+from modules.common import updateExcel, getPagesCount
 
 class BulldogJob():
     # URL = argv[1]
@@ -37,7 +37,7 @@ class BulldogJob():
         except Exception as e:
             print(f"Exception {e} on updateJobsDict.")                
             
-    
-bull = BulldogJob()
-bull.updateJobsDict("https://bulldogjob.pl/companies/jobs/s/city,Remote/role,tester")
-updateExcel("Bull", bull.jobs_dict)
+def run(url):  
+    bull = BulldogJob()
+    bull.updateJobsDict(url)
+    updateExcel("Bull", bull.jobs_dict)

@@ -1,7 +1,5 @@
-import re
 import requests
-from bs4 import BeautifulSoup
-from common import getDomainName, updateExcel, getPagesCount
+from modules.common import getDomainName, updateExcel, getPagesCount
 
 class JustJoinIt():
     def __init__(self):
@@ -58,8 +56,8 @@ class JustJoinIt():
         # print(set(marker_list))  
         # print(set(city_list))  
         # print(set(exp_list))
-            
-    
-just = JustJoinIt()
-just.updateJobsDict("https://justjoin.it/api/offers")
-updateExcel("Just", just.jobs_dict)
+
+def run(url):
+    just = JustJoinIt()
+    just.updateJobsDict(url)
+    updateExcel("Just", just.jobs_dict)

@@ -1,7 +1,7 @@
 import re
 import requests
 from bs4 import BeautifulSoup
-from common import getDomainName, updateExcel, getPagesCount
+from modules.common import getDomainName, updateExcel, getPagesCount
 
 class NoFluffJobs():
     # URL = argv[1]
@@ -36,7 +36,7 @@ class NoFluffJobs():
         except Exception as e:
             print(f"Exception {e} on updateJobsDict.")                
             
-    
-fluff = NoFluffJobs()
-fluff.updateJobsDict("https://nofluffjobs.com/pl/testing?criteria=employment%3Db2b%20%20seniority%3Djunior,mid")
-updateExcel("NoFluff", fluff.jobs_dict)
+def run(url):  
+    fluff = NoFluffJobs()
+    fluff.updateJobsDict(url)
+    updateExcel("NoFluff", fluff.jobs_dict)
