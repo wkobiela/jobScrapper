@@ -1,4 +1,5 @@
-import os, sys
+import os
+import sys
 import pytest
 sys.path.insert(0, f'{os.getcwd()}\\modules')
 
@@ -9,12 +10,12 @@ strings_list = [
     ('test]', 'test'),
     ("'test", "test"),
     ('test\\xa0', 'test'),
-    ('\\ntest', ('test'))
+    ('\\ntest', 'test')
 ]
 
-@pytest.mark.parametrize('input, output', strings_list)
-def test_replace_chars_back_square_brackets(input, output):
-    assert replace_chars(input) == output
+@pytest.mark.parametrize('in_put, out_put', strings_list)
+def test_replace_chars_back_square_brackets(in_put, out_put):
+    assert replace_chars(in_put) == out_put
 
     
 urls_list = [
@@ -23,6 +24,6 @@ urls_list = [
     ('https://justjoin.it/api/offers', 'https://justjoin.it')
 ]
     
-@pytest.mark.parametrize('input, output', urls_list)    
-def test_getDomainName_urls(input, output):
-    assert getDomainName(input) == output
+@pytest.mark.parametrize('in_put, out_put', urls_list)    
+def test_getDomainName_urls(in_put, out_put):
+    assert getDomainName(in_put) == out_put

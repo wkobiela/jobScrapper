@@ -1,9 +1,9 @@
 import re
 import urllib
 import logging
+from datetime import datetime
 import requests
 from bs4 import BeautifulSoup
-from datetime import datetime
 from openpyxl import load_workbook
 
 logging.basicConfig(
@@ -32,6 +32,7 @@ def getDomainName(url):
         return domainName
     except Exception as e:
         print(f"Exception {e} on getDomainName.")
+        return url
 
 def getPagesCount(url, parent, child, regex):
     try:
@@ -45,10 +46,11 @@ def getPagesCount(url, parent, child, regex):
             except(ValueError):
                 continue
             max_page_count = val if val > max_page_count else max_page_count
-        logging.info(f"All found pages: {max_page_count}")
+        logging.info('All found pages: %max_page_count', max_page_count)
         return max_page_count
     except Exception as e:
-        print(f"Exception {e} on getPagesCount.")    
+        print(f"Exception {e} on getPagesCount.")
+        return 1
         
 def updateExcel(sheet, jobs_dict):
     try:
@@ -59,10 +61,8 @@ def updateExcel(sheet, jobs_dict):
             exists = False
             for row in sheet.rows:
                 if row[0].value is not None and k in row[0].value:
-                    # print(f"Already in excel: {k}")
                     exists = True
             if exists is False:
-                # print(f"Fresh one: {k}")
                 sheet.insert_rows(2, 1)
                 sheet.cell(row = 2, column = 1, value = '=HYPERLINK("{}", "{}")'.format(k, f"{k}"))
                 sheet.cell(row = 2, column = 2, value = replace_chars(str(v["Title"])))

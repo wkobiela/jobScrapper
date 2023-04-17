@@ -1,6 +1,6 @@
 import re
-import requests
 import logging
+import requests
 from bs4 import BeautifulSoup
 from modules.common import updateExcel, getPagesCount
 
@@ -33,7 +33,7 @@ class BulldogJob():
                     job_title = job.find(name="h3", class_="JobListItem_title__tdmYl").text
                     job_company = job.find('p', class_=re.compile("JobListItemCompanyDetails", re.I)).text 
                     job_salary = job.find('p', class_=re.compile("text-3", re.I))
-                    job_salary = "Brak informacji" if job_salary == None else job_salary.text
+                    job_salary = "Brak informacji" if job_salary is None else job_salary.text
                     job_overall_info = job.find_all('div', class_=re.compile("flex items-start my-2", re.I))
                     for info in job_overall_info:
                         text = text + info.find('span').text + " / "

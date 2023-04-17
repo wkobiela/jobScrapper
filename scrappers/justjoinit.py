@@ -1,6 +1,6 @@
-import requests
 import logging
-from modules.common import getDomainName, updateExcel, getPagesCount
+import requests
+from modules.common import updateExcel
 
 logging.basicConfig(
     level=logging.INFO,
@@ -37,11 +37,10 @@ class JustJoinIt():
         exp_list = []
         for offer_dict in response.json():
             url = f'https://justjoin.it/offers/{offer_dict["id"]}'
-            """ Available marker_icons to choose:
+            """Available marker_icons to choose:
             {'testing', 'net', 'architecture', 'ruby', 'php', 'mobile', 'other', 'analytics', 
             'erp', 'go', 'admin', 'scala', 'pm', 'support', 'data', 'java', 'security', 'game', 
-            'python', 'ux', 'c', 'javascript', 'devops', 'html'}
-            """
+            'python', 'ux', 'c', 'javascript', 'devops', 'html'}"""
             if offer_dict.get("marker_icon") != "testing":
                 continue
             if offer_dict.get("experience_level") not in ("mid", "junior"):
