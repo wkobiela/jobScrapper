@@ -1,8 +1,18 @@
+import re
 import urllib
-from openpyxl import load_workbook
+import logging
 import requests
 from bs4 import BeautifulSoup
-import re
+from openpyxl import load_workbook
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    handlers=[
+        logging.FileHandler("debug.log"),
+        logging.StreamHandler()
+    ]
+)
 
 def replace_chars(input_string):
     input_string = input_string.replace("]", "")
@@ -32,7 +42,7 @@ def getPagesCount(url, parent, child, regex):
             except(ValueError):
                 continue
             max_page_count = val if val > max_page_count else max_page_count
-        print(f"All found pages: {max_page_count}")
+        logging.info(f"All found pages: {max_page_count}")
         return max_page_count
     except Exception as e:
         print(f"Exception {e} on getPagesCount.")    

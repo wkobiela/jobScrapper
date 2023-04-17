@@ -1,15 +1,24 @@
 import re
 import requests
+import logging
 from bs4 import BeautifulSoup
 from modules.common import getDomainName, updateExcel, getPagesCount
 
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    handlers=[
+        logging.FileHandler("debug.log"),
+        logging.StreamHandler()
+    ]
+)
+
 class NoFluffJobs():
-    # URL = argv[1]
     def __init__(self):
         self.jobs_dict = {}      
 
     def updateJobsDict(self, url):
-        max_pages = getPagesCount(url="https://nofluffjobs.com/pl/testing?criteria=employment%3Db2b%20%20seniority%3Djunior,mid",
+        max_pages = getPagesCount(url,
                     parent='a',
                     child='class',
                     regex='.*page-link.*')
@@ -36,7 +45,9 @@ class NoFluffJobs():
         except Exception as e:
             print(f"Exception {e} on updateJobsDict.")                
             
-def run(url):  
+def run(url):
+    logging.info("Starting NoFluffJobs scrapper.")
     fluff = NoFluffJobs()
     fluff.updateJobsDict(url)
     updateExcel("NoFluff", fluff.jobs_dict)
+    logging.info("Finished NoFluffJobs scrapper.")

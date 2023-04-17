@@ -1,5 +1,15 @@
 import requests
+import logging
 from modules.common import getDomainName, updateExcel, getPagesCount
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    handlers=[
+        logging.FileHandler("debug.log"),
+        logging.StreamHandler()
+    ]
+)
 
 class JustJoinIt():
     def __init__(self):
@@ -58,6 +68,8 @@ class JustJoinIt():
         # print(set(exp_list))
 
 def run(url):
+    logging.info("Starting JustJointIt scrapper.")
     just = JustJoinIt()
     just.updateJobsDict(url)
     updateExcel("Just", just.jobs_dict)
+    logging.info("Finished JustJoinIt scrapper.")

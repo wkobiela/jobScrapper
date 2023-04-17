@@ -1,15 +1,24 @@
 import re
 import requests
+import logging
 from bs4 import BeautifulSoup
 from modules.common import updateExcel, getPagesCount
 
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    handlers=[
+        logging.FileHandler("debug.log"),
+        logging.StreamHandler()
+    ]
+)
+
 class BulldogJob():
-    # URL = argv[1]
     def __init__(self):
         self.jobs_dict = {}
         
     def updateJobsDict(self, url):
-        max_pages = getPagesCount(url="https://bulldogjob.pl/companies/jobs/s/city,Remote/role,tester", 
+        max_pages = getPagesCount(url, 
                     parent = 'li', 
                     child = 'class', 
                     regex='.*h-10 mx-1 rounded-full flex items-center.*')
@@ -38,6 +47,8 @@ class BulldogJob():
             print(f"Exception {e} on updateJobsDict.")                
             
 def run(url):  
+    logging.info("Starting BulldogJob scrapper.")
     bull = BulldogJob()
     bull.updateJobsDict(url)
     updateExcel("Bull", bull.jobs_dict)
+    logging.info("Finished BulldogJob scrapper.")
