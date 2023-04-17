@@ -10,5 +10,5 @@ Parameters:
 """
 
 justjoinit.run("https://justjoin.it/api/offers")
-nofluffjobs.run("https://nofluffjobs.com/pl/testing?criteria=employment%3Db2b%20%20seniority%3Djunior,mid")
-bulldogjob.run("https://bulldogjob.pl/companies/jobs/s/city,Remote/role,tester")
+nofluffjobs.run("https://nofluffjobs.com/pl/praca-zdalna/testing?criteria=city%3Dgdansk,trojmiasto,sopot%20%20seniority%3Djunior,mid")
+bulldogjob.run("https://bulldogjob.pl/companies/jobs/s/role,qa/experienceLevel,junior,medium/city,Remote,Tr%C3%B3jmiasto")

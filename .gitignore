@@ -1,4 +1,4 @@
 .vscode
-jobs.xlsx
+jobs*.xlsx
 __pycache__
 debug.log
