@@ -1,5 +1,8 @@
 import urllib
 from openpyxl import load_workbook
+import requests
+from bs4 import BeautifulSoup
+import re
 
 def replace_chars(input_string):
     input_string = input_string.replace("]", "")
@@ -16,6 +19,23 @@ def getDomainName(url):
         return domainName
     except Exception as e:
         print(f"Exception {e} on getDomainName.")
+
+def getPagesCount(url, parent, child, regex):
+    try:
+        page = requests.get(url)
+        soup = BeautifulSoup(page.content, "html.parser")
+        pages_count = soup.find_all(parent, {child: re.compile(regex)})
+        max_page_count = 1
+        for page in pages_count:
+            try:
+                val = int(page.text.strip())
+            except(ValueError):
+                continue
+            max_page_count = val if val > max_page_count else max_page_count
+        print(f"All found pages: {max_page_count}")
+        return max_page_count
+    except Exception as e:
+        print(f"Exception {e} on getPagesCount.")    
         
 def updateExcel(sheet, jobs_dict):
     try:

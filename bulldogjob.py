@@ -1,32 +1,18 @@
+import re
 import requests
 from bs4 import BeautifulSoup
-import re
-from common import getDomainName, updateExcel
+from common import updateExcel, getPagesCount
 
 class BulldogJob():
     # URL = argv[1]
     def __init__(self):
         self.jobs_dict = {}
-    
-    def getPagesCount(self, url):
-        try:
-            page = requests.get(url)
-            soup = BeautifulSoup(page.content, "html.parser")
-            pages_count = soup.find_all('li', {"class": re.compile('.*h-10 mx-1 rounded-full flex items-center.*')})
-            max_page_count = 1
-            for page in pages_count:
-                try:
-                    val = int(page.text.strip())
-                except(ValueError):
-                    continue
-                max_page_count = val if val > max_page_count else max_page_count
-            print(f"All found pages: {max_page_count}")
-            return max_page_count
-        except Exception as e:
-            print(f"Exception {e} on getPagesCount.")        
-
+        
     def updateJobsDict(self, url):
-        max_pages = self.getPagesCount(url)
+        max_pages = getPagesCount(url="https://bulldogjob.pl/companies/jobs/s/city,Remote/role,tester", 
+                    parent = 'li', 
+                    child = 'class', 
+                    regex='.*h-10 mx-1 rounded-full flex items-center.*')
         text = ""
         try:
             for page_num in range(1, max_pages + 1):

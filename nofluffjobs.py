@@ -1,32 +1,18 @@
+import re
 import requests
 from bs4 import BeautifulSoup
-import re
-from common import getDomainName, updateExcel
+from common import getDomainName, updateExcel, getPagesCount
 
 class NoFluffJobs():
     # URL = argv[1]
     def __init__(self):
-        self.jobs_dict = {}
-    
-    def getPagesCount(self, url):
-        try:
-            page = requests.get(url)
-            soup = BeautifulSoup(page.content, "html.parser")
-            pages_count = soup.find_all('a', {'class': 'page-link'})
-            max_page_count = 1
-            for page in pages_count:
-                try:
-                    val = int(page.text.strip())
-                except(ValueError):
-                    continue
-                max_page_count = val if val > max_page_count else max_page_count
-            print(f"All found pages: {max_page_count}")
-            return max_page_count
-        except Exception as e:
-            print(f"Exception {e} on getPagesCount.")        
+        self.jobs_dict = {}      
 
     def updateJobsDict(self, url):
-        max_pages = self.getPagesCount(url)
+        max_pages = getPagesCount(url="https://nofluffjobs.com/pl/testing?criteria=employment%3Db2b%20%20seniority%3Djunior,mid",
+                    parent='a',
+                    child='class',
+                    regex='.*page-link.*')
         domainName = getDomainName(url)
         try:
             for page_num in range(1, max_pages + 1):
