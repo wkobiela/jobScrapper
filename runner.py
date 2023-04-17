@@ -1,6 +1,6 @@
-import scrappers.justjoinit as justjoinit
-import scrappers.nofluffjobs as nofluffjobs
-import scrappers.bulldogjob as bulldogjob
+from scrappers import justjoinit
+from scrappers import nofluffjobs
+from scrappers import bulldogjob
 
 """
 Parameters:
