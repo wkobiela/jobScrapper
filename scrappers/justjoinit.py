@@ -35,6 +35,7 @@ class JustJoinIt():
         marker_list = []
         city_list = []
         exp_list = []
+        # n = 0
         for offer_dict in response.json():
             url = f'https://justjoin.it/offers/{offer_dict["id"]}'
             
@@ -49,7 +50,9 @@ class JustJoinIt():
                 continue
             if offer_dict.get("experience_level") not in ("mid", "junior"):
                 continue
-            if offer_dict.get("city") not in ("Gdańsk") or not offer_dict.get("remote"):
+            if offer_dict.get("workplace_type") not in ("remote"):
+                continue
+            if offer_dict.get("display_offer") is False:
                 continue
             
             job_title = offer_dict.get("title")
@@ -61,11 +64,13 @@ class JustJoinIt():
                                     "Company": [job_company], 
                                     "Salary": [job_salary], 
                                     "Location": [job_location]}
-
+            # n += 1
             # print(offer_dict)
+            # print(url)
             marker_list.append(offer_dict.get("marker_icon"))
             city_list.append(offer_dict.get("city"))
             exp_list.append(offer_dict.get("experience_level"))
+        # print(n)
         # print(set(marker_list))  
         # print(set(city_list))  
         # print(set(exp_list))
