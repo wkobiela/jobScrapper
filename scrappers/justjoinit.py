@@ -50,7 +50,8 @@ class JustJoinIt():
                 continue
             if offer_dict.get("experience_level") not in ("mid", "junior"):
                 continue
-            if offer_dict.get("workplace_type") not in ("remote"):
+            if (offer_dict.get("workplace_type") not in ("remote") and 
+                not (offer_dict.get("workplace_type") not in ("remote") and offer_dict.get("city") in ("Gdańsk"))):
                 continue
             if offer_dict.get("display_offer") is False:
                 continue
