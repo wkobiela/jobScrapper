@@ -46,7 +46,7 @@ def getPagesCount(url, parent, child, regex):
             except(ValueError):
                 continue
             max_page_count = val if val > max_page_count else max_page_count
-        logging.info('All found pages: %max_page_count', max_page_count)
+        logging.info('All found pages: %s', max_page_count)
         return max_page_count
     except Exception as e:
         print(f"Exception {e} on getPagesCount.")
@@ -64,7 +64,8 @@ def updateExcel(sheet, jobs_dict):
                     exists = True
             if exists is False:
                 sheet.insert_rows(2, 1)
-                sheet.cell(row = 2, column = 1, value = '=HYPERLINK("{}", "{}")'.format(k, f"{k}"))
+                # sheet.cell(row = 2, column = 1, value = '=HYPERLINK("{}", "{}")'.format(k, f"{k}"))
+                sheet.cell(row = 2, column = 1, value = f'=HYPERLINK("{k}", "{k}")')
                 sheet.cell(row = 2, column = 2, value = replace_chars(str(v["Title"])))
                 sheet.cell(row = 2, column = 3, value = replace_chars(str(v["Company"])))
                 sheet.cell(row = 2, column = 4, value = replace_chars(str(v["Salary"])))
