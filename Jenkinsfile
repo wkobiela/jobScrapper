@@ -1,5 +1,4 @@
 statusName = "Jenkins CI"
-params.propagateStatus = True
 
 podTemplate(
     containers: [
@@ -37,17 +36,13 @@ podTemplate(
 }
 
 def statusUpdate(status) {
-    if (params.propagateStatus) {
-        withCredentials([string(credentialsId: 'github_token', variable: 'TOKEN')]) {
-            cmd = """curl "https://api.github.com/repos/wkobiela/jobScrapper/statuses/$GIT_COMMIT" \
-            -H "Content-Type: application/json" \
-            -H "Authorization: token """ + TOKEN + """\" \
-            -X POST \
-            -d "{\\"state\\": \\"${status}\\",\\"context\\": \\"${statusName}\\", \
-            \\"description\\": \\"Jenkins\\", \\"target_url\\": \\"${env.BUILD_URL}\\"}\""""
-            sh label: 'Update Github actions status', script: cmd
-        }
-    } else {
-        println('Propagate status is disabled.')
+    withCredentials([string(credentialsId: 'github_token', variable: 'TOKEN')]) {
+        cmd = """curl "https://api.github.com/repos/wkobiela/jobScrapper/statuses/$GIT_COMMIT" \
+        -H "Content-Type: application/json" \
+        -H "Authorization: token """ + TOKEN + """\" \
+        -X POST \
+        -d "{\\"state\\": \\"${status}\\",\\"context\\": \\"${statusName}\\", \
+        \\"description\\": \\"Jenkins\\", \\"target_url\\": \\"${env.BUILD_URL}\\"}\""""
+        sh label: 'Update Github actions status', script: cmd
     }
 }
