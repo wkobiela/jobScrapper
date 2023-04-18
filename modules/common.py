@@ -17,7 +17,7 @@ logging.basicConfig(
 
 now = datetime.now()
 
-def replace_chars(input_string):
+def replaceChars(input_string):
     input_string = input_string.replace("]", "")
     input_string = input_string.replace("[", "")
     input_string = input_string.replace("'", "")
@@ -66,10 +66,10 @@ def updateExcel(sheet, jobs_dict):
                 sheet.insert_rows(2, 1)
                 # sheet.cell(row = 2, column = 1, value = '=HYPERLINK("{}", "{}")'.format(k, f"{k}"))
                 sheet.cell(row = 2, column = 1, value = f'=HYPERLINK("{k}", "{k}")')
-                sheet.cell(row = 2, column = 2, value = replace_chars(str(v["Title"])))
-                sheet.cell(row = 2, column = 3, value = replace_chars(str(v["Company"])))
-                sheet.cell(row = 2, column = 4, value = replace_chars(str(v["Salary"])))
-                sheet.cell(row = 2, column = 5, value = replace_chars(str(v["Location"])))
+                sheet.cell(row = 2, column = 2, value = replaceChars(str(v["Title"])))
+                sheet.cell(row = 2, column = 3, value = replaceChars(str(v["Company"])))
+                sheet.cell(row = 2, column = 4, value = replaceChars(str(v["Salary"])))
+                sheet.cell(row = 2, column = 5, value = replaceChars(str(v["Location"])))
                 sheet.cell(row = 2, column = 6, value = now.strftime("%d/%m/%Y, %H:%M"))
         workbook.save(filename="jobs.xlsx")
     except Exception as e:

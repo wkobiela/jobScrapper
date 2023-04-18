@@ -3,7 +3,7 @@ import sys
 import pytest
 sys.path.insert(0, f'{os.getcwd()}\\modules')
 
-from common import replace_chars, getDomainName
+from common import replaceChars, getDomainName
 
 strings_list = [
     ('[test','test'),
@@ -15,7 +15,7 @@ strings_list = [
 
 @pytest.mark.parametrize('in_put, out_put', strings_list)
 def test_replace_chars_back_square_brackets(in_put, out_put):
-    assert replace_chars(in_put) == out_put
+    assert replaceChars(in_put) == out_put
 
     
 urls_list = [
