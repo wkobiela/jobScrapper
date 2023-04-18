@@ -19,6 +19,8 @@ podTemplate(
                 checkout scm
             }
             stage('Run tests') {
+                sh 'ls -al'
+                sh 'pwd'
                 sh 'pytest'
             }
         }
