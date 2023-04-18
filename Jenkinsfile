@@ -21,11 +21,10 @@ podTemplate(
             stage('Install dependencies') {
                 sh 'python3 -m pip install -r requirements.txt'
             }
-            stage('Setup env') {
-                sh "export PYTHONPATH='$WORKSPACE/modules/'"
-            }
-            stage('Run tests') {
-                sh 'pytest --html=report.html'
+            withEnv(["PYTHONPATH=$WORKSPACE/modules/"]) {
+                stage('Run tests') {
+                    sh 'pytest --html=report.html'
+                }
             }
             stage('Publish report') {
                 publishHTML(target: [
