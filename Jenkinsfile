@@ -18,10 +18,24 @@ podTemplate(
             stage('Clone') {
                 checkout scm
             }
+            stage('Install dependencies') {
+                sh 'python3 -m pip install -r requirements.txt'
+            }
+            stage('Setup env') {
+                sh "export PYTHONPATH='$WORKSPACE/modules/'"
+            }
             stage('Run tests') {
-                sh 'ls -al'
-                sh 'pwd'
-                sh 'pytest'
+                sh 'pytest --html=report.html'
+            }
+            stage('Publish report') {
+                publishHTML(target: [
+                        allowMissing: true,
+                        alwaysLinkToLastBuild: false,
+                        keepAll: false,
+                        reportDir: "$WORKSPACE",
+                        reportFiles: '*.html',
+                        reportName: 'Pytest Report'
+                ])
             }
         }
     }
