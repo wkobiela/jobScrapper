@@ -1,4 +1,5 @@
 .vscode
+.groovylintrc.json
 jobs*.xlsx
 __pycache__
 debug.log

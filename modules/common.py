@@ -27,8 +27,9 @@ def replaceChars(input_string):
 
 def getDomainName(url):
     try:
-        parsed_uri = urllib.request.urlparse(url)
-        domainName = '{uri.scheme}://{uri.netloc}'.format(uri=parsed_uri)
+        given_url = urllib.parse.urlparse(url)
+        domainName = given_url.netloc
+        
         return domainName
     except Exception as e:
         print(f"Exception {e} on getDomainName.")
