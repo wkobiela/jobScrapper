@@ -19,6 +19,7 @@ podTemplate(
                 checkout scm
             }
             stage('Install dependencies') {
+                sh 'python3 -m pip install --upgrade pip'
                 sh 'python3 -m pip install -r requirements.txt'
             }
             withEnv(["PYTHONPATH=$WORKSPACE/modules/"]) {
