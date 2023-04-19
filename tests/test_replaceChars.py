@@ -3,7 +3,7 @@ import sys
 import pytest
 sys.path.insert(0, f'{os.getcwd()}\\modules')
 
-from common import replaceChars, getDomainName
+from common import replaceChars
 
 strings_list = [
     ('[test','test'), ('test]', 'test'), ("'test", "test"), ('test\\xa0', 'test'), ('\\ntest', 'test'),
@@ -16,7 +16,7 @@ strings_list = [
     ("bU{DRDGtpi", "bU{DRDGtpi"), ("Yoâ„–'MOyZt~", "Yoâ„–MOyZt~"), ("0?`]2CSG'}", "0?`2CSG}"),
     ("N%RibO%v\\xa0a", "N%RibO%va"), (":zd6L{M+XO", ":zd6L{M+XO"), ("@q!?27B<Ge", "@q!?27B<Ge"),
     ("H#}.Z0AT-U", "H#}.Z0AT-U"), ("7*`UK{W<sK", "7*`UK{W<sK"), ("TWw+<oD]h'", "TWw+<oDh"), 
-    ("s993B>=`*8", "s993B>=`*8"), ("a-Y#5;s5â„–'", "a-Y#5;s5â„–"), ("<8(W@0\\xa0Lâ„–)", "<8(W@0\Lâ„–)"), 
+    ("s993B>=`*8", "s993B>=`*8"), ("a-Y#5;s5â„–'", "a-Y#5;s5â„–"), ("<8(W@0\\xa0Lâ„–)", "<8(W@0Lâ„–)"), 
     ("PE%VQJ%^d;", "PE%VQJ%^d;"), ("dMhz8A:A.C", "dMhz8A:A.C"), ("7rj[?~62S`", "7rj?~62S`"), 
     ("n@z}5Y^kO7", "n@z}5Y^kO7"), (".TD}S.r@`h", ".TD}S.r@`h"), ("S5>FU0w<b%", "S5>FU0w<b%"), 
     ("b?t3-6Mz1S", "b?t3-6Mz1S"), ("LTxC5!:DoV", "LTxC5!:DoV"), ("o(&c<H;0Jo", "o(&c<H;0Jo"),
@@ -40,31 +40,5 @@ strings_list = [
 ]
 
 @pytest.mark.parametrize('in_put, out_put', strings_list)
-def test_replace_chars(in_put, out_put):
+def test_replaceChars(in_put, out_put):
     assert replaceChars(in_put) == out_put
-
-urls_list = [
-    ('https://nofluffjobs.com/pl/testing?criteria=employment%3Db2b%20%20seniority%3Djunior', 'https://nofluffjobs.com'),
-    ('https://bulldogjob.pl/companies/jobs/s/city,Remote/role,tester', 'https://bulldogjob.pl'),
-    ('https://justjoin.it/api/offers', 'https://justjoin.it'),
-    ('https://work4.dev/search/testing/', 'https://work4.dev'),
-    ('https://devhunt.pl/lista-ofert?&specialisms=qa', 'https://devhunt.pl'),
-    ('https://www.startupjobs.com/jobs/development/testing', 'https://www.startupjobs.com'),
-    ('https://teamquest.pl/praca-w-it/k/test', 'https://teamquest.pl'),
-    ('https://4programmers.net/Praca?q=tester', 'https://4programmers.net')
-]
-    
-@pytest.mark.parametrize('in_put, out_put', urls_list)    
-def test_getDomainName_urls(in_put, out_put):
-    assert getDomainName(in_put) == out_put
-    
-    
-    
-# with open("C:\\Users\\Wiktor Kobiela\\Documents\\GIT projects\\jobScrapper\\tests\\data.txt") as d:
-#     lines = [line.rstrip() for line in d]
-#     replaced = []
-#     for line in lines:
-#         replaced.append(replaceChars(line))    
-
-# res = "\n".join('''("{}", "{}"),'''.format(x, y) for x, y in zip(lines, replaced))
-# print(res)
