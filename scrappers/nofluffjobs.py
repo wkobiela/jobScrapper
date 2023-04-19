@@ -30,7 +30,7 @@ class NoFluffJobs():
                 job_links_list = page_soup.find_all("a", {"class": "posting-list-item"})
 
                 for job in job_links_list:
-                    job_link = domainName+job['href']
+                    job_link = "https://"+domainName+job['href']
                     job_title = job.find('h3').text
                     job_company = job.find('span', class_=re.compile("company", re.I)).text 
                     job_salary = job.find('span', class_=re.compile("badgy salary", re.I)).text
