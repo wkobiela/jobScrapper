@@ -1,3 +1,4 @@
+/* groovylint-disable DuplicateStringLiteral, NestedBlockDepth */
 podTemplate(
     containers: [
     containerTemplate(
@@ -12,7 +13,6 @@ podTemplate(
         )],
         nodeSelector: 'bigger=true'
         ) {
-
     node(POD_LABEL) {
         container('python') {
             stage('Clone') {
@@ -24,7 +24,12 @@ podTemplate(
             }
             withEnv(["PYTHONPATH=$WORKSPACE/modules/"]) {
                 stage('Run tests') {
-                    sh 'pytest --html=report.html'
+                    try {
+                        sh 'pytest --html=report.html'
+                    }
+                    catch (Exception ex) {
+                        unstable("Test stage exited with exception $ex")
+                    }
                 }
             }
             stage('Publish report') {

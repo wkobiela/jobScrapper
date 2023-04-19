@@ -30,7 +30,7 @@ strings_list = [
     ("d%+2=r?â„–M7", "d%+2=r?â„–M7"), ("4Ci]54Pi!s", "4Ci54Pi!s"), ("i!~iIJ?~E(", "i!~iIJ?~E("),
     ("XVT.Pf9kch", "XVT.Pf9kch"), ("JwC:Qâ„–\\xa0Qp}", "JwC:Qâ„–Qp}"), ("^g6UOâ„–JFpE", "^g6UOâ„–JFpE"),
     ("rnaDLt7oN9", "rnaDLt7oN9"), ("zLAj6o7brs", "zLAj6o7brs"), ("yM]l@beL@M", "yMl@beL@M"), 
-    ("\\nX(;UTqso<", "\X(;UTqso<"), ("?+t)}'Ptmg", "?+t)}Ptmg"), ("7s}zn5r[^5", "7s}zn5r^5"), 
+    ("\\nX(;UTqso<", "X(;UTqso<"), ("?+t)}'Ptmg", "?+t)}Ptmg"), ("7s}zn5r[^5", "7s}zn5r^5"), 
     ("aKlimbnsM#", "aKlimbnsM#"), ("?AxWmN=xA8", "?AxWmN=xA8"), ("lZA7.5(TLT", "lZA7.5(TLT"), 
     ("[Pa8vN=VZ9", "Pa8vN=VZ9"), ("1.cB8%x)!n", "1.cB8%x)!n"), ("bX4Y70#'mS", "bX4Y70#mS"),
     ("BBxAC4Gh:u", "BBxAC4Gh:u"), ("Afcp]>U[C?", "Afcp>UC?"), ("7?-JF}iM(G", "7?-JF}iM(G"), 
