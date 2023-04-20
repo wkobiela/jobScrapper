@@ -24,7 +24,7 @@ pipeline {
                 script {
                     Map scmVars = checkout(scm)
                     String url = scmVars.GIT_URL
-                    String commit = scmVars.GIT_URL
+                    String commit = scmVars.GIT_COMMIT
                     jobsArray.each { job ->
                         parallelStages.put("${job}", generateStage(job, url, commit))
                     }
