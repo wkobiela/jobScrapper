@@ -15,13 +15,16 @@ jobsArray.each { job ->
 }
 
 pipeline {
-    agent none
     stages {
         stage('Get changeset') {
-            Map scmVars = checkout(scm)
-            println(scmVars)
+            agent any
+            steps {
+                Map scmVars = checkout(scm)
+                println(scmVars)
+            }
         }
         stage('Run CI') {
+            agent none
             steps {
                 script {
                         // parallel parallelStages
