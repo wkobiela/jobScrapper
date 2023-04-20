@@ -16,8 +16,8 @@ podTemplate(
     node(POD_LABEL) {
         container('python') {
             stage('Clone') {
-                checkout scm
-                println("Git commit from checkout is ${env.GIT_COMMIT}")
+                Map scmVars = checkout(scm)
+                println("Git commit from checkout is ${scmVars.GIT_COMMIT}")
             }
             stage('Install dependencies') {
                 sh 'python3 -m pip install --upgrade pip'
