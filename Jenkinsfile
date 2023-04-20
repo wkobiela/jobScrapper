@@ -1,17 +1,17 @@
+/* groovylint-disable NestedBlockDepth */
 Map parallelStages = [:]
 jobsArray = ['jobScrapperCI/run_tests', 'jobScrapperCI/install_requirements']
 
-def generateStage(job) {
+def generateStage(job, url, commit) {
     return {
         stage("Stage: ${job}") {
             build job: "${job}",
+            parameters: [string(name: 'Repo_url', value: "${url}"),
+                        string(name: 'Commit', value: "${commit}"),
+                        ],
             wait: true
         }
     }
-}
-
-jobsArray.each { job ->
-    parallelStages.put("${job}", generateStage(job))
 }
 
 pipeline {
@@ -22,7 +22,11 @@ pipeline {
             steps {
                 script {
                     Map scmVars = checkout(scm)
-                    println(scmVars)
+                    String url = scmVars.GIT_URL
+                    String commit = scmVars.GIT_URL
+                    jobsArray.each { job ->
+                        parallelStages.put("${job}", generateStage(job, url, commit))
+                    }
                 }
             }
         }
@@ -30,8 +34,7 @@ pipeline {
             agent none
             steps {
                 script {
-                    println("cos")
-                    // parallel parallelStages
+                    parallel parallelStages
                     }
             }
         }
