@@ -49,5 +49,5 @@ def run(url):
     logging.info("Starting NoFluffJobs scrapper.")
     fluff = NoFluffJobs()
     fluff.updateJobsDict(url)
-    updateExcel("NoFluff", fluff.jobs_dict)
+    updateExcel("NoFluffJobs", fluff.jobs_dict)
     logging.info("Finished NoFluffJobs scrapper.")

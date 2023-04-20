@@ -1,4 +1,5 @@
 import re
+import os
 import urllib
 import logging
 from datetime import datetime
@@ -16,6 +17,11 @@ logging.basicConfig(
 )
 
 now = datetime.now()
+
+def checkFileExistance(filename):
+    path = f"{os.getcwd()}/{filename}"
+    check_file = os.path.isfile(path)
+    return check_file
 
 def replaceChars(input_string):
     input_string = input_string.replace("]", "")

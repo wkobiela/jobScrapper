@@ -80,5 +80,5 @@ def run(url):
     logging.info("Starting JustJointIt scrapper.")
     just = JustJoinIt()
     just.updateJobsDict(url)
-    updateExcel("Just", just.jobs_dict)
+    updateExcel("JustJoinIt", just.jobs_dict)
     logging.info("Finished JustJoinIt scrapper.")
