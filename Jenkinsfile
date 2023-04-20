@@ -30,7 +30,8 @@ pipeline {
             agent none
             steps {
                 script {
-                        // parallel parallelStages
+                    println("cos")
+                    // parallel parallelStages
                     }
             }
         }
