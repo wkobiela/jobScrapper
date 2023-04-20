@@ -1,7 +1,6 @@
 import os
 import pandas as pd
 import logging
-from openpyxl import load_workbook
 from .common import checkFileExistance
 
 logging.basicConfig(
@@ -27,10 +26,13 @@ class Setup():
             data_frame3.to_excel(writer, sheet_name=sheetname3, index=False)
         
     def checkExcel(self, filename, sheetname1, sheetname2, sheetname3):
-        reader = pd.ExcelFile(filename)
-        if [sheetname1, sheetname2, sheetname3] not in reader.sheet_names:
-            logging.error(f"No valid worksheets in {reader.sheet_names}")
-            return False
+        with open(filename, 'rb') as f:
+            reader = pd.ExcelFile(f)
+            if not all(x in [sheetname1, sheetname2, sheetname3] for x in reader.sheet_names):
+                logging.warning(f"{[sheetname1, sheetname2, sheetname3]} not in {reader.sheet_names}")
+                logging.warning(f"No valid worksheets in {reader.sheet_names}")
+                return False
+            return True
 
 def run(filename, sheetname1, sheetname2, sheetname3):
     setup = Setup()        
