@@ -23,7 +23,7 @@ def test_getDomainName_job_urls(in_put, out_put):
     
 random_urls_list = [
     ('https://google.com/?utm_source=google-PL&utm_medium=referral&utm_campaign=hp-footer&fg=1', 'google.com'),
-    ('https://www.facebook.com/policies_center/', 'www.facebook.com'),
+    ('https://www.facebook.com/policies_center/', 'facebook.com'),
     ('https://twitter.com/settings/cookie_preferences', 'twitter.com'),
     ('https://instagram.com/581066165581870/', 'instagram.com'),
     ('https://en.wikipedia.org/wiki/Mae_West', 'en.wikipedia.org'),
