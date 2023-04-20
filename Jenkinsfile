@@ -9,6 +9,7 @@ def generateStage(String job, String url, String commit) {
             build job: "${job}",
             parameters: [string(name: 'Repo_url', value: "${url}"),
                         string(name: 'Commit', value: "${commit}"),
+                        booleanParam(name: 'propagateStatus', value: true)
                         ],
             wait: true
         }
