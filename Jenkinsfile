@@ -20,8 +20,10 @@ pipeline {
         stage('Get changeset') {
             agent any
             steps {
-                Map scmVars = checkout(scm)
-                println(scmVars)
+                script {
+                    Map scmVars = checkout(scm)
+                    println(scmVars)
+                }
             }
         }
         stage('Run CI') {
