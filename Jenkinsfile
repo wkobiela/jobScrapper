@@ -1,6 +1,6 @@
 /* groovylint-disable NestedBlockDepth */
 Map parallelStages = [:]
-jobsArray = ['jobScrapperCI/run_tests', 'jobScrapperCI/install_requirements']
+jobsArray = ['jobScrapperCI/run_tests']
 
 def generateStage(String job, String url, String commit) {
     String stageName = job.replace('jobScrapperCI/', '')
