@@ -18,9 +18,11 @@ pipeline {
     agent none
     stages {
         stage('Run CI') {
-            script {
-                    parallel parallelStages
-                }
+            steps {
+                script {
+                        parallel parallelStages
+                    }
+            }
         }
     }
 }
