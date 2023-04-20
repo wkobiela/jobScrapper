@@ -15,6 +15,7 @@ jobsArray.each { job ->
 }
 
 pipeline {
+    agent none
     stages {
         stage('Get changeset') {
             agent any
