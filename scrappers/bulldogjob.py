@@ -50,5 +50,5 @@ def run(url):
     logging.info("Starting BulldogJob scrapper.")
     bull = BulldogJob()
     bull.updateJobsDict(url)
-    updateExcel("Bull", bull.jobs_dict)
+    updateExcel("BulldogJob", bull.jobs_dict)
     logging.info("Finished BulldogJob scrapper.")

@@ -1,46 +1,43 @@
-/* groovylint-disable DuplicateStringLiteral, NestedBlockDepth */
-podTemplate(
-    containers: [
-    containerTemplate(
-        name: 'python',
-        image: 'python:latest',
-        command: 'sleep',
-        args: '99d',
-        resourceRequestCpu: '1',
-        resourceLimitCpu: '2',
-        resourceRequestMemory: '2Gi',
-        resourceLimitMemory: '4Gi',
-        )],
-        nodeSelector: 'bigger=true'
-        ) {
-    node(POD_LABEL) {
-        container('python') {
-            stage('Clone') {
-                checkout scm
-            }
-            stage('Install dependencies') {
-                sh 'python3 -m pip install --upgrade pip'
-                sh 'python3 -m pip install -r requirements.txt'
-            }
-            withEnv(["PYTHONPATH=$WORKSPACE/modules/"]) {
-                stage('Run tests') {
-                    try {
-                        sh 'pytest --html=report.html'
-                    }
-                    catch (Exception ex) {
-                        unstable("Test stage exited with exception $ex")
+/* groovylint-disable NestedBlockDepth */
+Map parallelStages = [:]
+jobsArray = ['jobScrapperCI/run_tests', 'jobScrapperCI/run_scrapper']
+
+def generateStage(String job, String url, String commit) {
+    String stageName = job.replace('jobScrapperCI/', '')
+    return {
+        stage("Stage: ${stageName}") {
+            build job: "${job}",
+            parameters: [string(name: 'Repo_url', value: "${url}"),
+                        string(name: 'Commit', value: "${commit}"),
+                        booleanParam(name: 'propagateStatus', value: true)
+                        ],
+            wait: true
+        }
+    }
+}
+
+pipeline {
+    agent none
+    stages {
+        stage('Get changeset') {
+            agent any
+            steps {
+                script {
+                    Map scmVars = checkout(scm)
+                    String url = scmVars.GIT_URL
+                    String commit = scmVars.GIT_COMMIT
+                    jobsArray.each { job ->
+                        parallelStages.put("${job}", generateStage(job, url, commit))
                     }
                 }
             }
-            stage('Publish report') {
-                publishHTML(target: [
-                        allowMissing: true,
-                        alwaysLinkToLastBuild: false,
-                        keepAll: false,
-                        reportDir: "$WORKSPACE",
-                        reportFiles: '*.html',
-                        reportName: 'Pytest Report'
-                ])
+        }
+        stage('Run CI') {
+            agent none
+            steps {
+                script {
+                    parallel parallelStages
+                    }
             }
         }
     }

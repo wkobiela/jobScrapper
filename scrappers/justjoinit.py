@@ -35,7 +35,7 @@ class JustJoinIt():
         marker_list = []
         city_list = []
         exp_list = []
-        # n = 0
+
         for offer_dict in response.json():
             url = f'https://justjoin.it/offers/{offer_dict["id"]}'
             
@@ -65,20 +65,13 @@ class JustJoinIt():
                                     "Company": [job_company], 
                                     "Salary": [job_salary], 
                                     "Location": [job_location]}
-            # n += 1
-            # print(offer_dict)
-            # print(url)
             marker_list.append(offer_dict.get("marker_icon"))
             city_list.append(offer_dict.get("city"))
             exp_list.append(offer_dict.get("experience_level"))
-        # print(n)
-        # print(set(marker_list))  
-        # print(set(city_list))  
-        # print(set(exp_list))
 
 def run(url):
     logging.info("Starting JustJointIt scrapper.")
     just = JustJoinIt()
     just.updateJobsDict(url)
-    updateExcel("Just", just.jobs_dict)
+    updateExcel("JustJoinIt", just.jobs_dict)
     logging.info("Finished JustJoinIt scrapper.")
