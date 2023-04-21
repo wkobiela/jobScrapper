@@ -15,6 +15,12 @@ def test_setup_correct(autouse=True):
 
 def test_checkExcel_file_is_correct(test_setup_correct):
     assert t1.checkExcel('jobs.xlsx', 'NoFluffJobs', 'JustJoinIt', 'BulldogJob') == True
+    
+def test_checkExcel_file_is_correct2(test_setup_correct):
+    assert t1.checkExcel('jobs.xlsx', 'JustJoinIt', 'NoFluffJobs', 'BulldogJob') == True
+    
+def test_checkExcel_file_is_correct3(test_setup_correct):
+    assert t1.checkExcel('jobs.xlsx', 'BulldogJob', 'JustJoinIt', 'NoFluffJobs') == True   
 
 def test_checkExcel_file_is_not_correct(test_setup_correct):
     assert t1.checkExcel('jobs.xlsx', 'Other', 'BulldogJob', 'JustJoinIt') == False
@@ -34,5 +40,8 @@ def test_checkExcel_file_is_not_correct_2(test_setup_correct):
 def test_checkExcel_file_is_not_correct_3(test_setup_correct):
     assert t1.checkExcel('jobs.xlsx', 'Other', 'BulldogJob', 'Other') == False
     
-def test_checkExcel_wrong_file(test_setup_correct):
+def test_checkExcel_wrong_file_wrong_sheets(test_setup_correct):
     assert t1.checkExcel('jobs_wrong.xlsx', 'Other', 'BulldogJob', 'Other') == False
+    
+def test_checkExcel_wrong_file_correct_sheets(test_setup_correct):
+    assert t1.checkExcel('jobs_wrong.xlsx', 'NoFluffJobs', 'JustJoinIt', 'BulldogJob') == False    
