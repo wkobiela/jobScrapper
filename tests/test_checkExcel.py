@@ -5,31 +5,34 @@ sys.path.insert(0, f'{os.getcwd()}')
 
 from modules.setup import Setup
 
-
 t1 = Setup()
-t1.createExcelFile('jobs.xlsx', 'NoFluffJobs', 'BulldogJob', 'JustJoinIt')
 
-@pytest.mark.parametrize("sheetname1", ['NoFluffJobs'])
-@pytest.mark.parametrize("sheetname2", ['JustJoinIt'])
-@pytest.mark.parametrize("sheetname3", ['BulldogJob'])
-def test_checkExcel_file_is_correct(sheetname1, sheetname2, sheetname3):
-    assert t1.checkExcel('jobs.xlsx', sheetname1, sheetname2, sheetname3) == True
+@pytest.fixture
+def test_setup_correct(autouse=True):
+    t1.createExcelFile('jobs.xlsx', 'NoFluffJobs', 'BulldogJob', 'JustJoinIt')
+    yield
+    os.remove('jobs.xlsx')
 
+def test_checkExcel_file_is_correct(test_setup_correct):
+    assert t1.checkExcel('jobs.xlsx', 'NoFluffJobs', 'JustJoinIt', 'BulldogJob') == True
 
-def test_checkExcel_file_is_not_correct():
+def test_checkExcel_file_is_not_correct(test_setup_correct):
     assert t1.checkExcel('jobs.xlsx', 'Other', 'BulldogJob', 'JustJoinIt') == False
 
-def test_checkExcel_file_is_not_correct2():
+def test_checkExcel_file_is_not_correct2(test_setup_correct):
     assert t1.checkExcel('jobs.xlsx', 'Other', 'Other', 'JustJoinIt') == False
     
-def test_checkExcel_file_is_not_correct3():
+def test_checkExcel_file_is_not_correct3(test_setup_correct):
     assert t1.checkExcel('jobs.xlsx', 'Other', 'Other', 'Other') == False
 
-def test_checkExcel_file_is_not_correct_():
+def test_checkExcel_file_is_not_correct_(test_setup_correct):
     assert t1.checkExcel('jobs.xlsx', 'NoFluffJobs', 'Other', 'Other') == False
 
-def test_checkExcel_file_is_not_correct_2():
+def test_checkExcel_file_is_not_correct_2(test_setup_correct):
     assert t1.checkExcel('jobs.xlsx', 'NoFluffJobs', 'Other', 'Other') == False
     
-def test_checkExcel_file_is_not_correct_3():
+def test_checkExcel_file_is_not_correct_3(test_setup_correct):
     assert t1.checkExcel('jobs.xlsx', 'Other', 'BulldogJob', 'Other') == False
+    
+def test_checkExcel_wrong_file(test_setup_correct):
+    assert t1.checkExcel('jobs_wrong.xlsx', 'Other', 'BulldogJob', 'Other') == False
