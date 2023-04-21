@@ -53,3 +53,5 @@ def run(filename, sheetname1, sheetname2, sheetname3):
             logging.info("Backing up old excel and creating fresh one.")
             os.rename(filename, 'backup_'+filename)
             setup.createExcelFile(filename, sheetname1, sheetname2, sheetname3)
+        else:
+            logging.info("Excel file passed validation. Proceeding.")
