@@ -7,6 +7,7 @@ from modules.setup import Setup
 
 
 t1 = Setup()
+t1.createExcelFile('jobs.xlsx', 'NoFluffJobs', 'BulldogJob', 'JustJoinIt')
 
 @pytest.mark.parametrize("sheetname1", ['NoFluffJobs'])
 @pytest.mark.parametrize("sheetname2", ['JustJoinIt'])
