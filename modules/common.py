@@ -62,7 +62,6 @@ def getPagesCount(url, parent, child, regex):
 def updateExcel(sheet, jobs_dict):
     try:
         workbook = load_workbook("jobs.xlsx")
-        # sheet = workbook.active
         new_jobs = 0
         sheet = workbook[f"{sheet}"]
         for k, v in jobs_dict.items():
@@ -81,9 +80,9 @@ def updateExcel(sheet, jobs_dict):
                 sheet.cell(row = 2, column = 5, value = replaceChars(str(v["Location"])))
                 sheet.cell(row = 2, column = 6, value = now.strftime("%d/%m/%Y, %H:%M"))
         if new_jobs > 0:
-            logging.info(f"{new_jobs} no offers in {sheet.title}!")
+            logging.info(f"{new_jobs} new offers in {sheet.title}!")
         else:
-            logging.info(f"No new offers in {sheet.title}")
+            logging.info(f"No new offers in {sheet.title}.")
         workbook.save(filename="jobs.xlsx")
     except Exception as e:
         print(f"Exception: {e} on updateExcel.")
