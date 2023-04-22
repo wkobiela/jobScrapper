@@ -6,8 +6,8 @@ from modules import setup, common
 """
 Parameters:
 - justjoinit.run(url): url to API
-- nofluffjobs.run(url): url to prepared search link
-- bulldogjo.run(url): url to prepared search link
+- nofluffjobs.run(...(site, role, lvl, city)) -> always looks remote + city
+- bulldogjob.run(...(site, role, lvl, city))
 """
 
 setup.run('jobs.xlsx', 'NoFluffJobs', 'BulldogJob', 'JustJoinIt')
