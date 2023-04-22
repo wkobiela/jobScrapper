@@ -90,9 +90,9 @@ def updateExcel(sheet, jobs_dict):
         
 def createLinks(**kwargs):
     if not all(key in kwargs for key in ('site','role','lvl','city')):
-        logging.error("Not enough arguments. Please fill in following: site, role, lvl, city.")
+        logging.error("Not enough arguments. Please fill the following: site, role, lvl, city.")
         sys.exit()
-    
+        
     for key, item in kwargs.items():
         if key == "site":
             site = item
@@ -103,7 +103,7 @@ def createLinks(**kwargs):
         elif key == "city":
             city = item
         else:
-            logging.error("Unknown key. Please use one of the following: site, role, lvl, city.")
+            logging.error("Unknown key. Please fill the following: site, role, lvl, city.")
             sys.exit()
     
     if site == "BulldogJob":
