@@ -1,8 +1,4 @@
-import os
-import sys
 import pytest
-sys.path.insert(0, f'{os.getcwd()}')
-
 from modules.common import createLinks
 
 

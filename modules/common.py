@@ -6,7 +6,7 @@ import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
 from openpyxl import load_workbook
-from .base_logger import log
+from modules.base_logger import log
 
 now = datetime.now()
 

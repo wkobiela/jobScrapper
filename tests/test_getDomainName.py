@@ -1,9 +1,5 @@
-import os
-import sys
 import pytest
-sys.path.insert(0, f'{os.getcwd()}\\modules')
-
-from common import replaceChars, getDomainName
+from modules.common import replaceChars, getDomainName
 
 job_urls_list = [
     ('https://nofluffjobs.com/pl/testing?criteria=employment%3Db2b%20%20seniority%3Djunior', 'nofluffjobs.com'),

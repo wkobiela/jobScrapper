@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-from .base_logger import log
+from modules.base_logger import log
 from .common import checkFileExistance
 
 class Setup():
