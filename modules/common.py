@@ -110,8 +110,5 @@ def createLinks(**kwargs):
         generated_link = f"https://bulldogjob.pl/companies/jobs/s/role,{role}/experienceLevel,{lvl}/city,{city}"
     elif site == "NoFluffJobs":
         generated_link = f"https://nofluffjobs.com/pl/praca-zdalna/{role}?criteria=city%3D{city}%20%20seniority%3D{lvl}"
-        
+    logging.info("Generated link: %s", generated_link)    
     return(generated_link)
-    
-    
-print(createLinks(role="testing", lvl = "junior,mid", city = "Gdańsk,Sopot"))
