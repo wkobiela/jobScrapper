@@ -1,5 +1,5 @@
 import pytest
-from modules.common import replaceChars, getDomainName
+from modules.common import getDomainName
 
 job_urls_list = [
     ('https://nofluffjobs.com/pl/testing?criteria=employment%3Db2b%20%20seniority%3Djunior', 'nofluffjobs.com'),

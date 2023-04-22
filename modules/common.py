@@ -2,9 +2,9 @@ import re
 import os
 import sys
 import urllib
+from datetime import datetime
 import requests
 from bs4 import BeautifulSoup
-from datetime import datetime
 from openpyxl import load_workbook
 from modules.base_logger import log
 
