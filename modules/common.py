@@ -1,5 +1,6 @@
 import re
 import os
+import sys
 import urllib
 import logging
 from datetime import datetime
@@ -86,3 +87,31 @@ def updateExcel(sheet, jobs_dict):
         workbook.save(filename="jobs.xlsx")
     except Exception as e:
         print(f"Exception: {e} on updateExcel.")
+        
+def createLinks(**kwargs):
+    if not all(key in kwargs for key in ('site','role','lvl','city')):
+        logging.error("Not enough arguments. Please fill in following: site, role, lvl, city.")
+        sys.exit()
+    
+    for key, item in kwargs.items():
+        if key == "site":
+            site = item
+        elif key == "role":
+            role = item
+        elif key == "lvl":
+            lvl = item
+        elif key == "city":
+            city = item
+        else:
+            logging.error("Unknown key. Please use one of the following: site, role, lvl, city.")
+            sys.exit()
+    
+    if site == "BulldogJob":
+        generated_link = f"https://bulldogjob.pl/companies/jobs/s/role,{role}/experienceLevel,{lvl}/city,{city}"
+    elif site == "NoFluffJobs":
+        generated_link = f"https://nofluffjobs.com/pl/praca-zdalna/{role}?criteria=city%3D{city}%20%20seniority%3D{lvl}"
+        
+    return(generated_link)
+    
+    
+print(createLinks(role="testing", lvl = "junior,mid", city = "Gdańsk,Sopot"))
