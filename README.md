@@ -23,16 +23,16 @@ Install requirements using pip:
 ```
 python3 -m pip install -r requirements.txt
 ```
-To setup script, edit `runner.py` and insert looking role, level and city. This parameters are a little bit different for every website, but not that much.
+To setup script, edit `runner.py` and insert role, level and city you are looking for. This parameters are a little bit different for every website, but not that much.
 ```
 setup.run('jobs.xlsx', 'NoFluffJobs', 'BulldogJob', 'JustJoinIt')
 ```
-`setup` will create excel named `jobs.xlsx  ` with 3 sheets. Do not bother with this as this point, consider it static.
+`setup` will create excel named `jobs.xlsx` with 3 sheets. Do not bother with this as this point, consider it static.
 
 ### NoFluffJobs
 To setup nofluffjobs scrapper, insert 3 MAIN parameters. 
-- role (string, roles separated by a comma, from available: `frontend,fullstack,mobile,testing,devops,embedded,architecture,security,gaming,artificial-intelligence,big-data,support,it-administrator,agile,product-management,project-manager,business-intelligence,business-analyst,ux,erp,electronics,telecommunication,electrical-eng,automation,robotics,mechanics,sales,marketing,backoffice,hr,finance,customer-service,other`)
-- lvl (string, levels separated by a comma, from available: `junior,mid,senior,expert`)
+- role (string, roles separated by a comma) from available: `frontend,fullstack,mobile,testing,devops,embedded,architecture,security,gaming,artificial-intelligence,big-data,support,it-administrator,agile,product-management,project-manager,business-intelligence,business-analyst,ux,erp,electronics,telecommunication,electrical-eng,automation,robotics,mechanics,sales,marketing,backoffice,hr,finance,customer-service,other`
+- lvl (string, levels separated by a comma) from available: `junior,mid,senior,expert`
 - city (string) - this scrapper always looks for `remote` + city, that you define here.
 ```
 nofluffjobs.run(common.createLinks(site='NoFluffJobs', role="testing", lvl="junior,mid", city="Gdańsk"))
@@ -41,8 +41,8 @@ nofluffjobs.run(common.createLinks(site='NoFluffJobs', role="testing", lvl="juni
 ### BulldogJob
 To setup bulldogjob scrapper, insert 3 MAIN parameters.
 
-- role (string, roles separated by a comma, from available: `devops,frontend,fullstack,backend,analyst,administrator,project_manager,qa,tester,mobile,architect,support,tech_lead,embedded,scrum_master,security,designer,gamedev,data,consultant`)
-- lvl (string, levels separated by a comma, from available: `junior,medium,senior`)
+- role (string, roles separated by a comma) from available: `devops,frontend,fullstack,backend,analyst,administrator,project_manager,qa,tester,mobile,architect,support,tech_lead,embedded,scrum_master,security,designer,gamedev,data,consultant`
+- lvl (string, levels separated by a comma) from available: `junior,medium,senior`
 - city (string, separated by a comma) - include `Remote` if you want to.
 ```
 bulldogjob.run(common.createLinks(site='BulldogJob', role="qa,tester", lvl="junior,mid", city="Remote,Gdańsk"))
@@ -51,14 +51,14 @@ bulldogjob.run(common.createLinks(site='BulldogJob', role="qa,tester", lvl="juni
 ### JustJoinIt
 
 To setup justnoinit scrapper, insert 3 MAIN parameters.
-- role (list of strings), from available: `'testing', 'net', 'architecture', 'ruby', 'php', 'mobile', 'other', 'analytics', 'erp', 'go', 'admin', 'scala', 'pm', 'support', 'data', 'java', 'security', 'game', 'python', 'ux', 'c', 'javascript', 'devops', 'html'`
+- role (list of strings) from available: `'testing', 'net', 'architecture', 'ruby', 'php', 'mobile', 'other', 'analytics', 'erp', 'go', 'admin', 'scala', 'pm', 'support', 'data', 'java', 'security', 'game', 'python', 'ux', 'c', 'javascript', 'devops', 'html'`
 - lvl (list of strings) from avaliable: `'junior', 'mid', 'senior'`
 - city (string) - always looking for remote + eventually in the city of your choosing
 ```
 justjoinit.run(role=['testing'], lvl=["mid", "junior"], city='Gdańsk')
 ```
 
-### After you setup your runner, just use:
+### After initial (one time) setup, just use:
 ```
 python3 runner.py
 ```
@@ -66,7 +66,9 @@ python3 runner.py
 ## Tests
 There are some tests implemented, to check a few methods. You can run them using
 ```
-pytest (or pytest tests/test_file_to_run.py)
+pytest 
+or 
+pytest tests/test_file_to_run.py
 ```
 
 ## License 
