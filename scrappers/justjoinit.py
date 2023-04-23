@@ -38,9 +38,9 @@ class JustJoinIt():
             'python', 'ux', 'c', 'javascript', 'devops', 'html'}
             """
             
-            if offer_dict.get("marker_icon") != role:
+            if offer_dict.get("marker_icon") not in role:
                 continue
-            if offer_dict.get("experience_level") not in ("mid", "junior"):
+            if offer_dict.get("experience_level") not in lvl:
                 continue
             if (offer_dict.get("workplace_type") not in ("remote") and 
                 not (offer_dict.get("workplace_type") not in ("remote") and offer_dict.get("city") in city)):

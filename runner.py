@@ -12,5 +12,5 @@ Parameters:
 
 setup.run('jobs.xlsx', 'NoFluffJobs', 'BulldogJob', 'JustJoinIt')
 nofluffjobs.run(common.createLinks(site='NoFluffJobs', role="testing", lvl="junior,mid", city="Gdańsk"))
-bulldogjob.run(common.createLinks(site='BulldogJob', role="qa", lvl="junior,mid", city="Remote,Gdańsk"))
-justjoinit.run(role="testing", lvl=["mid", "junior"], city='Gdańsk')
+bulldogjob.run(common.createLinks(site='BulldogJob', role="qa,tester", lvl="junior,mid", city="Remote,Gdańsk"))
+justjoinit.run(role=['testing'], lvl=["mid", "junior"], city='Gdańsk')
