@@ -6,7 +6,8 @@ class JustJoinIt():
     def __init__(self):
         self.jobs_dict = {}      
 
-    def updateJobsDict(self, url):
+    def updateJobsDict(self):
+        url = 'https://justjoin.it/api/offers'
         try:
             headers = {
                 "content-type": "application/json, text/plain",
@@ -18,11 +19,11 @@ class JustJoinIt():
                 "Referer": "justjoin.it",
             }
             response = requests.get(url, headers=headers)
-            self.prepareJobsDict(response)
+            return response
         except Exception as e:
             print(f"Exception {e} on updateJobsDict.")     
             
-    def prepareJobsDict(self, response):
+    def prepareJobsDict(self, response, role, lvl, city):
         marker_list = []
         city_list = []
         exp_list = []
@@ -37,12 +38,12 @@ class JustJoinIt():
             'python', 'ux', 'c', 'javascript', 'devops', 'html'}
             """
             
-            if offer_dict.get("marker_icon") != "testing":
+            if offer_dict.get("marker_icon") != role:
                 continue
             if offer_dict.get("experience_level") not in ("mid", "junior"):
                 continue
             if (offer_dict.get("workplace_type") not in ("remote") and 
-                not (offer_dict.get("workplace_type") not in ("remote") and offer_dict.get("city") in ("Gdańsk"))):
+                not (offer_dict.get("workplace_type") not in ("remote") and offer_dict.get("city") in city)):
                 continue
             if offer_dict.get("display_offer") is False:
                 continue
@@ -60,9 +61,10 @@ class JustJoinIt():
             city_list.append(offer_dict.get("city"))
             exp_list.append(offer_dict.get("experience_level"))
 
-def run(url):
+def run(role, lvl, city):
     log.info("Starting JustJointIt scrapper.")
     just = JustJoinIt()
-    just.updateJobsDict(url)
+    resp = just.updateJobsDict()
+    just.prepareJobsDict(resp, role, lvl, city)
     updateExcel("JustJoinIt", just.jobs_dict)
     log.info("Finished JustJoinIt scrapper.")
