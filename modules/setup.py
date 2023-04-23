@@ -35,7 +35,6 @@ class Setup():
 def run(filename, sheetname1, sheetname2, sheetname3):
     setup = Setup()        
     if checkFileExistance(filename) is False:
-        log.info("Creating xlsx file for storage.")
         setup.createExcelFile(filename, sheetname1, sheetname2, sheetname3)
     else:
         log.info(f"File {filename} exists. Checking sheetnames.")
