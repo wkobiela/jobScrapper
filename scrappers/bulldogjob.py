@@ -1,17 +1,8 @@
 import re
-import logging
 import requests
 from bs4 import BeautifulSoup
+from modules.base_logger import log
 from modules.common import updateExcel, getPagesCount
-
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] %(message)s",
-    handlers=[
-        logging.FileHandler("debug.log"),
-        logging.StreamHandler()
-    ]
-)
 
 class BulldogJob():
     def __init__(self):
@@ -47,8 +38,8 @@ class BulldogJob():
             print(f"Exception {e} on updateJobsDict.")                
             
 def run(url):  
-    logging.info("Starting BulldogJob scrapper.")
+    log.info("Starting BulldogJob scrapper.")
     bull = BulldogJob()
     bull.updateJobsDict(url)
     updateExcel("BulldogJob", bull.jobs_dict)
-    logging.info("Finished BulldogJob scrapper.")
+    log.info("Finished BulldogJob scrapper.")

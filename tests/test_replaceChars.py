@@ -1,9 +1,5 @@
-import os
-import sys
 import pytest
-sys.path.insert(0, f'{os.getcwd()}\\modules')
-
-from common import replaceChars
+from modules.common import replaceChars
 
 strings_list = [
     ('[test','test'), ('test]', 'test'), ("'test", "test"), ('test\\xa0', 'test'), ('\\ntest', 'test'),

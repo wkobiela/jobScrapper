@@ -1,15 +1,6 @@
-import logging
 import requests
+from modules.base_logger import log
 from modules.common import updateExcel
-
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] %(message)s",
-    handlers=[
-        logging.FileHandler("debug.log"),
-        logging.StreamHandler()
-    ]
-)
 
 class JustJoinIt():
     def __init__(self):
@@ -70,8 +61,8 @@ class JustJoinIt():
             exp_list.append(offer_dict.get("experience_level"))
 
 def run(url):
-    logging.info("Starting JustJointIt scrapper.")
+    log.info("Starting JustJointIt scrapper.")
     just = JustJoinIt()
     just.updateJobsDict(url)
     updateExcel("JustJoinIt", just.jobs_dict)
-    logging.info("Finished JustJoinIt scrapper.")
+    log.info("Finished JustJoinIt scrapper.")

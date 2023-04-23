@@ -1,17 +1,8 @@
 import re
-import logging
 import requests
 from bs4 import BeautifulSoup
+from modules.base_logger import log
 from modules.common import getDomainName, updateExcel, getPagesCount
-
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] %(message)s",
-    handlers=[
-        logging.FileHandler("debug.log"),
-        logging.StreamHandler()
-    ]
-)
 
 class NoFluffJobs():
     def __init__(self):
@@ -46,8 +37,8 @@ class NoFluffJobs():
             print(f"Exception {e} on updateJobsDict.")                
             
 def run(url):
-    logging.info("Starting NoFluffJobs scrapper.")
+    log.info("Starting NoFluffJobs scrapper.")
     fluff = NoFluffJobs()
     fluff.updateJobsDict(url)
     updateExcel("NoFluffJobs", fluff.jobs_dict)
-    logging.info("Finished NoFluffJobs scrapper.")
+    log.info("Finished NoFluffJobs scrapper.")

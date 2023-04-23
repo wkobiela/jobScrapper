@@ -1,20 +1,12 @@
 import re
 import os
+import sys
 import urllib
-import logging
 from datetime import datetime
 import requests
 from bs4 import BeautifulSoup
 from openpyxl import load_workbook
-
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] %(message)s",
-    handlers=[
-        logging.FileHandler("debug.log"),
-        logging.StreamHandler()
-    ]
-)
+from modules.base_logger import log
 
 now = datetime.now()
 
@@ -53,7 +45,7 @@ def getPagesCount(url, parent, child, regex):
             except(ValueError):
                 continue
             max_page_count = val if val > max_page_count else max_page_count
-        logging.info('Found %s pages with offers. Scrapping further.', max_page_count)
+        log.info('Found %s pages with offers. Scrapping further.', max_page_count)
         return max_page_count
     except Exception as e:
         print(f"Exception {e} on getPagesCount.")
@@ -80,9 +72,34 @@ def updateExcel(sheet, jobs_dict):
                 sheet.cell(row = 2, column = 5, value = replaceChars(str(v["Location"])))
                 sheet.cell(row = 2, column = 6, value = now.strftime("%d/%m/%Y, %H:%M"))
         if new_jobs > 0:
-            logging.info(f"{new_jobs} new offers in {sheet.title}!")
+            log.info(f"{new_jobs} new offers in {sheet.title}!")
         else:
-            logging.info(f"No new offers in {sheet.title}.")
+            log.info(f"No new offers in {sheet.title}.")
         workbook.save(filename="jobs.xlsx")
     except Exception as e:
         print(f"Exception: {e} on updateExcel.")
+        
+def createLinks(**kwargs):
+    if not all(key in kwargs for key in ('site','role','lvl','city')):
+        log.error("Not enough arguments. Please fill the following: site, role, lvl, city.")
+        sys.exit()
+        
+    for key, item in kwargs.items():
+        if key == "site":
+            site = item
+        elif key == "role":
+            role = item
+        elif key == "lvl":
+            lvl = item
+        elif key == "city":
+            city = item
+        else:
+            log.error("Unknown key. Please fill the following: site, role, lvl, city.")
+            sys.exit()
+    
+    if site == "BulldogJob":
+        generated_link = f"https://bulldogjob.pl/companies/jobs/s/role,{role}/experienceLevel,{lvl}/city,{city}"
+    elif site == "NoFluffJobs":
+        generated_link = f"https://nofluffjobs.com/pl/praca-zdalna/{role}?criteria=city%3D{city}%20%20seniority%3D{lvl}"
+    log.info("Generated link: %s", generated_link)    
+    return(generated_link)
