@@ -37,9 +37,9 @@ class BulldogJob():
         except Exception as e:
             print(f"Exception {e} on updateJobsDict.")                
             
-def run(url):  
+def run(sheet, url):  
     log.info("Starting BulldogJob scrapper.")
     bull = BulldogJob()
     bull.updateJobsDict(url)
-    updateExcel("BulldogJob", bull.jobs_dict)
+    updateExcel(sheet, bull.jobs_dict)
     log.info("Finished BulldogJob scrapper.")

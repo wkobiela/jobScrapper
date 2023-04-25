@@ -31,14 +31,7 @@ class JustJoinIt():
 
         for offer_dict in response.json():
             url = f'https://justjoin.it/offers/{offer_dict["id"]}'
-            
-            """
-            Available marker_icons to choose:
-            {'testing', 'net', 'architecture', 'ruby', 'php', 'mobile', 'other', 'analytics', 
-            'erp', 'go', 'admin', 'scala', 'pm', 'support', 'data', 'java', 'security', 'game', 
-            'python', 'ux', 'c', 'javascript', 'devops', 'html'}
-            """
-            
+
             if offer_dict.get("marker_icon") not in role:
                 continue
             if offer_dict.get("experience_level") not in lvl:
@@ -62,10 +55,10 @@ class JustJoinIt():
             city_list.append(offer_dict.get("city"))
             exp_list.append(offer_dict.get("experience_level"))
 
-def run(role, lvl, city):
+def run(sheetname, role, lvl, city):
     log.info("Starting JustJointIt scrapper.")
     just = JustJoinIt()
     resp = just.updateJobsDict()
     just.prepareJobsDict(resp, role, lvl, city)
-    updateExcel("JustJoinIt", just.jobs_dict)
+    updateExcel(sheetname, just.jobs_dict)
     log.info("Finished JustJoinIt scrapper.")

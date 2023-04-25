@@ -36,9 +36,9 @@ class NoFluffJobs():
         except Exception as e:
             print(f"Exception {e} on updateJobsDict.")                
             
-def run(url):
+def run(sheet, url):
     log.info("Starting NoFluffJobs scrapper.")
     fluff = NoFluffJobs()
     fluff.updateJobsDict(url)
-    updateExcel("NoFluffJobs", fluff.jobs_dict)
+    updateExcel(sheet, fluff.jobs_dict)
     log.info("Finished NoFluffJobs scrapper.")
