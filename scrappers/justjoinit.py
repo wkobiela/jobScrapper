@@ -55,10 +55,10 @@ class JustJoinIt():
             city_list.append(offer_dict.get("city"))
             exp_list.append(offer_dict.get("experience_level"))
 
-def run(role, lvl, city):
+def run(sheetname, role, lvl, city):
     log.info("Starting JustJointIt scrapper.")
     just = JustJoinIt()
     resp = just.updateJobsDict()
     just.prepareJobsDict(resp, role, lvl, city)
-    updateExcel("JustJoinIt", just.jobs_dict)
+    updateExcel(sheetname, just.jobs_dict)
     log.info("Finished JustJoinIt scrapper.")

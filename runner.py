@@ -10,7 +10,15 @@ Parameters:
 - bulldogjob.run(...(ite(str), role(str), lvl(str), city(str)))
 """
 
-setup.run('jobs.xlsx', 'NoFluffJobs', 'BulldogJob', 'JustJoinIt')
-nofluffjobs.run(common.createLinks(site='NoFluffJobs', role="testing", lvl="junior,mid", city="Gdańsk"))
-bulldogjob.run(common.createLinks(site='BulldogJob', role="qa,tester", lvl="junior,mid", city="Remote,Gdańsk"))
-justjoinit.run(role=['testing'], lvl=["mid", "junior"], city='Gdańsk')
+EXCEL_NAME = 'jobs.xlsx'
+NOFLUFFJOBS_SHEET = 'NoFluffJobs'
+BULLDOGJOB_SHEET = 'BulldogJob'
+JUSTJOINIT_SHEET = 'JustJoinIt'
+
+NOFLUFFJOBS_URL = common.createLinks(site='NoFluffJobs', role="testing", lvl="junior,mid", city="Gdańsk")
+BULLDOGJOB_URL = common.createLinks(site='BulldogJob', role="qa,tester", lvl="junior,mid", city="Remote,Gdańsk")
+
+setup.run(EXCEL_NAME, NOFLUFFJOBS_SHEET, BULLDOGJOB_SHEET, JUSTJOINIT_SHEET)
+nofluffjobs.run(NOFLUFFJOBS_SHEET, NOFLUFFJOBS_URL)
+bulldogjob.run(BULLDOGJOB_SHEET, BULLDOGJOB_URL)
+justjoinit.run(JUSTJOINIT_SHEET, role=['testing'], lvl=["mid", "junior"], city='Gdańsk')
