@@ -1,14 +1,11 @@
 import os
-import sys
 import pytest
-sys.path.insert(0, f'{os.getcwd()}')
-
 from modules.setup import Setup
 
 t1 = Setup()
 
 @pytest.fixture
-def _test_setup_correct(autouse=True):
+def _test_setup_correct():
     t1.createExcelFile('jobs.xlsx', 'NoFluffJobs', 'BulldogJob', 'JustJoinIt')
     yield
     os.remove('jobs.xlsx')
@@ -47,7 +44,7 @@ def test_checkExcel_wrong_file_correct_sheets(_test_setup_correct):
     assert t1.checkExcel('jobs_wrong.xlsx', 'NoFluffJobs', 'JustJoinIt', 'BulldogJob') is False    
     
 @pytest.fixture
-def _test_setup_wrong_sheets(autouse=True):
+def _test_setup_wrong_sheets():
     t1.createExcelFile('jobs.xlsx', 'NoFluff', 'Bulldog', 'JustJoin')
     yield
     os.remove('jobs.xlsx')
