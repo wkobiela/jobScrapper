@@ -25,7 +25,10 @@ python3 -m pip install -r requirements.txt
 ```
 To setup script, edit `runner.py` and insert role, level and city you are looking for. This parameters are a little bit different for every website, but not that much.
 ```
-setup.run('jobs.xlsx', 'NoFluffJobs', 'BulldogJob', 'JustJoinIt')
+EXCEL_NAME = 'jobs.xlsx'
+NOFLUFFJOBS_SHEET = 'NoFluffJobs'
+BULLDOGJOB_SHEET = 'BulldogJob'
+JUSTJOINIT_SHEET = 'JustJoinIt'
 ```
 `setup` will create excel named `jobs.xlsx` with 3 sheets. Do not bother with this as this point, consider it static.
 
@@ -35,7 +38,7 @@ To setup nofluffjobs scrapper, insert 3 MAIN parameters.
 - lvl (string, levels separated by a comma) from available: `junior,mid,senior,expert`
 - city (string) - this scrapper always looks for `remote` + city, that you define here.
 ```
-nofluffjobs.run(common.createLinks(site='NoFluffJobs', role="testing", lvl="junior,mid", city="Gdańsk"))
+NOFLUFFJOBS_URL = common.createLinks(site='NoFluffJobs', role="testing", lvl="junior,mid", city="Gdańsk")
 ```
 
 ### BulldogJob
@@ -45,7 +48,7 @@ To setup bulldogjob scrapper, insert 3 MAIN parameters.
 - lvl (string, levels separated by a comma) from available: `junior,medium,senior`
 - city (string, separated by a comma) - include `Remote` if you want to.
 ```
-bulldogjob.run(common.createLinks(site='BulldogJob', role="qa,tester", lvl="junior,mid", city="Remote,Gdańsk"))
+BULLDOGJOB_URL = common.createLinks(site='BulldogJob', role="qa,tester", lvl="junior,mid", city="Remote,Gdańsk")
 ```
 
 ### JustJoinIt
