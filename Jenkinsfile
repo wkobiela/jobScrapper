@@ -32,9 +32,11 @@ pipeline {
                     pythonsArray.each { python ->
                         println(python)
                         parallelStages.put(runStage, generateStage(runStage, url, commit, python))
+                        println(parallelStages)
                     }
                     println(parallelStages)
                     parallelStages.put(testStage, generateStage(testStage, url, commit, '3'))
+                    println(parallelStages)
                 }
             }
         }
