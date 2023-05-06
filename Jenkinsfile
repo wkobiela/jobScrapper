@@ -7,7 +7,7 @@ runStage = 'jobScrapperCI/run_scrapper'
 def generateStage(String job, String url, String commit, String python) {
     String stageName = job.replace('jobScrapperCI/', '')
     return {
-        stage("Stage: ${stageName}_${python}") {
+        stage("Stage: ${stageName}_python${python}") {
             build job: "${job}",
             parameters: [string(name: 'Repo_url', value: "${url}"),
                         string(name: 'Commit', value: "${commit}"),
@@ -30,8 +30,10 @@ pipeline {
                     String url = scmVars.GIT_URL
                     String commit = scmVars.GIT_COMMIT
                     pythonsArray.each { python ->
+                        println(python)
                         parallelStages.put(runStage, generateStage(runStage, url, commit, python))
                     }
+                    println(parallelStages)
                     parallelStages.put(testStage, generateStage(testStage, url, commit, '3'))
                 }
             }
