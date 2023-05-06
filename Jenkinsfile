@@ -29,10 +29,10 @@ pipeline {
                     Map scmVars = checkout(scm)
                     String url = scmVars.GIT_URL
                     String commit = scmVars.GIT_COMMIT
-                    pythonsArray.each { python ->
-                        parallelStages.put("${runStage}_python${python}", generateStage(runStage, url, commit, python))
+                    pythonsArray.each { py ->
+                        parallelStages.put("${runStage}_python${py}", generateStage(runStage, url, commit, py))
+                        parallelStages.put("${testStage}_python${py}", generateStage(testStage, url, commit, py))
                     }
-                    parallelStages.put("${testStage}_python3", generateStage(testStage, url, commit, '3'))
                 }
             }
         }
