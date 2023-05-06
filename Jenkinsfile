@@ -1,14 +1,17 @@
 /* groovylint-disable NestedBlockDepth */
 Map parallelStages = [:]
-jobsArray = ['jobScrapperCI/run_tests', 'jobScrapperCI/run_scrapper']
+pythonsArray = ['3.7', '3.8', '3.9', '3.10', '3.11']
+testStage = 'jobScrapperCI/run_tests'
+runStage = 'jobScrapperCI/run_scrapper'
 
-def generateStage(String job, String url, String commit) {
+def generateStage(String job, String url, String commit, String python) {
     String stageName = job.replace('jobScrapperCI/', '')
     return {
-        stage("Stage: ${stageName}") {
+        stage("Stage: ${stageName}_python${python}") {
             build job: "${job}",
             parameters: [string(name: 'Repo_url', value: "${url}"),
                         string(name: 'Commit', value: "${commit}"),
+                        string(name: 'Python', value: "${python}"),
                         booleanParam(name: 'propagateStatus', value: true)
                         ],
             wait: true
@@ -26,8 +29,9 @@ pipeline {
                     Map scmVars = checkout(scm)
                     String url = scmVars.GIT_URL
                     String commit = scmVars.GIT_COMMIT
-                    jobsArray.each { job ->
-                        parallelStages.put("${job}", generateStage(job, url, commit))
+                    pythonsArray.each { py ->
+                        parallelStages.put("${runStage}_python${py}", generateStage(runStage, url, commit, py))
+                        parallelStages.put("${testStage}_python${py}", generateStage(testStage, url, commit, py))
                     }
                 }
             }
