@@ -1,4 +1,5 @@
 .vscode
+.idea
 .groovylintrc.json
 *jobs*.xlsx
 __pycache__
