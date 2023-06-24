@@ -16,7 +16,7 @@ class BulldogJob():
         text = ""
         try:
             for page_num in range(1, max_pages + 1):
-                page = requests.get(url+f"/page,{page_num}")
+                page = requests.get(url+f"/page,{page_num}", timeout=120)
                 page_soup = BeautifulSoup(page.content, "html.parser")                
                 job_links_list = page_soup.find_all("a", {"href": re.compile('.*bulldogjob.pl/companies/jobs/.*')})
                 for job in job_links_list:

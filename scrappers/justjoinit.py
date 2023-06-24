@@ -18,7 +18,7 @@ class JustJoinIt():
                 "Host": "justjoin.it",
                 "Referer": "justjoin.it",
             }
-            response = requests.get(url, headers=headers)
+            response = requests.get(url, headers=headers, timeout=120)
             return response
         except Exception as e:
             print(f"Exception {e} on updateJobsDict.")

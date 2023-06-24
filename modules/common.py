@@ -35,7 +35,7 @@ def getDomainName(url):
 
 def getPagesCount(url, parent, child, regex):
     try:
-        page = requests.get(url)
+        page = requests.get(url, timeout=120)
         soup = BeautifulSoup(page.content, "html.parser")
         pages_count = soup.find_all(parent, {child: re.compile(regex)})
         max_page_count = 1
