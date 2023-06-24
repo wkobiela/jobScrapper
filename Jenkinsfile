@@ -3,6 +3,7 @@ Map parallelStages = [:]
 pythonsArray = ['3.8', '3.9', '3.10', '3.11']
 testStage = 'jobScrapperCI/run_tests'
 runStage = 'jobScrapperCI/run_scrapper'
+banditStage = 'jobScrapperCI/run_bandit'
 
 def generateStage(String job, String url, String commit, String python) {
     String stageName = job.replace('jobScrapperCI/', '')
@@ -12,6 +13,20 @@ def generateStage(String job, String url, String commit, String python) {
             parameters: [string(name: 'Repo_url', value: "${url}"),
                         string(name: 'Commit', value: "${commit}"),
                         string(name: 'Python', value: "${python}"),
+                        booleanParam(name: 'propagateStatus', value: true)
+                        ],
+            wait: true
+        }
+    }
+}
+
+def banditScan(String job, String url, String commit) {
+    String stageName = job.replace('jobScrapperCI/', '')
+    return {
+        stage("Stage: ${stageName}") {
+            build job: "${job}",
+            parameters: [string(name: 'Repo_url', value: "${url}"),
+                        string(name: 'Commit', value: "${commit}"),
                         booleanParam(name: 'propagateStatus', value: true)
                         ],
             wait: true
@@ -33,6 +48,7 @@ pipeline {
                         parallelStages.put("${runStage}_python${py}", generateStage(runStage, url, commit, py))
                         parallelStages.put("${testStage}_python${py}", generateStage(testStage, url, commit, py))
                     }
+                    parallelStages.put("${banditStage}", banditScan(banditStage, url, commit))
                 }
             }
         }
