@@ -7,7 +7,7 @@ banditStage = 'jobScrapperCI/run_bandit'
 
 def generateStage(String job, String url, String commit, String python) {
     String stageName = job.replace('jobScrapperCI/', '')
-    if (python == 'None') {
+    if (python != 'None') {
         stageName = "${stageName}_python${python}"
     }
     return {
