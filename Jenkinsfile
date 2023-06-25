@@ -3,11 +3,15 @@ Map parallelStages = [:]
 pythonsArray = ['3.8', '3.9', '3.10', '3.11']
 testStage = 'jobScrapperCI/run_tests'
 runStage = 'jobScrapperCI/run_scrapper'
+banditStage = 'jobScrapperCI/run_bandit'
 
 def generateStage(String job, String url, String commit, String python) {
     String stageName = job.replace('jobScrapperCI/', '')
+    if (python != 'None') {
+        stageName = "${stageName}_python${python}"
+    }
     return {
-        stage("Stage: ${stageName}_python${python}") {
+        stage("Stage: ${stageName}") {
             build job: "${job}",
             parameters: [string(name: 'Repo_url', value: "${url}"),
                         string(name: 'Commit', value: "${commit}"),
@@ -33,6 +37,7 @@ pipeline {
                         parallelStages.put("${runStage}_python${py}", generateStage(runStage, url, commit, py))
                         parallelStages.put("${testStage}_python${py}", generateStage(testStage, url, commit, py))
                     }
+                    parallelStages.put("${banditStage}", generateStage(banditStage, url, commit, 'None'))
                 }
             }
         }
