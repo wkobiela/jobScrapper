@@ -21,13 +21,13 @@ def generateStage(String job, String url, String commit, String python) {
 
 pipeline {
     agent none
-    echo "${env.GIT_COMMIT}"
     stages {
         stage('Get changeset') {
             agent any
             steps {
                 echo "Get changeset stage"
                 script {
+                    echo "BEFORE SCMVARS ${env.GIT_COMMIT}"
                     Map scmVars = checkout(scm)
                     String url = scmVars.GIT_URL
                     String commit = scmVars.GIT_COMMIT
@@ -37,7 +37,7 @@ pipeline {
                         parallelStages.put("${testStage}_python${py}", generateStage(testStage, url, commit, py))
                     }
                 }
-                buildDescription "Commit: ${commit}, Job: ${url}, Author: ${author}"
+                // buildDescription "Commit: ${commit}, Job: ${url}, Author: ${author}"
             }
         }
         stage('Run CI') {
