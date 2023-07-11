@@ -21,6 +21,7 @@ def generateStage(String job, String url, String commit, String python) {
 
 pipeline {
     agent none
+    echo "${env.GIT_COMMIT}"
     stages {
         stage('Get changeset') {
             agent any
