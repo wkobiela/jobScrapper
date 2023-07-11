@@ -27,14 +27,18 @@ pipeline {
             steps {
                 echo "Get changeset stage"
                 echo "BEFORE SCMVARS ${env.GIT_COMMIT}"
+                echo "BEFORE SCMVARS ${env.GIT_URL}"
+                echo "BEFORE SCMVARS ${env.GIT_AUTHOR_NAME}"
                 script {
-                    Map scmVars = checkout(scm)
-                    String url = scmVars.GIT_URL
-                    String commit = scmVars.GIT_COMMIT
-                    String author = scmVars.GIT_AUTHOR_NAME
+                    // Map scmVars = checkout(scm)
+                    // String url = scmVars.GIT_URL
+                    // String commit = scmVars.GIT_COMMIT
+                    // String author = scmVars.GIT_AUTHOR_NAME
                     pythonsArray.each { py ->
-                        parallelStages.put("${runStage}_python${py}", generateStage(runStage, url, commit, py))
-                        parallelStages.put("${testStage}_python${py}", generateStage(testStage, url, commit, py))
+                        parallelStages.put("${runStage}_python${py}",
+                                            generateStage(runStage, env.GIT_URL, env.GIT_COMMIT, py))
+                        parallelStages.put("${testStage}_python${py}",
+                                            generateStage(testStage, env.GIT_URL, env.GIT_COMMIT, py))
                     }
                 }
                 // buildDescription "Commit: ${commit}, Job: ${url}, Author: ${author}"
