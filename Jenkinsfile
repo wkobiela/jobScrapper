@@ -25,6 +25,7 @@ pipeline {
         stage('Get changeset') {
             agent any
             steps {
+                echo "Get changeset stage"
                 script {
                     Map scmVars = checkout(scm)
                     String url = scmVars.GIT_URL
@@ -34,13 +35,14 @@ pipeline {
                         parallelStages.put("${runStage}_python${py}", generateStage(runStage, url, commit, py))
                         parallelStages.put("${testStage}_python${py}", generateStage(testStage, url, commit, py))
                     }
-                    buildDescription "Commit: ${commit}, Job: ${url}, Author: ${author}"
                 }
+                buildDescription "Commit: ${commit}, Job: ${url}, Author: ${author}"
             }
         }
         stage('Run CI') {
             agent none
             steps {
+                echo "Run CI stage"
                 script {
                     parallel parallelStages
                     }
