@@ -27,8 +27,7 @@ pipeline {
             steps {
                 echo "BEFORE SCMVARS commit ${env.GIT_COMMIT}"
                 echo "BEFORE SCMVARS url ${env.GIT_URL}"
-                echo "BEFORE SCMVARS author ${env.GIT_AUTHOR_NAME}"
-                echo "BEFORE SCMVARS commiter ${env.GIT_COMMITTER_NAME}"
+                echo "BEFORE SCMVARS author ${env.CHANGE_AUTHOR}"
                 script {
                     pythonsArray.each { py ->
                         parallelStages.put("${runStage}_python${py}",
