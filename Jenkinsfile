@@ -23,7 +23,7 @@ pipeline {
     agent none
     stages {
         stage('Get changeset') {
-            agent none
+            agent any
             steps {
                 echo "BEFORE SCMVARS commit ${env.GIT_COMMIT}"
                 echo "BEFORE SCMVARS url ${env.GIT_URL}"
@@ -43,7 +43,6 @@ pipeline {
         stage('Run CI') {
             agent none
             steps {
-                echo "Run CI stage"
                 script {
                     parallel parallelStages
                     }
