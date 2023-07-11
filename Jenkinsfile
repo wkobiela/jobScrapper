@@ -28,8 +28,8 @@ pipeline {
     stages {
         stage('Get changeset') {
             agent any
-            echo "Commit ${env.GIT_COMMIT}, url ${env.GIT_URL}, author ${env.CHANGE_AUTHOR}"
             steps {
+                echo "Commit ${env.GIT_COMMIT}, url ${env.GIT_URL}, author ${env.CHANGE_AUTHOR}"
                 script {
                     currentBuild.description =
                     "URL: <a href='${env.GIT_URL}'>${env.GIT_URL}</a><br>" +
