@@ -28,16 +28,22 @@ pipeline {
     stages {
         stage('Get changeset') {
             agent any
+            echo "Commit ${env.GIT_COMMIT}, url ${env.GIT_URL}, author ${env.CHANGE_AUTHOR}"
             steps {
                 script {
-                    Map scmVars = checkout(scm)
-                    String url = scmVars.GIT_URL
-                    String commit = scmVars.GIT_COMMIT
+                    currentBuild.description =
+                    "URL: <a href='${env.GIT_URL}'>${env.GIT_URL}</a><br>" +
+                    "Commit: <b>${env.GIT_COMMIT}</b><br>" +
+                    "Author: <a href='https://github.com/${env.CHANGE_AUTHOR}'>${env.CHANGE_AUTHOR}</a>"
+
                     pythonsArray.each { py ->
-                        parallelStages.put("${runStage}_python${py}", generateStage(runStage, url, commit, py))
-                        parallelStages.put("${testStage}_python${py}", generateStage(testStage, url, commit, py))
+                        parallelStages.put("${runStage}_python${py}",
+                                            generateStage(runStage, env.GIT_URL, env.GIT_COMMIT, py))
+                        parallelStages.put("${testStage}_python${py}",
+                                            generateStage(testStage, env.GIT_URL, env.GIT_COMMIT, py))
                     }
-                    parallelStages.put("${banditStage}", generateStage(banditStage, url, commit, 'None'))
+                    parallelStages.put("${banditStage}",
+                        generateStage(banditStage, env.GIT_URL, env.GIT_COMMIT, 'None'))
                 }
             }
         }
