@@ -29,6 +29,9 @@ pipeline {
                 echo "BEFORE SCMVARS url ${env.GIT_URL}"
                 echo "BEFORE SCMVARS author ${env.CHANGE_AUTHOR}"
                 script {
+                    currentBuild.description = """URL: ${env.GIT_URL}
+                                                Commit: ${env.GIT_COMMIT}
+                                                Author: ${env.CHANGE_AUTHOR}"""
                     pythonsArray.each { py ->
                         parallelStages.put("${runStage}_python${py}",
                                             generateStage(runStage, env.GIT_URL, env.GIT_COMMIT, py))
