@@ -1,4 +1,4 @@
-/* groovylint-disable NestedBlockDepth */
+/* groovylint-disable DuplicateStringLiteral, MethodReturnTypeRequired, NestedBlockDepth, NoDef */
 Map parallelStages = [:]
 pythonsArray = ['3.8', '3.9', '3.10', '3.11']
 testStage = 'jobScrapperCI/run_tests'
@@ -29,12 +29,13 @@ pipeline {
         stage('Get changeset') {
             agent any
             steps {
-                echo "Commit ${env.GIT_COMMIT}, url ${env.GIT_URL}, author ${env.CHANGE_AUTHOR}"
+                echo 'INFORMATION FROM SCM:\n' +
+                "URL: ${env.GIT_URL}, Commit: ${env.GIT_COMMIT}, Branch: ${env.BRANCH_NAME}"
                 script {
                     currentBuild.description =
                     "URL: <a href='${env.GIT_URL}'>${env.GIT_URL}</a><br>" +
                     "Commit: <b>${env.GIT_COMMIT}</b><br>" +
-                    "Author: <a href='https://github.com/${env.CHANGE_AUTHOR}'>${env.CHANGE_AUTHOR}</a>"
+                    "Branch: <b>${env.BRANCH_NAME}</b>"
 
                     pythonsArray.each { py ->
                         parallelStages.put("${runStage}_python${py}",
@@ -45,6 +46,8 @@ pipeline {
                     parallelStages.put("${banditStage}",
                         generateStage(banditStage, env.GIT_URL, env.GIT_COMMIT, 'None'))
                 }
+                echo 'CLEANING WORKSPACE:'
+                cleanWs()
             }
         }
         stage('Run CI') {
