@@ -45,8 +45,6 @@ pipeline {
                     parallelStages.put("${banditStage}",
                         generateStage(banditStage, env.GIT_URL, env.GIT_COMMIT, 'None'))
                 }
-            }
-            steps {
                 cleanWs()
             }
         }
