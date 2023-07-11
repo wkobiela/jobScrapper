@@ -26,8 +26,8 @@ pipeline {
             agent any
             steps {
                 echo "Get changeset stage"
+                echo "BEFORE SCMVARS ${env.GIT_COMMIT}"
                 script {
-                    echo "BEFORE SCMVARS ${env.GIT_COMMIT}"
                     Map scmVars = checkout(scm)
                     String url = scmVars.GIT_URL
                     String commit = scmVars.GIT_COMMIT
