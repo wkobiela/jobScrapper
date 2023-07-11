@@ -25,13 +25,10 @@ pipeline {
         stage('Get changeset') {
             agent any
             steps {
-                echo "BEFORE SCMVARS commit ${env.GIT_COMMIT}"
-                echo "BEFORE SCMVARS url ${env.GIT_URL}"
-                echo "BEFORE SCMVARS author ${env.CHANGE_AUTHOR}"
+                echo "Commit ${env.GIT_COMMIT}, url ${env.GIT_URL}, author ${env.CHANGE_AUTHOR}"
                 script {
-                    currentBuild.description = """URL: ${env.GIT_URL}
-                                                Commit: ${env.GIT_COMMIT}
-                                                Author: ${env.CHANGE_AUTHOR}"""
+                    currentBuild.description = """URL: <a>${env.GIT_URL}</a>\n
+                    Commit: <b>${env.GIT_COMMIT}<b/>\nAuthor: <a>https://github.com/${env.CHANGE_AUTHOR}</a>"""
                     pythonsArray.each { py ->
                         parallelStages.put("${runStage}_python${py}",
                                             generateStage(runStage, env.GIT_URL, env.GIT_COMMIT, py))
@@ -39,7 +36,6 @@ pipeline {
                                             generateStage(testStage, env.GIT_URL, env.GIT_COMMIT, py))
                     }
                 }
-                // buildDescription "Commit: ${commit}, Job: ${url}, Author: ${author}"
             }
         }
         stage('Run CI') {
