@@ -24,11 +24,13 @@ pipeline {
     stages {
         stage('Get info from SCM') {
             steps {
-                def b = currentBuild
-                def scmAction = b?.actions.find { action -> action instanceof jenkins.scm.api.SCMRevisionAction }
-                def GIT_COMMIT = scmAction?.revision?.hash
-                buildDescription "Commit: ${GIT_COMMIT}"
-                //, Job: ${GIT_URL}, Author: ${GIT_AUTHOR_NAME}
+                script {
+                    def b = currentBuild
+                    def scmAction = b?.actions.find { action -> action instanceof jenkins.scm.api.SCMRevisionAction }
+                    def GIT_COMMIT = scmAction?.revision?.hash
+                    buildDescription "Commit: ${GIT_COMMIT}"
+                    //, Job: ${GIT_URL}, Author: ${GIT_AUTHOR_NAME}
+                }
             }
         }
         stage('Get changeset') {
