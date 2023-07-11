@@ -28,8 +28,8 @@ pipeline {
                 echo "Commit ${env.GIT_COMMIT}, url ${env.GIT_URL}, author ${env.CHANGE_AUTHOR}"
                 script {
                     currentBuild.description =
-                    "URL: <a>${env.GIT_URL}</a>\n" +
-                    "Commit: <b>${env.GIT_COMMIT}</b>\n" + 
+                    "URL: <a href='${env.GIT_URL}'>${env.GIT_URL}</a><br>" +
+                    "Commit: <b>${env.GIT_COMMIT}</b><br>" +
                     "Author: <a>https://github.com/${env.CHANGE_AUTHOR}</a>"
 
                     pythonsArray.each { py ->
