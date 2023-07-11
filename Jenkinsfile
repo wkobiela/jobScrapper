@@ -30,7 +30,7 @@ pipeline {
                     currentBuild.description =
                     "URL: <a href='${env.GIT_URL}'>${env.GIT_URL}</a><br>" +
                     "Commit: <b>${env.GIT_COMMIT}</b><br>" +
-                    "Author: <a>https://github.com/${env.CHANGE_AUTHOR}</a>"
+                    "Author: <a href='https://github.com/${env.CHANGE_AUTHOR}'>${env.CHANGE_AUTHOR}</a>"
 
                     pythonsArray.each { py ->
                         parallelStages.put("${runStage}_python${py}",
