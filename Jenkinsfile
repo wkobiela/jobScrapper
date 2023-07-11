@@ -46,6 +46,9 @@ pipeline {
                         generateStage(banditStage, env.GIT_URL, env.GIT_COMMIT, 'None'))
                 }
             }
+            steps {
+                cleanWs()
+            }
         }
         stage('Run CI') {
             agent none
