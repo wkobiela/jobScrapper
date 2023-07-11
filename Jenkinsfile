@@ -23,7 +23,9 @@ pipeline {
     agent none
     stages {
         stage('Get info from SCM') {
-            buildDescription "Commit: ${GIT_COMMIT}, Job: ${GIT_URL}, Author: ${GIT_AUTHOR_NAME}"
+            steps {
+                buildDescription "Commit: ${GIT_COMMIT}, Job: ${GIT_URL}, Author: ${GIT_AUTHOR_NAME}"
+            }
         }
         stage('Get changeset') {
             agent any
