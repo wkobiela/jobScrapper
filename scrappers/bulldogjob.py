@@ -34,7 +34,7 @@ class BulldogJob():
                         if job_title is not None:
                             job_title = job_title.find(text=True, recursive=False).text
                         else:
-                            job_title='Sprawdź regex'
+                            job_title="Sprawdź regex."
                         job_company = job.find('div', class_=re.compile("text-xxs uppercase", re.I)).text
                         job_salary = job.find('div', class_=re.compile("lg:font-extrabold md:text-xl text-dm", re.I))
                         if job_salary.find(text=True, recursive=True) is not None:
@@ -50,7 +50,7 @@ class BulldogJob():
                                                     "Location": [text]}
                         text = ""
                     except Exception as ie:
-                        print(ie)
+                        print(f"Exception {ie} on {job}.") 
         except Exception as e:
             print(f"Exception {e} on updateJobsDict.")                
             
