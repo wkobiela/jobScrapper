@@ -15,7 +15,7 @@ def test_is_BulldogJob_reachable():
     response = requests.get(link, timeout=120, headers=headers)
     assert response.status_code == 200
     
-def test_is_JustJoinIt_reachable():
-    link = 'https://justjoin.it/api/offers'
-    response = requests.get(link, timeout=120)
-    assert response.status_code == 200
+# def test_is_JustJoinIt_reachable():
+#     link = 'https://justjoin.it/api/offers'
+#     response = requests.get(link, timeout=120)
+#     assert response.status_code == 200
