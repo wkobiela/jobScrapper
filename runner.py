@@ -44,7 +44,7 @@ BULLDOGJOB_URL = common.createLinks(site=bulldogjob_settings['site'],
 setup.run(EXCEL_NAME, NOFLUFFJOBS_SHEET, BULLDOGJOB_SHEET, JUSTJOINIT_SHEET)
 nofluffjobs.run(NOFLUFFJOBS_SHEET, NOFLUFFJOBS_URL)
 bulldogjob.run(BULLDOGJOB_SHEET, BULLDOGJOB_URL)
-justjoinit.run(JUSTJOINIT_SHEET, 
-                role=justjoinit_settings['role'], 
-                lvl=justjoinit_settings['lvl'], 
-                city=justjoinit_settings['city'])
+# justjoinit.run(JUSTJOINIT_SHEET, 
+#                 role=justjoinit_settings['role'], 
+#                 lvl=justjoinit_settings['lvl'], 
+#                 city=justjoinit_settings['city'])
