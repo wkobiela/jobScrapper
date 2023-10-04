@@ -1,5 +1,7 @@
 # jobScrapper
 
+### JustJoinIt scrapper temporarily disabled, API is unreachable - no further information, if it will be back.
+
 ## Description
 Simple python project, that should make it easier to be up to date with jobs offers. Websites like BulldogJob, Nofluffjobs or JustJoinIt have this nasty fature - job offers that are "refreshed" are bumped to the top of the page, so it is easy to get lost of track and even apply to the same job twice. 
 
