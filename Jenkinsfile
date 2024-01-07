@@ -1,8 +1,7 @@
 /* groovylint-disable DuplicateStringLiteral, MethodReturnTypeRequired, NestedBlockDepth, NoDef */
 Map parallelStages = [:]
 pythonsArray = ['3.8', '3.9', '3.10', '3.11', '3.12']
-testStage = 'jobScrapperCI/run_tests'
-runStage = 'jobScrapperCI/run_scrapper'
+runAndTestStage = 'jobScrapperCI/run_and_test'
 banditStage = 'jobScrapperCI/run_bandit'
 
 def generateStage(String job, String url, String commit, String python) {
@@ -38,10 +37,8 @@ pipeline {
                     "Branch: <b>${env.BRANCH_NAME}</b>"
 
                     pythonsArray.each { py ->
-                        parallelStages.put("${runStage}_python${py}",
-                                            generateStage(runStage, env.GIT_URL, env.GIT_COMMIT, py))
-                        parallelStages.put("${testStage}_python${py}",
-                                            generateStage(testStage, env.GIT_URL, env.GIT_COMMIT, py))
+                        parallelStages.put("${runAndTestStage}_python${py}",
+                                            generateStage(runAndTestStage, env.GIT_URL, env.GIT_COMMIT, py))
                     }
                     parallelStages.put("${banditStage}",
                         generateStage(banditStage, env.GIT_URL, env.GIT_COMMIT, 'None'))
