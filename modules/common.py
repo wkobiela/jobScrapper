@@ -4,8 +4,8 @@ import sys
 import urllib
 from datetime import datetime
 import requests
+import pandas as pd
 from bs4 import BeautifulSoup
-from openpyxl import load_workbook
 from modules.base_logger import log
 from unidecode import unidecode
 
@@ -31,7 +31,7 @@ def getDomainName(url):
         
         return domainName
     except Exception as e:
-        print(f"Exception {e} on getDomainName.")
+        log.error(f"Exception {e} on getDomainName.")
         return url
 
 def getPagesCount(url, parent, child, regex):
@@ -49,36 +49,32 @@ def getPagesCount(url, parent, child, regex):
         log.info('Found %s pages with offers. Scrapping further.', max_page_count)
         return max_page_count
     except Exception as e:
-        print(f"Exception {e} on getPagesCount.")
+        log.error(f"Exception {e} on getPagesCount.")
         return 1
         
 def updateExcel(sheet, jobs_dict):
     try:
-        workbook = load_workbook("jobs.xlsx")
+        df = pd.read_excel("jobs.xlsx", sheet_name=sheet)
         new_jobs = 0
-        sheet = workbook[f"{sheet}"]
         for k, v in jobs_dict.items():
-            exists = False
-            for row in sheet.rows:
-                if row[0].value is not None and k in row[0].value:
-                    exists = True
-            if exists is False:
+            if k not in df['Job Link'].values:
                 new_jobs += 1
-                sheet.insert_rows(2, 1)
-                # sheet.cell(row = 2, column = 1, value = '=HYPERLINK("{}", "{}")'.format(k, f"{k}"))
-                sheet.cell(row = 2, column = 1, value = f'=HYPERLINK("{k}", "{k}")')
-                sheet.cell(row = 2, column = 2, value = replaceChars(str(v["Title"])))
-                sheet.cell(row = 2, column = 3, value = replaceChars(str(v["Company"])))
-                sheet.cell(row = 2, column = 4, value = replaceChars(str(v["Salary"])))
-                sheet.cell(row = 2, column = 5, value = replaceChars(str(v["Location"])))
-                sheet.cell(row = 2, column = 6, value = now.strftime("%d/%m/%Y, %H:%M"))
+                now = datetime.now()
+                new_row = pd.DataFrame({
+                    'Job Link': [f'=HYPERLINK("{k}", "{k}")'],
+                    'Title': [replaceChars(str(v["Title"]))],
+                    'Company': [replaceChars(str(v["Company"]))],
+                    'Salary': [replaceChars(str(v["Salary"]))],
+                    'Location': [replaceChars(str(v["Location"]))],
+                    'Timestamp': [now.strftime("%d/%m/%Y, %H:%M")]
+                })
         if new_jobs > 0:
             log.info(f"{new_jobs} new offers in {sheet.title}!")
         else:
             log.info(f"No new offers in {sheet.title}.")
-        workbook.save(filename="jobs.xlsx")
+        df.to_excel("jobs.xlsx", sheet_name=sheet, index=False)
     except Exception as e:
-        print(f"Exception: {e} on updateExcel.")
+        log.error(f"Exception: {e} on updateExcel.")
         
 def createLinks(**kwargs):
     if not all(key in kwargs for key in ('site','role','lvl','city')):

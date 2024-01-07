@@ -26,7 +26,7 @@ class JustJoinIt():
                                             "Salary": [job_salary], 
                                             "Location": [job_location]}
         except Exception as e:
-            print(f"Exception {e} on updateJobsDict.")
+            log.error(f"Exception {e} on updateJobsDict.")
 
 def run(sheetname, url):
     log.info("Starting JustJointIt scrapper.")

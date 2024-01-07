@@ -59,9 +59,9 @@ class BulldogJob():
                                                     "Location": [text]}
                         text = ""
                     except Exception as ie:
-                        print(f"Exception {ie} on {job}.") 
+                        log.error(f"Exception {ie} on {job}.") 
         except Exception as e:
-            print(f"Exception {e} on updateJobsDict.")                
+            log.error(f"Exception {e} on updateJobsDict.")                
             
 def run(sheet, url):  
     log.info("Starting BulldogJob scrapper.")
