@@ -57,16 +57,17 @@ def updateExcel(sheet, jobs_dict):
         df = pd.read_excel("jobs.xlsx", sheet_name=sheet)
         new_jobs = 0
         for k, v in jobs_dict.items():
-            if k not in df['Job Link'].values:
+            if k not in df.iloc[:, 0].values:
                 new_jobs += 1
                 now = datetime.now()
+                log.info(k)
                 new_row = pd.DataFrame({
-                    'Job Link': [f'=HYPERLINK("{k}", "{k}")'],
-                    'Title': [replaceChars(str(v["Title"]))],
-                    'Company': [replaceChars(str(v["Company"]))],
-                    'Salary': [replaceChars(str(v["Salary"]))],
-                    'Location': [replaceChars(str(v["Location"]))],
-                    'Timestamp': [now.strftime("%d/%m/%Y, %H:%M")]
+                    0: [f'=HYPERLINK("{k}", "{k}")'],
+                    1: [replaceChars(str(v["Title"]))],
+                    2: [replaceChars(str(v["Company"]))],
+                    3: [replaceChars(str(v["Salary"]))],
+                    4: [replaceChars(str(v["Location"]))],
+                    5: [now.strftime("%d/%m/%Y, %H:%M")]
                 })
                 df = pd.concat([new_row, df]).reset_index(drop=True)
         if new_jobs > 0:
