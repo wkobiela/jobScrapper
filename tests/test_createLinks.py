@@ -21,3 +21,7 @@ def test_createLinks_BulldogJob():
 def test_createLinks_NoFluffJobs():
     assert createLinks(site='NoFluffJobs', role="testing", lvl="junior,mid", city="Gdańsk") == \
         "https://nofluffjobs.com/pl/praca-zdalna/testing?criteria=city%3DGdańsk%20%20seniority%3Djunior,mid"
+        
+def test_createLinks_JustjoinIt():
+    assert createLinks(site="JustjoinIt", role="testing", lvl="mid.senior", city="Gdańsk") == \
+        "https://justjoin.it/gdansk/testing/experience-level_mid.senior/remote_yes"
