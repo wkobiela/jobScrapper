@@ -1,7 +1,5 @@
 # jobScrapper
 
-### JustJoinIt scrapper temporarily disabled, API is unreachable - no further information, if it will be back.
-
 ## Description
 Simple python project, that should make it easier to be up to date with jobs offers. Websites like BulldogJob, Nofluffjobs or JustJoinIt have this nasty fature - job offers that are "refreshed" are bumped to the top of the page, so it is easy to get lost of track and even apply to the same job twice. 
 
@@ -66,13 +64,13 @@ bulldogjob_settings = {
 ### JustJoinIt
 
 To setup justnoinit scrapper, insert 3 MAIN parameters.
-- role (list of strings) from available: `'testing', 'net', 'architecture', 'ruby', 'php', 'mobile', 'other', 'analytics', 'erp', 'go', 'admin', 'scala', 'pm', 'support', 'data', 'java', 'security', 'game', 'python', 'ux', 'c', 'javascript', 'devops', 'html'`
-- lvl (list of strings) from avaliable: `'junior', 'mid', 'senior'`
+- role (single string) from available: `'testing', 'net', 'architecture', 'ruby', 'php', 'mobile', 'other', 'analytics', 'erp', 'go', 'admin', 'scala', 'pm', 'support', 'data', 'java', 'security', 'game', 'python', 'ux', 'c', 'javascript', 'devops', 'html'`
+- lvl (strings separated by comma) from avaliable: `'junior', 'mid', 'senior', 'c-level'`
 - city (string) - always looking for remote + eventually in the city of your choosing
 ```
 justjoinit_settings = {
     "role": ["testing"],
-    "lvl": ["mid", "junior"],
+    "lvl": "mid.senior",
     "city": "Gdańsk" 
 }
 ```

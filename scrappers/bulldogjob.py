@@ -26,24 +26,33 @@ class BulldogJob():
                 for job in job_links_list:
                     try:
                         #workarount for false job objects
-                        if not job.find('button', class_=re.compile("flex items-center w-full relative text-xs", re.I)): 
+                        if not job.find('div', class_=re.compile("flex flex-col items-center relative my-auto", re.I)): 
                             continue
+
                         job_link = job.get('href')
-                        job_title = job.find(name="h3", 
-                                            class_="md:mb-5 lg:mb-0 text-18 font-extrabold leading-8 mr-8 md:mr-0")
-                        if job_title is not None:
+                        
+                        job_title = job.find(name="h3", class_=re.compile("md:mb-5 lg:mb-0 md:text-18 text", re.I))
+                        if job_title.find(text=True, recursive=True) is not None:
                             job_title = job_title.find(text=True, recursive=False).text
                         else:
-                            job_title="Sprawdź regex."
-                        job_company = job.find('div', class_=re.compile("text-xxs uppercase", re.I)).text
+                            job_title="Regex error."
+                        
+                        job_company = job.find('div', class_=re.compile("text-xxs uppercase", re.I))
+                        if job_company.find(text=True, recursive=True) is not None:
+                            job_company = job_company.find(text=True, recursive=True) is not None
+                        else:
+                            job_company = "Regex error"
+                        
                         job_salary = job.find('div', class_=re.compile("lg:font-extrabold md:text-xl text-dm", re.I))
-                        if job_salary.find(text=True, recursive=True) is not None:
+                        if job_salary is not None:
                             job_salary = job_salary.find(text=True, recursive=True).text
                         else:
-                            job_salary="Brak informacji"
+                            job_salary="No information or regex error"
+                            
                         job_overall_info = job.find_all('div', class_=re.compile("flex items-start", re.I))
                         for info in job_overall_info:
-                            text = text + info.find('span').text + " / "                  
+                            text = text + info.find('span').text + " / "
+
                         self.jobs_dict[job_link] = {"Title": [job_title], 
                                                     "Company": [job_company], 
                                                     "Salary": [job_salary], 

@@ -25,8 +25,9 @@ bulldogjob_settings = {
 }
 
 justjoinit_settings = {
-    "role": ["testing"],
-    "lvl": ["mid", "junior"],
+    "site": "JustjoinIt",
+    "role": "testing",
+    "lvl": "mid.senior",
     "city": "Gdańsk" 
 }
 
@@ -39,12 +40,13 @@ BULLDOGJOB_URL = common.createLinks(site=bulldogjob_settings['site'],
                                     role=bulldogjob_settings['role'], 
                                     lvl=bulldogjob_settings['lvl'], 
                                     city=bulldogjob_settings['city'])
+JUSTJOINIT_URL = common.createLinks(site=justjoinit_settings['site'],
+                                    role=justjoinit_settings['role'],
+                                    lvl=justjoinit_settings['lvl'],
+                                    city=justjoinit_settings['city'])
 
 # Run setup and scrappers
 setup.run(EXCEL_NAME, NOFLUFFJOBS_SHEET, BULLDOGJOB_SHEET, JUSTJOINIT_SHEET)
 nofluffjobs.run(NOFLUFFJOBS_SHEET, NOFLUFFJOBS_URL)
 bulldogjob.run(BULLDOGJOB_SHEET, BULLDOGJOB_URL)
-# justjoinit.run(JUSTJOINIT_SHEET, 
-#                 role=justjoinit_settings['role'], 
-#                 lvl=justjoinit_settings['lvl'], 
-#                 city=justjoinit_settings['city'])
+justjoinit.run(JUSTJOINIT_SHEET, JUSTJOINIT_URL)

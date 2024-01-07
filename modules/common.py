@@ -7,6 +7,7 @@ import requests
 from bs4 import BeautifulSoup
 from openpyxl import load_workbook
 from modules.base_logger import log
+from unidecode import unidecode
 
 now = datetime.now()
 
@@ -101,5 +102,7 @@ def createLinks(**kwargs):
         generated_link = f"https://bulldogjob.pl/companies/jobs/s/role,{role}/experienceLevel,{lvl}/city,{city}"
     elif site == "NoFluffJobs":
         generated_link = f"https://nofluffjobs.com/pl/praca-zdalna/{role}?criteria=city%3D{city}%20%20seniority%3D{lvl}"
+    elif site == "JustjoinIt":
+        generated_link = f"https://justjoin.it/{unidecode(city).lower()}/{role}/experience-level_{lvl}/remote_yes"
     log.info("Generated link: %s", generated_link)    
     return(generated_link)
