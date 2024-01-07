@@ -47,6 +47,6 @@ JUSTJOINIT_URL = common.createLinks(site=justjoinit_settings['site'],
 
 # Run setup and scrappers
 setup.run(EXCEL_NAME, NOFLUFFJOBS_SHEET, BULLDOGJOB_SHEET, JUSTJOINIT_SHEET)
-# nofluffjobs.run(NOFLUFFJOBS_SHEET, NOFLUFFJOBS_URL)
+nofluffjobs.run(NOFLUFFJOBS_SHEET, NOFLUFFJOBS_URL)
 bulldogjob.run(BULLDOGJOB_SHEET, BULLDOGJOB_URL)
-# justjoinit.run(JUSTJOINIT_SHEET, JUSTJOINIT_URL)
+justjoinit.run(JUSTJOINIT_SHEET, JUSTJOINIT_URL)
