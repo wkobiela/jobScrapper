@@ -26,27 +26,27 @@ bulldogjob_settings = {
 
 justjoinit_settings = {
     "site": "JustjoinIt",
-    "role": ["testing"],
-    "lvl": ["mid", "junior"],
+    "role": "testing",
+    "lvl": "mid.senior",
     "city": "Gdańsk" 
 }
 
 # Create links
-# NOFLUFFJOBS_URL = common.createLinks(site=nofluffjobs_settings['site'], 
-#                                     role=nofluffjobs_settings['role'], 
-#                                     lvl=nofluffjobs_settings['lvl'], 
-#                                     city=nofluffjobs_settings['city'])
-# BULLDOGJOB_URL = common.createLinks(site=bulldogjob_settings['site'], 
-#                                     role=bulldogjob_settings['role'], 
-#                                     lvl=bulldogjob_settings['lvl'], 
-#                                     city=bulldogjob_settings['city'])
-# JUSTJOINIT_URL = common.createLinks(site=justjoinit_settings['site'],
-#                                     role=justjoinit_settings['role'],
-#                                     lvl=justjoinit_settings['lvl'],
-#                                     city=justjoinit_settings['city'])
+NOFLUFFJOBS_URL = common.createLinks(site=nofluffjobs_settings['site'], 
+                                    role=nofluffjobs_settings['role'], 
+                                    lvl=nofluffjobs_settings['lvl'], 
+                                    city=nofluffjobs_settings['city'])
+BULLDOGJOB_URL = common.createLinks(site=bulldogjob_settings['site'], 
+                                    role=bulldogjob_settings['role'], 
+                                    lvl=bulldogjob_settings['lvl'], 
+                                    city=bulldogjob_settings['city'])
+JUSTJOINIT_URL = common.createLinks(site=justjoinit_settings['site'],
+                                    role=justjoinit_settings['role'],
+                                    lvl=justjoinit_settings['lvl'],
+                                    city=justjoinit_settings['city'])
 
 # Run setup and scrappers
 setup.run(EXCEL_NAME, NOFLUFFJOBS_SHEET, BULLDOGJOB_SHEET, JUSTJOINIT_SHEET)
 # nofluffjobs.run(NOFLUFFJOBS_SHEET, NOFLUFFJOBS_URL)
-# bulldogjob.run(BULLDOGJOB_SHEET, BULLDOGJOB_URL)
-justjoinit.run(JUSTJOINIT_SHEET, "https://justjoin.it/gdansk/testing/remote_yes")
+bulldogjob.run(BULLDOGJOB_SHEET, BULLDOGJOB_URL)
+# justjoinit.run(JUSTJOINIT_SHEET, JUSTJOINIT_URL)

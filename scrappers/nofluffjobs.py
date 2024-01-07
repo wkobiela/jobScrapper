@@ -23,7 +23,7 @@ class NoFluffJobs():
                 for job in job_links_list:
                     job_link = "https://"+domainName+job['href']
                     job_title = job.find('h3').text
-                    job_company = job.find('span', class_=re.compile("company", re.I)).text 
+                    job_company = job.find('h4').text 
                     job_salary = job.find('span', class_=re.compile("badgy salary", re.I)).text
                     job_location = job.find('div', class_=re.compile("tw-flex tw-items-center ng-star-inserted", re.I)).text
                     
