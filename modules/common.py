@@ -68,6 +68,7 @@ def updateExcel(sheet, jobs_dict):
                     'Location': [replaceChars(str(v["Location"]))],
                     'Timestamp': [now.strftime("%d/%m/%Y, %H:%M")]
                 })
+                df = pd.concat([new_row, df]).reset_index(drop=True)
         if new_jobs > 0:
             log.info(f"{new_jobs} new offers in {sheet.title}!")
         else:
