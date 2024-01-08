@@ -11,11 +11,9 @@ class Setup():
             data_frame1 = pd.DataFrame({'LINK': [], 'OPIS':[], 'FIRMA':[], 'ZAROBKI':[], 'LOKALIZACJA':[], 'DODANE':[]})
             data_frame2 = pd.DataFrame({'LINK': [], 'OPIS':[], 'FIRMA':[], 'ZAROBKI':[], 'INFO OGÓLNE':[], 'DODANE':[]})
             data_frame3 = pd.DataFrame({'LINK': [], 'OPIS':[], 'FIRMA':[], 'ZAROBKI':[], 'LOKALIZACJA':[], 'DODANE':[]})
-            log.info("setup:createExcelFile: data frames created.")
 
             # create a excel writer object
             with pd.ExcelWriter(filename) as writer:
-                log.info("setup:createExcelFile: inside pd.ExcelWriter")
                 data_frame1.to_excel(writer, sheet_name=sheetname1, index=False)
                 data_frame2.to_excel(writer, sheet_name=sheetname2, index=False)
                 data_frame3.to_excel(writer, sheet_name=sheetname3, index=False)
