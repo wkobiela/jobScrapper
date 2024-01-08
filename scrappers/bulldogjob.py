@@ -59,13 +59,13 @@ class BulldogJob():
                                                     "Location": [text]}
                         text = ""
                     except Exception as ie:
-                        log.error(f"Exception {ie} on {job}.") 
+                        log.error(f"bulldogjob:updateJobsDict: Exception {ie} on {job}.") 
         except Exception as e:
-            log.error(f"Exception {e} on updateJobsDict.")                
+            log.error(f"bulldogjob:updateJobsDict: Exception {e}.")                
             
 def run(sheet, url):  
-    log.info("Starting BulldogJob scrapper.")
+    log.info("bulldogjob:run: Starting BulldogJob scrapper.")
     bull = BulldogJob()
     bull.updateJobsDict(url)
     updateExcel(sheet, bull.jobs_dict)
-    log.info("Finished BulldogJob scrapper.")
+    log.info("bulldogjob:run: Finished BulldogJob scrapper.")
