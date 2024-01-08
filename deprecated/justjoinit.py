@@ -21,7 +21,7 @@ class JustJoinIt():
             response = requests.get(url, headers=headers, timeout=120)
             return response
         except Exception as e:
-            print(f"Exception {e} on updateJobsDict.")
+            log.error(f"Exception {e} on updateJobsDict.")
             return None
             
     def prepareJobsDict(self, response, role, lvl, city):

@@ -1,5 +1,6 @@
 .vscode
 .idea
+.venv
 .groovylintrc.json
 *jobs*.xlsx
 __pycache__

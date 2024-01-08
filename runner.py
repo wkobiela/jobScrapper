@@ -1,7 +1,7 @@
 from scrappers import justjoinit
 from scrappers import nofluffjobs
 from scrappers import bulldogjob
-from modules import setup, common
+from modules import setup, common, base_logger
 
 # Excel settings
 EXCEL_NAME = 'jobs.xlsx'
@@ -31,6 +31,7 @@ justjoinit_settings = {
     "city": "Gdańsk" 
 }
 
+base_logger.log.info("runner: Starting runner.")
 # Create links
 NOFLUFFJOBS_URL = common.createLinks(site=nofluffjobs_settings['site'], 
                                     role=nofluffjobs_settings['role'], 
@@ -50,3 +51,4 @@ setup.run(EXCEL_NAME, NOFLUFFJOBS_SHEET, BULLDOGJOB_SHEET, JUSTJOINIT_SHEET)
 nofluffjobs.run(NOFLUFFJOBS_SHEET, NOFLUFFJOBS_URL)
 bulldogjob.run(BULLDOGJOB_SHEET, BULLDOGJOB_URL)
 justjoinit.run(JUSTJOINIT_SHEET, JUSTJOINIT_URL)
+base_logger.log.info("runner: Runner finished work.")

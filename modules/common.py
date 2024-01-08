@@ -4,8 +4,8 @@ import sys
 import urllib
 from datetime import datetime
 import requests
-from bs4 import BeautifulSoup
 from openpyxl import load_workbook
+from bs4 import BeautifulSoup
 from modules.base_logger import log
 from unidecode import unidecode
 
@@ -31,7 +31,7 @@ def getDomainName(url):
         
         return domainName
     except Exception as e:
-        print(f"Exception {e} on getDomainName.")
+        log.error(f"common:getDomainName: Exception: {e}.")
         return url
 
 def getPagesCount(url, parent, child, regex):
@@ -46,10 +46,10 @@ def getPagesCount(url, parent, child, regex):
             except(ValueError):
                 continue
             max_page_count = val if val > max_page_count else max_page_count
-        log.info('Found %s pages with offers. Scrapping further.', max_page_count)
+        log.info('common:getPagesCount: Found %s pages with offers. Scrapping further.', max_page_count)
         return max_page_count
     except Exception as e:
-        print(f"Exception {e} on getPagesCount.")
+        log.error(f"common:getPagesCount: Exception: {e}.")
         return 1
         
 def updateExcel(sheet, jobs_dict):
@@ -73,16 +73,16 @@ def updateExcel(sheet, jobs_dict):
                 sheet.cell(row = 2, column = 5, value = replaceChars(str(v["Location"])))
                 sheet.cell(row = 2, column = 6, value = now.strftime("%d/%m/%Y, %H:%M"))
         if new_jobs > 0:
-            log.info(f"{new_jobs} new offers in {sheet.title}!")
+            log.info(f"common:updateExcel: {new_jobs} new offers in {sheet.title}!")
         else:
-            log.info(f"No new offers in {sheet.title}.")
+            log.info(f"common:updateExcel: No new offers in {sheet.title}.")
         workbook.save(filename="jobs.xlsx")
     except Exception as e:
-        print(f"Exception: {e} on updateExcel.")
+        log.error(f"common:updateExcel: Exception: {e}.")
         
 def createLinks(**kwargs):
     if not all(key in kwargs for key in ('site','role','lvl','city')):
-        log.error("Not enough arguments. Please fill the following: site, role, lvl, city.")
+        log.error("common:createLinks: Not enough arguments. Please fill the following: site, role, lvl, city.")
         sys.exit()
         
     for key, item in kwargs.items():
@@ -95,7 +95,7 @@ def createLinks(**kwargs):
         elif key == "city":
             city = item
         else:
-            log.error("Unknown key. Please fill the following: site, role, lvl, city.")
+            log.error("common:createLinks: Unknown key. Please fill the following: site, role, lvl, city.")
             sys.exit()
     
     if site == "BulldogJob":
@@ -104,5 +104,5 @@ def createLinks(**kwargs):
         generated_link = f"https://nofluffjobs.com/pl/praca-zdalna/{role}?criteria=city%3D{city}%20%20seniority%3D{lvl}"
     elif site == "JustjoinIt":
         generated_link = f"https://justjoin.it/{unidecode(city).lower()}/{role}/experience-level_{lvl}/remote_yes"
-    log.info("Generated link: %s", generated_link)    
+    log.info("common:createLinks: Generated link: %s", generated_link)    
     return(generated_link)
