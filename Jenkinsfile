@@ -1,6 +1,6 @@
 /* groovylint-disable DuplicateStringLiteral, MethodReturnTypeRequired, NestedBlockDepth, NoDef */
 Map parallelStages = [:]
-pythonsArray = ['3.8', '3.9', '3.10', '3.11', '3.12']
+pythonsArray = ['3.9', '3.10', '3.11', '3.12']
 runAndTestStage = 'jobScrapperCI/run_and_test'
 banditStage = 'jobScrapperCI/run_bandit'
 
