@@ -1,35 +1,22 @@
+import json
 from scrappers import justjoinit
 from scrappers import nofluffjobs
 from scrappers import bulldogjob
 from modules import setup, common, base_logger
 
+with open('config.json', 'r') as config_file:
+    config = json.load(config_file)
+
 # Excel settings
-EXCEL_NAME = 'jobs.xlsx'
-NOFLUFFJOBS_SHEET = 'NoFluffJobs'
-BULLDOGJOB_SHEET = 'BulldogJob'
-JUSTJOINIT_SHEET = 'JustJoinIt'
+EXCEL_NAME = config['excel_settings']['EXCEL_NAME']
+NOFLUFFJOBS_SHEET = config['excel_settings']['NOFLUFFJOBS_SHEET']
+BULLDOGJOB_SHEET = config['excel_settings']['BULLDOGJOB_SHEET']
+JUSTJOINIT_SHEET = config['excel_settings']['JUSTJOINIT_SHEET']
 
 # Search params
-nofluffjobs_settings = {
-    "site": "NoFluffJobs",
-    "role": "testing",
-    "lvl": "junior,mid",
-    "city": "Gdańsk" 
-}
-
-bulldogjob_settings = {
-    "site": "BulldogJob",
-    "role": "qa,tester",
-    "lvl": "junior,medium",
-    "city": "Remote,Gdańsk" 
-}
-
-justjoinit_settings = {
-    "site": "JustjoinIt",
-    "role": "testing",
-    "lvl": "mid.senior",
-    "city": "Gdańsk" 
-}
+nofluffjobs_settings = config['search_params']['nofluffjobs_settings']
+bulldogjob_settings = config['search_params']['bulldogjob_settings']
+justjoinit_settings = config['search_params']['justjoinit_settings']
 
 base_logger.log.info("runner: Starting runner.")
 # Create links
