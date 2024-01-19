@@ -1,7 +1,7 @@
 /* groovylint-disable DuplicateStringLiteral, MethodReturnTypeRequired, NestedBlockDepth, NoDef */
 Map parallelStages = [:]
 pythonsArray = ['3.9', '3.10', '3.11', '3.12']
-runAndTestStage = 'jobScrapperCI/run_and_test_config'
+runAndTestStage = 'jobScrapperCI/run_and_test'
 banditStage = 'jobScrapperCI/run_bandit'
 
 def generateStage(String job, String url, String commit, String python) {
