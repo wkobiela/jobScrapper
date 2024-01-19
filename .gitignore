@@ -5,3 +5,4 @@
 *jobs*.xlsx
 __pycache__
 debug.log
+.pytest_cache

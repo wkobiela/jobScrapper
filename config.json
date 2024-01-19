@@ -1,0 +1,28 @@
+{
+    "excel_settings": {
+        "EXCEL_NAME": "jobs.xlsx",
+        "NOFLUFFJOBS_SHEET": "NoFluffJobs",
+        "BULLDOGJOB_SHEET": "BulldogJob",
+        "JUSTJOINIT_SHEET": "JustJoinIt"
+    },
+        "search_params": {
+            "nofluffjobs_settings": {
+                "site": "NoFluffJobs",
+                "role": "testing",
+                "lvl": "junior,mid",
+                "city": "Gdańsk"
+            },
+            "bulldogjob_settings": {
+                "site": "BulldogJob",
+                "role": "qa,tester",
+                "lvl": "junior,medium",
+                "city": "Remote,Gdańsk"
+            },
+            "justjoinit_settings": {
+                "site": "JustjoinIt",
+                "role": "testing",
+                "lvl": "mid.senior",
+                "city": "Gdańsk"
+            }
+    }
+}
