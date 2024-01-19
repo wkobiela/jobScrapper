@@ -6,10 +6,10 @@ from scrappers import bulldogjob
 from modules import setup, common, base_logger
 
 
-def main(cfg_file):
+def main(config_file):
     try:
-        with open(cfg_file, 'r') as config:
-            config = json.load(cfg_file)
+        with open(config_file, 'r') as configuration:
+            config = json.load(configuration)
     except FileNotFoundError as e:
         base_logger.log.error(e)
         exit(1)
