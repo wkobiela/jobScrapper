@@ -6,9 +6,13 @@ from scrappers import bulldogjob
 from modules import setup, common, base_logger
 
 
-def main(config):
-    with open('config.json', 'r') as config_file:
-        config = json.load(config_file)
+def main(cfg_file):
+    try:
+        with open(cfg_file, 'r') as config:
+            config = json.load(cfg_file)
+    except FileNotFoundError as e:
+        base_logger.log.error(e)
+        exit(1)
 
     # Excel settings
     EXCEL_NAME = config['excel_settings']['EXCEL_NAME']
@@ -44,7 +48,11 @@ def main(config):
     base_logger.log.info("runner: Runner finished work.")
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="jobScrapper -  Simplify your IT job search.")
+    program_description = '''
+    jobScrapper -  Simplify your IT job search.
+    How to use: https://github.com/wkobiela/jobScrapper/blob/master/README.md'''
+    
+    parser = argparse.ArgumentParser(description=program_description, formatter_class=argparse.RawTextHelpFormatter)
     parser.add_argument("--config", help="Path to the configuration file", required=True)
     args = parser.parse_args()
     
