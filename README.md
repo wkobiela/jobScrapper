@@ -23,61 +23,77 @@ Install requirements using pip:
 ```
 python3 -m pip install -r requirements.txt
 ```
-To setup script, edit `runner.py` and insert role, level and city you are looking for. This parameters are a little bit different for every website, but not that much.
+
+Provide new, or use example `config.json` file with configuration for every scrapper. Example config is inside this repository.
+
+```json
+{
+    "excel_settings": {
+        "EXCEL_NAME": "jobs.xlsx",
+        "NOFLUFFJOBS_SHEET": "NoFluffJobs",
+        "BULLDOGJOB_SHEET": "BulldogJob",
+        "JUSTJOINIT_SHEET": "JustJoinIt"
+    },
+        "search_params": {
+            "nofluffjobs_settings": {
+                "site": "NoFluffJobs",
+                "role": "testing",
+                "lvl": "junior,mid",
+                "city": "Gdańsk"
+            },
+            "bulldogjob_settings": {
+                "site": "BulldogJob",
+                "role": "qa,tester",
+                "lvl": "junior,medium",
+                "city": "Remote,Gdańsk"
+            },
+            "justjoinit_settings": {
+                "site": "JustjoinIt",
+                "role": "testing",
+                "lvl": "mid.senior",
+                "city": "Gdańsk"
+            }
+    }
+}
 ```
-EXCEL_NAME = 'jobs.xlsx'
-NOFLUFFJOBS_SHEET = 'NoFluffJobs'
-BULLDOGJOB_SHEET = 'BulldogJob'
-JUSTJOINIT_SHEET = 'JustJoinIt'
-```
-`setup` will create excel named `jobs.xlsx` with 3 sheets. Do not bother with this as this point, consider it static.
+
+### Excel settings
+- EXCEL_NAME - this is name of excel file, that will be generated
+- SHEET - results from every scrapper will be stored in another tab/sheet in excel spreadsheet. You can leave it as it is.
 
 ### NoFluffJobs
 To setup nofluffjobs scrapper, insert 3 MAIN parameters. 
-- role (string, roles separated by a comma) from available: `frontend,fullstack,mobile,testing,devops,embedded,architecture,security,gaming,artificial-intelligence,big-data,support,it-administrator,agile,product-management,project-manager,business-intelligence,business-analyst,ux,erp,electronics,telecommunication,electrical-eng,automation,robotics,mechanics,sales,marketing,backoffice,hr,finance,customer-service,other`
+- role (string, roles separated by a comma) from available: 
+```
+frontend,fullstack,mobile,testing,devops,embedded,architecture,security,gaming,artificial-intelligence,big-data,support,it-administrator,agile,product-management,project-manager,business-intelligence,business-analyst,ux,erp,electronics,telecommunication,electrical-eng,automation,robotics,mechanics,sales,marketing,backoffice,hr,finance,customer-service,other
+```
 - lvl (string, levels separated by a comma) from available: `junior,mid,senior,expert`
 - city (string) - this scrapper always looks for `remote` + city, that you define here.
-```
-nofluffjobs_settings = {
-    "site": "NoFluffJobs",
-    "role": "testing",
-    "lvl": "junior,mid",
-    "city": "Gdańsk" 
-}
-```
 
 ### BulldogJob
 To setup bulldogjob scrapper, insert 3 MAIN parameters.
 
-- role (string, roles separated by a comma) from available: `devops,frontend,fullstack,backend,analyst,administrator,project_manager,qa,tester,mobile,architect,support,tech_lead,embedded,scrum_master,security,designer,gamedev,data,consultant`
+- role (string, roles separated by a comma) from available: 
+```
+devops,frontend,fullstack,backend,analyst,administrator,project_manager,qa,tester,mobile,architect,support,tech_lead,embedded,scrum_master,security,designer,gamedev,data,consultant
+```
 - lvl (string, levels separated by a comma) from available: `junior,medium,senior`
 - city (string, separated by a comma) - include `Remote` if you want to.
-```
-bulldogjob_settings = {
-    "site": "BulldogJob",
-    "role": "qa,tester",
-    "lvl": "junior,medium",
-    "city": "Remote,Gdańsk" 
-}
-```
 
 ### JustJoinIt
 
 To setup justnoinit scrapper, insert 3 MAIN parameters.
-- role (single string) from available: `'testing', 'net', 'architecture', 'ruby', 'php', 'mobile', 'other', 'analytics', 'erp', 'go', 'admin', 'scala', 'pm', 'support', 'data', 'java', 'security', 'game', 'python', 'ux', 'c', 'javascript', 'devops', 'html'`
+- role (single string) from available: 
+```
+'testing', 'net', 'architecture', 'ruby', 'php', 'mobile', 'other', 'analytics', 'erp', 'go', 'admin', 'scala', 'pm', 'support', 'data', 'java', 'security', 'game', 'python', 'ux', 'c', 'javascript', 'devops', 'html'
+```
 - lvl (strings separated by comma) from avaliable: `'junior', 'mid', 'senior', 'c-level'`
 - city (string) - always looking for remote + eventually in the city of your choosing
-```
-justjoinit_settings = {
-    "role": ["testing"],
-    "lvl": "mid.senior",
-    "city": "Gdańsk" 
-}
-```
+
 
 ### After initial (one time) setup, just use:
 ```
-python3 runner.py
+python3 runner.py --config config.json
 ```
 
 ## Tests
