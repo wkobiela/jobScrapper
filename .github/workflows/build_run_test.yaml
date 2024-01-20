@@ -58,21 +58,21 @@ jobs:
       - name: 'Upload results.xlsx'
         uses: actions/upload-artifact@v3
         with:
-          name: results.xlsx
+          name: Results excel
           path: |
             **/*.xlsx
 
       - name: 'Upload whl package'
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ steps.wheel.outputs.WHL }}
+          name: Wheel package
           path: |
             **/${{ steps.wheel.outputs.PACKAGE }}
 
       - name: 'Upload source.tar.gz package'
         uses: actions/upload-artifact@v3
         with:
-          name: source.tar.gz
+          name: Source package
           path: |
             **/*.tar.gz
             
