@@ -7,7 +7,7 @@ on:
     branches: [ "master" ]
 
 jobs:
-  Build_run_and_test:
+  jobscrapper:
     runs-on: ubuntu-latest
     steps:
       - name: Clone repository
@@ -30,10 +30,15 @@ jobs:
         run: |
           python3 -m build
 
+      - name: Find built package
+        uses: jeertmans/filesfinder@latest
+        id: wheel
+        with:
+          args: "*.whl"
+
       - name: Install package
         run: |
-          PACKAGE=$(echo find "dist/" -type f -name "*.whl)
-          python3 -m pip install $PACKAGE
+          python3 -m pip install ${{ steps.wheel.outputs.files }}
 
       - name: Run scrapper
         run: |
