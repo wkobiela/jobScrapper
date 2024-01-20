@@ -6,15 +6,11 @@ try:
 except ImportError:
     from distutils.core import setup, find_packages
     
-try:
-    import pypandoc
-    long_description = pypandoc.convert('README.md', 'rst')
-except (IOError, ImportError):
-    long_description = ""
+long_description = ("README.md").read_text()
 
 setup(
     name="jobscrapper",
-    version='0.0.1',
+    version='0.0.2',
     author="wkobiela",
     author_email="wiktor.kobiela@gmail.com",
     packages=find_packages(),

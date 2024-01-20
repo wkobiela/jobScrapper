@@ -19,12 +19,12 @@ Currently there are 3 websites supported:
 That would be nice, to include more.
 
 ## How to run
-Download and install latest [release package](https://github.com/wkobiela/jobScrapper/releases) using pip:
+Download and install latest release using pip and pypi repository:
 ```
-python3 -m venv new-venv
-linux: source new-venv/bin/activate
-windows: .\new-venv\Scripts\Activate.ps1
-
+python3 -m pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ jobscrapper
+```
+or using downloaded .whl from [Github latest release artifacts](https://github.com/wkobiela/jobScrapper/releases): 
+```
 python3 -m pip install jobscrapper-current_version-py3-none-any.whl
 ```
 ```
