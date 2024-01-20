@@ -47,9 +47,9 @@ jobs:
 
       - name: Check if files exists
         run: |
-          test -f jobs.xlsx && echo "$FILE exists."
+          test -f jobs.xlsx && echo "jobs.xlsx exists."
           cp jobs.xlsx results.xlsx
-          test -f debug.log && echo "$FILE exists."
+          test -f debug.log && echo "debug.log exists."
           ls -ll
           ls -ll dist/
 
