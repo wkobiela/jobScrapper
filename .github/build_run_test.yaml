@@ -1,6 +1,5 @@
 name: Build run test
-on:
-  pull_request:
+on: [push]
 
 jobs:
   Build_Doc:
