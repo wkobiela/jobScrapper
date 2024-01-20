@@ -47,9 +47,10 @@ jobs:
 
       - name: Check if files exists
         run: |
-          test -f jobs.xlsx && echo "$FILE exists.
+          test -f jobs.xlsx && echo "$FILE exists."
           cp jobs.xlsx results.xlsx
-          test -f debug.log && echo "$FILE exists.
+          test -f debug.log && echo "$FILE exists."
+          ls -ll
 
       - name: Run tests
         run: |
