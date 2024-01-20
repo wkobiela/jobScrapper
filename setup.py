@@ -16,7 +16,7 @@ setup(
     name="jobscrapper",
     version='0.0.1',
     author="wkobiela",
-    author_email="test@test.com",
+    author_email="wiktor.kobiela@gmail.com",
     packages=find_packages(),
     package_data={"": ["LICENSE"],},
     url="https://github.com/wkobiela/jobScrapper",
