@@ -23,12 +23,12 @@ jobs:
           cache-dependency-path: |
             requirements.txt
 
+      - id: commit
+        uses: prompt/actions-commit-hash@v3
+
       - name: Change package version
-        id: version
         run: |
-          echo "GIT_HASH=$(git rev-parse --short "$GITHUB_SHA")" >> $GITHUB_OUTPUT 
-          echo $GIT_HASH
-          sed -i 's\0.0.1\0.0.1-$GIT_HASH\g' setup.py
+          sed -i 's\0.0.1\0.0.1-${{ steps.commit.outputs.short }}\g' setup.py
           cat setup.py
 
       - name: Install python dependencies
@@ -80,7 +80,7 @@ jobs:
       - name: 'Upload whl package'
         uses: actions/upload-artifact@v3
         with:
-          name: Wheel package (${{ steps.version.outputs.GIT_HASH }})
+          name: Wheel package (${{ steps.commit.outputs.short }})
           path: |
             **/*.whl
 
