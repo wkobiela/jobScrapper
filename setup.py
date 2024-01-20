@@ -27,10 +27,10 @@ setup(
         ]
     },
     classifiers=[
-        "Development Status :: 1 - Planning",
+        "Development Status :: 2 - Pre-Alpha",
         "Environment :: Console",
         "Intended Audience :: End Users/Desktop",
-        "License :: GNU General Public License",
+        "License :: OSI Approved :: European Union Public Licence 1.2 (EUPL 1.2)",
         "Natural Language :: English",
         "Operating System :: OS Independent",
         "Programming Language :: Python :: 3.9",
