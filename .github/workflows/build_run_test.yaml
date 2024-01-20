@@ -31,9 +31,9 @@ jobs:
           python3 -m build
 
       - name: Retrieve version
-          run: |
-            echo "PACKAGE=$(echo find "dist/" -type f -name "*.whl)" >> $GITHUB_OUTPUT
-          id: wheel
+        id: wheel
+        run: |
+          echo "PACKAGE=$(echo find "dist/" -type f -name "*.whl)"
 
       - name: Install package
         run: |
