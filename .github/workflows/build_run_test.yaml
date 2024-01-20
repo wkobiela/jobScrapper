@@ -33,7 +33,7 @@ jobs:
       - name: Retrieve version
         id: wheel
         run: |
-          echo "PACKAGE=$(echo find "dist/" -type f -name "*.whl)"
+          echo "PACKAGE=$(echo find "dist/" -type f -name "*.whl")"
 
       - name: Install package
         run: |
