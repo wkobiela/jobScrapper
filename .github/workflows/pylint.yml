@@ -3,7 +3,7 @@ name: Pylint
 on: [push, workflow_dispatch]
 
 jobs:
-  build:
+  jobscrapper:
 
     runs-on: ubuntu-latest
 
