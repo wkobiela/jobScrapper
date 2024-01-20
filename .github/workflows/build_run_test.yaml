@@ -35,6 +35,7 @@ jobs:
         id: wheel
         run: |
           echo "PACKAGE=$(find "dist/" -type f -name "*.whl")" >> $GITHUB_OUTPUT
+          echo "WHL=$(basename "$PACKAGE")" >> $GITHUB_OUTPUT
 
       - name: Install package
         run: |
@@ -54,11 +55,24 @@ jobs:
         run: |
           python3 -m pytest --html=report.html
 
-      - name: 'Upload artifacts'
+      - name: 'Upload results.xlsx'
         uses: actions/upload-artifact@v3
         with:
-          name: Artifacts
+          name: results.xlsx
           path: |
-            **/results.xlsx
-            **/*.whl
+            **/*.xlsx
+
+      - name: 'Upload whl package'
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ steps.wheel.outputs.WHL }}
+          path: |
+            **/${{ steps.wheel.outputs.PACKAGE }}
+
+      - name: 'Upload source.tar.gz package'
+        uses: actions/upload-artifact@v3
+        with:
+          name: source.tar.gz
+          path: |
             **/*.tar.gz
+            
