@@ -5,8 +5,10 @@ try:
     from setuptools import setup, find_packages
 except ImportError:
     from distutils.core import setup, find_packages
-    
-long_description = ("README.md").read_text()
+from pathlib import Path
+
+this_directory = Path(__file__).parent
+long_description = (this_directory / "README.md").read_text()
 
 setup(
     name="jobscrapper",
