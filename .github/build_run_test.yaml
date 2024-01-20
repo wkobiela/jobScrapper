@@ -1,0 +1,59 @@
+name: Build run test
+on:
+  pull_request:
+
+jobs:
+  Build_Doc:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+        with:
+          submodules: 'true'
+          lfs: 'true'
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+          cache-dependency-path: |
+            requirements.txt
+
+      - name: Install python dependencies
+        run: |
+          python3 -m pip install -r requirements.txt
+
+      - name: Build package
+        run: |
+          python3 -m build
+
+      - name: Install package
+        run: |
+          PACKAGE=$(echo find "dist/" -type f -name "*.whl)
+          python3 -m pip install $PACKAGE
+
+      - name: Run scrapper
+        run: |
+          jobscrapper --config jobscrapper/config.json | tee run.log
+
+      - name: Check if files exists
+        run: |
+          test -f jobs.xlsx && echo "$FILE exists.
+          cp jobs.xlsx results.xlsx
+          test -f debug.log && echo "$FILE exists.
+
+      - name: Run tests
+        run: |
+          python3 -m pytest --html=report.html
+
+      - name: 'Upload results.xlsx'
+        uses: actions/upload-artifact@v3
+        with:
+          name: results.xlsx
+          path: results.xlsx
+
+      - name: 'Upload wheel'
+        uses: actions/upload-artifact@v3
+        with:
+          name: $PACKAGE
+          path: $PACKAGE
