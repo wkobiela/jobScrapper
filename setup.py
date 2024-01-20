@@ -5,16 +5,14 @@ try:
     from setuptools import setup, find_packages
 except ImportError:
     from distutils.core import setup, find_packages
-    
-try:
-    import pypandoc
-    long_description = pypandoc.convert('README.md', 'rst')
-except (IOError, ImportError):
-    long_description = ""
+from pathlib import Path
+
+this_directory = Path(__file__).parent
+long_description = (this_directory / "README.md").read_text()
 
 setup(
     name="jobscrapper",
-    version='0.0.1',
+    version='0.0.2',
     author="wkobiela",
     author_email="wiktor.kobiela@gmail.com",
     packages=find_packages(),
@@ -27,10 +25,10 @@ setup(
         ]
     },
     classifiers=[
-        "Development Status :: 1 - Planning",
+        "Development Status :: 2 - Pre-Alpha",
         "Environment :: Console",
         "Intended Audience :: End Users/Desktop",
-        "License :: GNU General Public License",
+        "License :: OSI Approved :: European Union Public Licence 1.2 (EUPL 1.2)",
         "Natural Language :: English",
         "Operating System :: OS Independent",
         "Programming Language :: Python :: 3.9",
