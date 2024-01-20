@@ -59,8 +59,8 @@ jobs:
 
       - name: Move artifacts to single location
         run: |
-          cp dist/*.whl .
-          cp dist/*.tar.gz .
+          mv dist/*.whl .
+          mv dist/*.tar.gz .
 
       - name: 'Upload results.xlsx'
         uses: actions/upload-artifact@v3
