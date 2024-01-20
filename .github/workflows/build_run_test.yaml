@@ -42,7 +42,7 @@ jobs:
       - name: Retrieve version
         id: wheel
         run: |
-          echo "PACKAGE=$(find "dist/" -type f -name "*.whl")"
+          echo "PACKAGE=$(find "dist/" -type f -name "*.whl")" >> $GITHUB_OUTPUT
 
       - name: Install package
         run: |
