@@ -6,7 +6,7 @@ from datetime import datetime
 import requests
 from openpyxl import load_workbook
 from bs4 import BeautifulSoup
-from modules.base_logger import log
+from jobscrapper.modules.base_logger import log
 from unidecode import unidecode
 
 now = datetime.now()
@@ -99,9 +99,9 @@ def createLinks(**kwargs):
             sys.exit()
     
     if site == "BulldogJob":
-        generated_link = f"https://bulldogjob.pl/companies/jobs/s/role,{role}/experienceLevel,{lvl}/city,{city}"
+        generated_link = f"https://bulldogjob.pl/companies/jobs/s/role,{role}/experienceLevel,{lvl}/city,{unidecode(city)}"
     elif site == "NoFluffJobs":
-        generated_link = f"https://nofluffjobs.com/pl/praca-zdalna/{role}?criteria=city%3D{city}%20%20seniority%3D{lvl}"
+        generated_link = f"https://nofluffjobs.com/pl/praca-zdalna/{role}?criteria=city%3D{unidecode(city)}%20%20seniority%3D{lvl}"
     elif site == "JustjoinIt":
         generated_link = f"https://justjoin.it/{unidecode(city).lower()}/{role}/experience-level_{lvl}/remote_yes"
     log.info("common:createLinks: Generated link: %s", generated_link)    

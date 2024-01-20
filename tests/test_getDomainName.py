@@ -1,5 +1,5 @@
 import pytest
-from modules.common import getDomainName
+from jobscrapper.modules import common 
 
 job_urls_list = [
     ('https://nofluffjobs.com/pl/testing?criteria=employment%3Db2b%20%20seniority%3Djunior', 'nofluffjobs.com'),
@@ -14,7 +14,7 @@ job_urls_list = [
     
 @pytest.mark.parametrize('in_put, out_put', job_urls_list)    
 def test_getDomainName_job_urls(in_put, out_put):
-    assert getDomainName(in_put) == out_put
+    assert common.getDomainName(in_put) == out_put
     
     
 random_urls_list = [
@@ -45,4 +45,4 @@ random_urls_list = [
 
 @pytest.mark.parametrize('in_put, out_put', random_urls_list)    
 def test_getDomainName_random_urls(in_put, out_put):
-    assert getDomainName(in_put) == out_put
+    assert common.getDomainName(in_put) == out_put

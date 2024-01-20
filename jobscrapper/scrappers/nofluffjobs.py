@@ -1,8 +1,8 @@
 import re
 import requests
 from bs4 import BeautifulSoup
-from modules.base_logger import log
-from modules.common import getDomainName, updateExcel, getPagesCount
+from jobscrapper.modules.base_logger import log
+from jobscrapper.modules.common import getDomainName, updateExcel, getPagesCount
 
 class NoFluffJobs():
     def __init__(self):

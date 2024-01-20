@@ -1,14 +1,23 @@
 import argparse
 import json
-from scrappers import justjoinit
-from scrappers import nofluffjobs
-from scrappers import bulldogjob
-from modules import setup, common, base_logger
+
+from jobscrapper.scrappers import justjoinit
+from jobscrapper.scrappers import nofluffjobs
+from jobscrapper.scrappers import bulldogjob
+from jobscrapper.modules import setup, common, base_logger
 
 
-def main(config_file):
+def main():
+    program_description = '''
+    jobScrapper -  Simplify your IT job search.
+    How to use: https://github.com/wkobiela/jobScrapper/blob/master/README.md'''
+    
+    parser = argparse.ArgumentParser(description=program_description, formatter_class=argparse.RawTextHelpFormatter)
+    parser.add_argument("--config", help="Path to the configuration file", required=True)
+    args = parser.parse_args()
+    
     try:
-        with open(config_file, 'r') as configuration:
+        with open(args.config, 'r') as configuration:
             config = json.load(configuration)
     except FileNotFoundError as e:
         base_logger.log.error(e)
@@ -48,12 +57,4 @@ def main(config_file):
     base_logger.log.info("runner: Runner finished work.")
 
 if __name__ == "__main__":
-    program_description = '''
-    jobScrapper -  Simplify your IT job search.
-    How to use: https://github.com/wkobiela/jobScrapper/blob/master/README.md'''
-    
-    parser = argparse.ArgumentParser(description=program_description, formatter_class=argparse.RawTextHelpFormatter)
-    parser.add_argument("--config", help="Path to the configuration file", required=True)
-    args = parser.parse_args()
-    
-    main(args.config)
+    main()
