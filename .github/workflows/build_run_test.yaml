@@ -14,16 +14,9 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      
-      - uses: actions/cache@v1
-        id:   cache
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
 
-      - uses: actions/setup-python@v5
+      - name: Setup python
+        uses: actions/setup-python@v5
         with:
           python-version: '3.12'
           cache: 'pip'
@@ -31,7 +24,6 @@ jobs:
             requirements.txt
 
       - name: Install python dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
         run: |
           python3 -m pip install -r requirements.txt
 
@@ -62,14 +54,11 @@ jobs:
         run: |
           python3 -m pytest --html=report.html
 
-      - name: 'Upload results.xlsx'
+      - name: 'Upload artifacts'
         uses: actions/upload-artifact@v3
         with:
-          name: results.xlsx
-          path: results.xlsx
-
-      # - name: 'Upload wheel'
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     name: $PACKAGE
-      #     path: $PACKAGE
+          name: Artifacts
+          path: |
+            **/results.xlsx
+            **/*.whl
+            **/*.tar.gz
