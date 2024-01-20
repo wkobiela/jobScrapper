@@ -27,6 +27,7 @@ jobs:
         id: version
         run: |
           echo "GIT_HASH=$(git rev-parse --short "$GITHUB_SHA")" >> $GITHUB_OUTPUT 
+          echo $GIT_HASH
           sed -i 's\0.0.1\0.0.1-$GIT_HASH\g' setup.py
           cat setup.py
 
