@@ -51,10 +51,16 @@ jobs:
           cp jobs.xlsx results.xlsx
           test -f debug.log && echo "$FILE exists."
           ls -ll
+          ls -ll dist/
 
       - name: Run tests
         run: |
           python3 -m pytest --html=report.html
+
+      - name: Move artifacts to single location
+        run: |
+          cp dist/*.whl .
+          cp dist/*.tar.gz .
 
       - name: 'Upload results.xlsx'
         uses: actions/upload-artifact@v3
@@ -68,7 +74,7 @@ jobs:
         with:
           name: Wheel package
           path: |
-            **/${{ steps.wheel.outputs.PACKAGE }}
+            **/*.whl
 
       - name: 'Upload source.tar.gz package'
         uses: actions/upload-artifact@v3
