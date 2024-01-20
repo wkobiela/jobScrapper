@@ -1,8 +1,8 @@
 import os
 import sys
 import pandas as pd
-from modules.base_logger import log
-from .common import checkFileExistance
+from jobscrapper.modules.base_logger import log
+from jobscrapper.modules.common import checkFileExistance
 
 class Setup():
     def createExcelFile(self, filename, sheetname1, sheetname2, sheetname3):

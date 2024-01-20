@@ -1,8 +1,9 @@
 import os
 import pytest
-from modules.setup import Setup
+from jobscrapper.modules import setup
 
-t1 = Setup()
+
+t1 = setup.Setup()
 
 @pytest.fixture
 def _test_setup_correct():

@@ -1,5 +1,5 @@
 import pytest
-from modules.common import replaceChars
+from jobscrapper.modules import common
 
 strings_list = [
     ('[test','test'), ('test]', 'test'), ("'test", "test"), ('test\\xa0', 'test'), ('\\ntest', 'test'),
@@ -37,4 +37,4 @@ strings_list = [
 
 @pytest.mark.parametrize('in_put, out_put', strings_list)
 def test_replaceChars(in_put, out_put):
-    assert replaceChars(in_put) == out_put
+    assert common.replaceChars(in_put) == out_put
