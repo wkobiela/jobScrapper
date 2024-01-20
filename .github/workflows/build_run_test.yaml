@@ -7,7 +7,7 @@ on:
     branches: [ "master" ]
 
 jobs:
-  jobscrapper:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Clone repository
@@ -55,7 +55,7 @@ jobs:
 
       - name: Run tests
         run: |
-          python3 -m pytest --html=report.html
+          python3 -m pytest --html=report.html --cov-report term --cov-report html --cov=jobscrapper
 
       - name: Move artifacts to single location
         run: |
