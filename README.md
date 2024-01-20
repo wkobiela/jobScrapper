@@ -19,9 +19,24 @@ Currently there are 3 websites supported:
 That would be nice, to include more.
 
 ## How to run
-Install requirements using pip:
+Download and install latest [release package](https://github.com/wkobiela/jobScrapper/releases) using pip:
 ```
-python3 -m pip install -r requirements.txt
+python3 -m venv new-venv
+linux: source new-venv/bin/activate
+windows: .\new-venv\Scripts\Activate.ps1
+
+python3 -m pip install jobscrapper-current_version-py3-none-any.whl
+```
+```
+> jobscrapper --help
+usage: jobscrapper [-h] --config CONFIG
+
+    jobScrapper -  Simplify your IT job search.
+    How to use: https://github.com/wkobiela/jobScrapper/blob/master/README.md
+
+options:
+  -h, --help       show this help message and exit
+  --config CONFIG  Path to the configuration file
 ```
 
 Provide new, or use example `config.json` file with configuration for every scrapper. Example config is inside this repository.
@@ -93,12 +108,24 @@ To setup justnoinit scrapper, insert 3 MAIN parameters.
 
 ### After initial (one time) setup, just use:
 ```
-python3 runner.py --config config.json
+jobscrapper --config config.json
+```
+
+## Development
+
+### Building
+To build wheel package locally, use:
+```
+python -m build
 ```
 
 ## Tests
-There are some tests implemented, to check a few methods. You can run them using
+There are some tests implemented, to check a few methods. Clone repository, install requirements and run tests with:
 ```
+cd jobScrapper
+
+python3 -m pip install -r requirements.txt
+
 pytest 
 or 
 pytest tests/test_file_to_run.py
