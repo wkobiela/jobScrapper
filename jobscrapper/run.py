@@ -23,6 +23,8 @@ def main():
         base_logger.log.error(e)
         exit(1)
 
+    base_logger.log.info("Test changes")
+
     # Excel settings
     EXCEL_NAME = config['excel_settings']['EXCEL_NAME']
     NOFLUFFJOBS_SHEET = config['excel_settings']['NOFLUFFJOBS_SHEET']
