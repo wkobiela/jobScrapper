@@ -13,7 +13,10 @@ pipeline {
                 "Change ID: ${env.CHANGE_ID} \n" +
                 "Build cause: ${env.BUILD_CAUSE} \n" +
                 "Git author name: ${env.GIT_AUTHOR_NAME} \n" +
-                "Git commiter name: ${env.GIT_COMMITER_NAME}"
+                "Git commiter name: ${env.GIT_COMMITER_NAME} \n" +
+                "Change author: ${env.CHANGE_AUTHOR}"
+                "BUILD_USER: ${env.BUILD_USER} \n" +
+                "BUILD_USER_ID: ${env.BUILD_USER_ID}"
                 script {
                     build job: 'jobScrapperCI/entrypoint',
                     parameters: [string(name: 'Repo_url', value: "${env.GIT_URL}"),
