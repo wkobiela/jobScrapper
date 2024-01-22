@@ -30,7 +30,7 @@ pipeline {
             agent any
             steps {
                 echo 'INFORMATION FROM SCM:\n' +
-                "URL: ${env.GIT_URL}, Commit: ${env.GIT_COMMIT}, Branch: ${env.BRANCH_NAME}"
+                "URL: ${env.GIT_URL}, Commit: ${env.GIT_COMMIT}, Change ID: ${env.CHANGE_ID}"
                 script {
                     currentBuild.description =
                     "URL: <a href='${env.GIT_URL}'>${env.GIT_URL}</a><br>" +
@@ -42,7 +42,7 @@ pipeline {
                                         generateStage(runAndTestStage, env.GIT_URL, env.GIT_COMMIT, env.CHANGE_ID, py))
                     }
                     parallelStages.put("${banditStage}",
-                        generateStage(banditStage, env.GIT_URL, env.GIT_COMMIT, 'None'))
+                        generateStage(banditStage, env.GIT_URL, env.GIT_COMMIT, env.CHANGE_ID, 'None'))
                 }
                 echo 'CLEANING WORKSPACE:'
                 cleanWs()
