@@ -4,6 +4,9 @@ pipeline {
         stage('Entrypoint') {
             agent any
             steps {
+                echo sh(script: 'env|sort', returnStdout: true)
+
+
                 echo 'INFORMATION FROM SCM: \n' +
                 "URL: ${env.GIT_URL} \n" +
                 "Commit: ${env.GIT_COMMIT} \n" +
