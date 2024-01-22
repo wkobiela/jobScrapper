@@ -3,7 +3,7 @@ pipeline {
         stage('Entrypoint') {
             steps {
                 script {
-                    build job: 'jobScrapperCI/build_run_test', wait: false
+                    build job: 'jobScrapperCI/entrypoint', wait: false
                 }
             }
         }
