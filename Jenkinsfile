@@ -2,6 +2,7 @@ pipeline {
     agent none
     stages {
         stage('Entrypoint') {
+            agent any
             steps {
                 echo 'INFORMATION FROM SCM: \n' +
                 "URL: ${env.GIT_URL} \n" +
