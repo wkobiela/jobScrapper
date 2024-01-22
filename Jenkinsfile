@@ -7,8 +7,10 @@ pipeline {
                 echo 'INFORMATION FROM SCM: \n' +
                 "URL: ${env.GIT_URL} \n" +
                 "Commit: ${env.GIT_COMMIT} \n" +
-                "Change ID: ${env.CHANGE_ID}" +
-                "Build cause: ${env.BUILD_CAUSE}"
+                "Change ID: ${env.CHANGE_ID} \n" +
+                "Build cause: ${env.BUILD_CAUSE} \n" +
+                "Git author name: ${env.GIT_AUTHOR_NAME} \n" +
+                "Git commiter name: ${env.GIT_COMMITER_NAME}"
                 script {
                     build job: 'jobScrapperCI/entrypoint',
                     parameters: [string(name: 'Repo_url', value: "${env.GIT_URL}"),
