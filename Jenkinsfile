@@ -4,8 +4,10 @@ pipeline {
         stage('SCM') {
             agent any
             steps {
-                GIT_URL = env.GIT_URL
-                GIT_COMMIT = env.GIT_COMMIT
+                script {
+                    GIT_URL = env.GIT_URL
+                    GIT_COMMIT = env.GIT_COMMIT
+                }
             }
         }
         stage('Entrypoint') {
