@@ -1,8 +1,8 @@
 pipeline {
-    agent none
+    agent any
     stages {
         stage('Entrypoint') {
-            agent any
+            agent none
             steps {
                 script {
                     build job: 'jobScrapperCI/entrypoint',
