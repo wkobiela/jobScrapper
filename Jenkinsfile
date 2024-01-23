@@ -1,6 +1,12 @@
 pipeline {
     agent none
     stages {
+        stage('SCM') {
+            agent any
+            steps {
+                echo 'Got SCM checkout'
+            }
+        }
         stage('Entrypoint') {
             steps {
                 script {
