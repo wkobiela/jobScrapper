@@ -46,7 +46,16 @@ jobs:
 
       - name: Run scrapper
         run: |
-          jobscrapper --config jobscrapper/config.json | tee run.log
+          jobscrapper --config jobscrapper/config.json
+
+      - name: Verify output
+        run: |
+          if grep -q ERROR "debug.log"; then
+            echo "ERROR: Log is containing exception or error!"
+            exit 1
+          else
+            echo "All good"
+          fi
 
       - name: Check if files exists
         run: |

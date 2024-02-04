@@ -12,6 +12,10 @@ def main():
     jobScrapper -  Simplify your IT job search.
     How to use: https://github.com/wkobiela/jobScrapper/blob/master/README.md'''
     
+    yaml = setup.Setup()
+    if common.checkFileExistance('config.json') is False:
+        yaml.createConfigJson('config.json')
+    
     parser = argparse.ArgumentParser(description=program_description, formatter_class=argparse.RawTextHelpFormatter)
     parser.add_argument("--config", help="Path to the configuration file", required=True)
     args = parser.parse_args()

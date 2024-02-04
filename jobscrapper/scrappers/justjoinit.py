@@ -18,9 +18,9 @@ class JustJoinIt():
             for job in job_links_list:
                 job_link = "https://"+domainName+job.find('a',  class_='css-4lqp8g')['href']
                 job_title = job.find('h2').text
-                job_company = job.find('div', class_=re.compile("css-ldh1c9", re.I)).text 
-                job_salary = job.find('div', class_=re.compile("css-1b2ga3v", re.I)).text
-                job_location = job.find('div', class_=re.compile("css-68pppj", re.I)).text
+                job_company = job.find('div', class_=re.compile("css-aryx9u", re.I)).text 
+                job_salary = job.find('div', class_=re.compile("css-17pspck", re.I)).text
+                job_location = job.find('div', class_=re.compile("css-11qgze1", re.I)).text
                 self.jobs_dict[job_link] = {"Title": [job_title], 
                                             "Company": [job_company], 
                                             "Salary": [job_salary], 

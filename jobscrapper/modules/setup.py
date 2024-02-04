@@ -3,8 +3,41 @@ import sys
 import pandas as pd
 from jobscrapper.modules.base_logger import log
 from jobscrapper.modules.common import checkFileExistance
+from unidecode import unidecode
 
 class Setup():
+    
+    def __init__(self):
+        self.json_config = \
+            '''{
+    "excel_settings": {
+        "EXCEL_NAME": "jobs.xlsx",
+        "NOFLUFFJOBS_SHEET": "NoFluffJobs",
+        "BULLDOGJOB_SHEET": "BulldogJob",
+        "JUSTJOINIT_SHEET": "JustJoinIt"
+    },
+        "search_params": {
+            "nofluffjobs_settings": {
+                "site": "NoFluffJobs",
+                "role": "testing",
+                "lvl": "junior,mid",
+                "city": "Gdańsk"
+            },
+            "bulldogjob_settings": {
+                "site": "BulldogJob",
+                "role": "qa,tester",
+                "lvl": "junior,medium",
+                "city": "Remote,Gdańsk"
+            },
+            "justjoinit_settings": {
+                "site": "JustjoinIt",
+                "role": "testing",
+                "lvl": "mid.senior",
+                "city": "Gdańsk"
+            }
+    }
+}'''
+        
     def createExcelFile(self, filename, sheetname1, sheetname2, sheetname3):
         try:
             log.info("setup:createExcelFile: Creating xlsx file for storage.")
@@ -33,6 +66,14 @@ class Setup():
         except FileNotFoundError:
             log.error(f"setup:checkExcel: File {filename} not found!")
             return False
+        
+    def createConfigJson(self, filename):
+        try:
+            with open(filename, 'w') as f:
+                f.write(unidecode(self.json_config))
+        except Exception as ex:
+            log.error(f"setup:createConfigJson: Exception: {ex}.")
+            sys.exit()
 
 def run(filename, sheetname1, sheetname2, sheetname3):
     setup = Setup()        
