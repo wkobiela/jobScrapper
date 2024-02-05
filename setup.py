@@ -12,7 +12,7 @@ long_description = (this_directory / "README.md").read_text()
 
 setup(
     name="jobscrapper",
-    version='0.0.4',
+    version='0.0.5',
     author="wkobiela",
     author_email="wiktor.kobiela@gmail.com",
     packages=find_packages(),
