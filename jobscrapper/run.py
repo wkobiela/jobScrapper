@@ -10,16 +10,31 @@ from jobscrapper.modules import setup, common, base_logger
 def main():
     program_description = '''
     jobScrapper -  Simplify your IT job search.
-    How to use: https://github.com/wkobiela/jobScrapper/blob/master/README.md'''
-    
-    yaml = setup.Setup()
-    if common.checkFileExistance('config.json') is False:
-        yaml.createConfigJson('config.json')
+    to see help and all options, use "jobscrapper --help"
+    readme: https://github.com/wkobiela/jobScrapper/blob/master/README.md'''
     
     parser = argparse.ArgumentParser(description=program_description, formatter_class=argparse.RawTextHelpFormatter)
-    parser.add_argument("--config", help="Path to the configuration file", required=True)
+    parser.add_argument("--config", help="path to the configuration file", required=False)
+    parser.add_argument("--init", help="create initial config.json file, if no custom is delivered", 
+                        required=False, 
+                        action="store_true")
     args = parser.parse_args()
     
+    if args.init:
+        yaml = setup.Setup()
+        base_logger.log.info("runner: Creating initial config.json file")
+        if common.checkFileExistance('config.json') is False:
+            yaml.createConfigJson('config.json')
+            base_logger.log.info("runner: Initial config.json file successfully created.")
+        else:
+            base_logger.log.info("runner: config.json file already exists.")
+        if args.config is None:
+            exit(0)
+    
+    if args.config is None:
+        print(program_description)
+        exit(1)
+        
     try:
         with open(args.config, 'r') as configuration:
             config = json.load(configuration)
