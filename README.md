@@ -18,28 +18,55 @@ Currently there are 3 websites supported:
 
 That would be nice, to include more.
 
-## How to run
+## How to install
 Download and install latest release using pip and pypi repository:
 ```
-python3 -m pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ jobscrapper
+$ python3 -m venv venv
+$ source venv/bin/activate
+(venv) $ pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ jobscrapper
 ```
 or using downloaded .whl from [Github latest release artifacts](https://github.com/wkobiela/jobScrapper/releases): 
 ```
-python3 -m pip install jobscrapper-current_version-py3-none-any.whl
+$ python3 -m venv venv
+$ source venv/bin/activate
+(venv) $ pip install jobscrapper-current_version-py3-none-any.whl
 ```
+
+## Sample usage
 ```
-> jobscrapper --help
-usage: jobscrapper [-h] --config CONFIG
+(venv) $ jobscrapper
 
     jobScrapper -  Simplify your IT job search.
-    How to use: https://github.com/wkobiela/jobScrapper/blob/master/README.md
+    to see help and all options, use "jobscrapper --help"
+    readme: https://github.com/wkobiela/jobScrapper/blob/master/README.md
+```
+```
+(venv) $ jobscrapper --help
+usage: jobscrapper [-h] [--config CONFIG] [--init]
+
+    jobScrapper -  Simplify your IT job search.
+    to see help and all options, use "jobscrapper --help"
+    readme: https://github.com/wkobiela/jobScrapper/blob/master/README.md
 
 options:
   -h, --help       show this help message and exit
-  --config CONFIG  Path to the configuration file
+  --config CONFIG  path to the configuration file
+  --init           create initial config.json file, if no custom is delivered
 ```
 
-Provide new, or use example `config.json` file with configuration for every scrapper. Example config is inside this repository.
+## Start scrapper with sample configuration
+Easiest way to start is to use `--init` option. Scrapper will create sample `config.json` file in current directory.
+
+```
+(venv) $ jobscrapper --init 
+```
+Creating configuration file is one time process. After initial setup, edit `config.json` file for your needs and just use below command for next searches, if no requirements changed.
+```
+(venv) $ jobscrapper --config config.json
+```
+
+## How configuration file works?
+Sample `config.json` file with configuration for every scrapper is shown below. Example `config.json` file is inside this repository.
 
 ```json
 {
@@ -105,11 +132,6 @@ To setup justnoinit scrapper, insert 3 MAIN parameters.
 - lvl (strings separated by comma) from avaliable: `'junior', 'mid', 'senior', 'c-level'`
 - city (string) - always looking for remote + eventually in the city of your choosing
 
-
-### After initial (one time) setup, just use:
-```
-jobscrapper --config config.json
-```
 
 ## Development
 
