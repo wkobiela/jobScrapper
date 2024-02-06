@@ -22,6 +22,10 @@ def main():
     parser.add_argument("--loglevel", help="set the loglevel", required=False, default='INFO')
     args = parser.parse_args()
     
+    if args.loglevel not in ('INFO', 'DEBUG'):
+        print("Invalid loglevel. Valid loglevels are 'INFO' and 'DEBUG'. Setting default as INFO.")
+        args.loglevel = 'INFO'
+    
     if args.loglevel == 'INFO':
         logging.basicConfig(
             level=logging.INFO,
@@ -30,6 +34,17 @@ def main():
                 logging.StreamHandler()
             ]
         )
+    
+    if args.loglevel == 'DEBUG':
+        logging.basicConfig(
+            level=logging.DEBUG,
+            format="%(asctime)s [%(levelname)s] %(message)s",
+            handlers=[
+                logging.FileHandler("debug.log"),
+                logging.StreamHandler()
+            ]
+        )
+    
     log = logging.getLogger(__name__)
     
     if args.init:
