@@ -34,7 +34,7 @@ def main():
     
     if args.init:
         yaml = setup.Setup()
-        log.info("runner: Creating initial config.json file")
+        log.debug("runner: Creating initial config.json file")
         if common.checkFileExistance('config.json') is False:
             yaml.createConfigJson('config.json')
             log.info("runner: Initial config.json file successfully created.")

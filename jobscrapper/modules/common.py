@@ -1,15 +1,17 @@
 import re
 import os
 import sys
+import logging
 import urllib
 from datetime import datetime
 import requests
 from openpyxl import load_workbook
 from bs4 import BeautifulSoup
-from jobscrapper.modules.base_logger import log
 from unidecode import unidecode
 
 now = datetime.now()
+
+log = logging.getLogger(__name__)
 
 def checkFileExistance(filename):
     path = f"{os.getcwd()}/{filename}"
@@ -46,7 +48,7 @@ def getPagesCount(url, parent, child, regex):
             except(ValueError):
                 continue
             max_page_count = val if val > max_page_count else max_page_count
-        log.info('common:getPagesCount: Found %s pages with offers. Scrapping further.', max_page_count)
+        log.debug('common:getPagesCount: Found %s pages with offers. Scrapping further.', max_page_count)
         return max_page_count
     except Exception as e:
         log.error(f"common:getPagesCount: Exception: {e}.")
@@ -104,5 +106,5 @@ def createLinks(**kwargs):
         generated_link = f"https://nofluffjobs.com/pl/praca-zdalna/{role}?criteria=city%3D{unidecode(city)}%20%20seniority%3D{lvl}"
     elif site == "JustjoinIt":
         generated_link = f"https://justjoin.it/{unidecode(city).lower()}/{role}/experience-level_{lvl}/remote_yes"
-    log.info("common:createLinks: Generated link: %s", generated_link)    
+    log.debug("common:createLinks: Generated link: %s", generated_link)    
     return(generated_link)
