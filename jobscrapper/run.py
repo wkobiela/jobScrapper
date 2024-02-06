@@ -1,10 +1,11 @@
 import argparse
+import logging
 import json
 
 from jobscrapper.scrappers import justjoinit
 from jobscrapper.scrappers import nofluffjobs
 from jobscrapper.scrappers import bulldogjob
-from jobscrapper.modules import setup, common, base_logger
+from jobscrapper.modules import setup, common
 
 
 def main():
@@ -18,16 +19,27 @@ def main():
     parser.add_argument("--init", help="create initial config.json file, if no custom is delivered", 
                         required=False, 
                         action="store_true")
+    parser.add_argument("--loglevel", help="set the loglevel", required=False, default='INFO')
     args = parser.parse_args()
+    
+    if args.loglevel == 'INFO':
+        logging.basicConfig(
+            level=logging.INFO,
+            format="%(asctime)s [%(levelname)s] %(message)s",
+            handlers=[
+                logging.StreamHandler()
+            ]
+        )
+    log = logging.getLogger(__name__)
     
     if args.init:
         yaml = setup.Setup()
-        base_logger.log.info("runner: Creating initial config.json file")
+        log.info("runner: Creating initial config.json file")
         if common.checkFileExistance('config.json') is False:
             yaml.createConfigJson('config.json')
-            base_logger.log.info("runner: Initial config.json file successfully created.")
+            log.info("runner: Initial config.json file successfully created.")
         else:
-            base_logger.log.info("runner: config.json file already exists.")
+            log.info("runner: config.json file already exists.")
         if args.config is None:
             exit(0)
     
@@ -39,8 +51,10 @@ def main():
         with open(args.config, 'r') as configuration:
             config = json.load(configuration)
     except FileNotFoundError as e:
-        base_logger.log.error(e)
+        log.error(e)
         exit(1)
+        
+    
 
     # Excel settings
     EXCEL_NAME = config['excel_settings']['EXCEL_NAME']
@@ -53,7 +67,7 @@ def main():
     bulldogjob_settings = config['search_params']['bulldogjob_settings']
     justjoinit_settings = config['search_params']['justjoinit_settings']
 
-    base_logger.log.info("runner: Starting runner.")
+    log.info("runner: Starting runner.")
     # Create links
     NOFLUFFJOBS_URL = common.createLinks(site=nofluffjobs_settings['site'], 
                                         role=nofluffjobs_settings['role'], 
@@ -73,7 +87,7 @@ def main():
     nofluffjobs.run(NOFLUFFJOBS_SHEET, NOFLUFFJOBS_URL)
     bulldogjob.run(BULLDOGJOB_SHEET, BULLDOGJOB_URL)
     justjoinit.run(JUSTJOINIT_SHEET, JUSTJOINIT_URL)
-    base_logger.log.info("runner: Runner finished work.")
+    log.info("runner: Runner finished work.")
 
 if __name__ == "__main__":
     main()
