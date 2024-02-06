@@ -62,7 +62,8 @@ class Setup():
             with open(filename, 'rb') as f:
                 reader = pd.ExcelFile(f)
                 if not all(x in [sheetname1, sheetname2, sheetname3] for x in reader.sheet_names):
-                    log.warning(f"setup:checkExcel: {[sheetname1, sheetname2, sheetname3]} not in {reader.sheet_names}")
+                    log.warning('setup:checkExcel: %s, %s or %s not in %s', 
+                                sheetname1, sheetname2, sheetname3, reader.sheet_names)
                     log.warning('setup:checkExcel: No valid worksheets in %s', reader.sheet_names)
                     return False
                 return True

@@ -51,7 +51,7 @@ def getPagesCount(url, parent, child, regex):
         log.debug('common:getPagesCount: Found %s pages with offers. Scrapping further.', max_page_count)
         return max_page_count
     except Exception as e:
-        log.error('common:getPagesCount: Exception: e.', e)
+        log.error('common:getPagesCount: Exception: %s.', e)
         return 1
         
 def updateExcel(sheet, jobs_dict):
@@ -75,7 +75,7 @@ def updateExcel(sheet, jobs_dict):
                 sheet.cell(row = 2, column = 5, value = replaceChars(str(v["Location"])))
                 sheet.cell(row = 2, column = 6, value = now.strftime("%d/%m/%Y, %H:%M"))
         if new_jobs > 0:
-            log.info(f"common:updateExcel: {new_jobs} new offers in {sheet.title}!")
+            log.info('common:updateExcel: %s new offers in %s!', new_jobs, sheet.title)
         else:
             log.info('common:updateExcel: No new offers in %s.', sheet.title)
         workbook.save(filename="jobs.xlsx")
