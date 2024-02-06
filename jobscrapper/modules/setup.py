@@ -1,13 +1,16 @@
 import os
 import sys
 import pandas as pd
-from jobscrapper.modules.base_logger import log
+import logging
 from jobscrapper.modules.common import checkFileExistance
 from unidecode import unidecode
+
+log = logging.getLogger(__name__)
 
 class Setup():
     
     def __init__(self):
+        
         self.json_config = \
             '''{
     "excel_settings": {
@@ -40,7 +43,7 @@ class Setup():
         
     def createExcelFile(self, filename, sheetname1, sheetname2, sheetname3):
         try:
-            log.info("setup:createExcelFile: Creating xlsx file for storage.")
+            log.debug("setup:createExcelFile: Creating xlsx file for storage.")
             data_frame1 = pd.DataFrame({'LINK': [], 'OPIS':[], 'FIRMA':[], 'ZAROBKI':[], 'LOKALIZACJA':[], 'DODANE':[]})
             data_frame2 = pd.DataFrame({'LINK': [], 'OPIS':[], 'FIRMA':[], 'ZAROBKI':[], 'INFO OGÓLNE':[], 'DODANE':[]})
             data_frame3 = pd.DataFrame({'LINK': [], 'OPIS':[], 'FIRMA':[], 'ZAROBKI':[], 'LOKALIZACJA':[], 'DODANE':[]})
@@ -80,12 +83,12 @@ def run(filename, sheetname1, sheetname2, sheetname3):
     if checkFileExistance(filename) is False:
         setup.createExcelFile(filename, sheetname1, sheetname2, sheetname3)
     else:
-        log.info(f"setup:run: File {filename} exists. Checking sheetnames.")
+        log.debug(f"setup:run: File {filename} exists. Checking sheetnames.")
         out = setup.checkExcel(filename, sheetname1, sheetname2, sheetname3)
         if out is not True:
-            log.info("setup:run: Backing up old excel and creating fresh one.")
+            log.debug("setup:run: Backing up old excel and creating fresh one.")
             os.rename(filename, 'backup_'+filename)
             setup.createExcelFile(filename, sheetname1, sheetname2, sheetname3)
         else:
-            log.info("setup:run: Excel file passed validation. Proceeding.")
+            log.debug("setup:run: Excel file passed validation. Proceeding.")
             
