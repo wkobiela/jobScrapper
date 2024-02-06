@@ -33,7 +33,7 @@ def getDomainName(url):
         
         return domainName
     except Exception as e:
-        log.error(f"common:getDomainName: Exception: {e}.")
+        log.error('common:getDomainName: Exception: %s.', e)
         return url
 
 def getPagesCount(url, parent, child, regex):
@@ -51,7 +51,7 @@ def getPagesCount(url, parent, child, regex):
         log.debug('common:getPagesCount: Found %s pages with offers. Scrapping further.', max_page_count)
         return max_page_count
     except Exception as e:
-        log.error(f"common:getPagesCount: Exception: {e}.")
+        log.error('common:getPagesCount: Exception: e.', e)
         return 1
         
 def updateExcel(sheet, jobs_dict):
@@ -77,10 +77,10 @@ def updateExcel(sheet, jobs_dict):
         if new_jobs > 0:
             log.info(f"common:updateExcel: {new_jobs} new offers in {sheet.title}!")
         else:
-            log.info(f"common:updateExcel: No new offers in {sheet.title}.")
+            log.info('common:updateExcel: No new offers in %s.', sheet.title)
         workbook.save(filename="jobs.xlsx")
     except Exception as e:
-        log.error(f"common:updateExcel: Exception: {e}.")
+        log.error('common:updateExcel: Exception: %s', e)
         
 def createLinks(**kwargs):
     if not all(key in kwargs for key in ('site','role','lvl','city')):

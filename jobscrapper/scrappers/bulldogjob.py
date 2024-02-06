@@ -63,7 +63,7 @@ class BulldogJob():
                     except Exception as ie:
                         log.error(f"bulldogjob:updateJobsDict: Exception {ie} on {job}.") 
         except Exception as e:
-            log.error(f"bulldogjob:updateJobsDict: Exception {e}.")                
+            log.error('bulldogjob:updateJobsDict: Exception %s.', e)                
             
 def run(sheet, url):  
     log.info("bulldogjob:run: Starting BulldogJob scrapper.")

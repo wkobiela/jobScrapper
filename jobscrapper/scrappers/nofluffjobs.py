@@ -34,7 +34,7 @@ class NoFluffJobs():
                                                 "Salary": [job_salary], 
                                                 "Location": [job_location]}
         except Exception as e:
-            log.error(f"nofluffjobs:updateJobsDict: Exception {e}.")                
+            log.error('nofluffjobs:updateJobsDict: Exception %s.', e)                
             
 def run(sheet, url):
     log.info("nofluffjobs:run: Starting NoFluffJobs scrapper.")
