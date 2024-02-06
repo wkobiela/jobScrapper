@@ -1,15 +1,17 @@
 import re
 import os
 import sys
+import logging
 import urllib
 from datetime import datetime
 import requests
 from openpyxl import load_workbook
 from bs4 import BeautifulSoup
-from jobscrapper.modules.base_logger import log
 from unidecode import unidecode
 
 now = datetime.now()
+
+log = logging.getLogger(__name__)
 
 def checkFileExistance(filename):
     path = f"{os.getcwd()}/{filename}"
@@ -31,7 +33,7 @@ def getDomainName(url):
         
         return domainName
     except Exception as e:
-        log.error(f"common:getDomainName: Exception: {e}.")
+        log.error('common:getDomainName: Exception: %s.', e)
         return url
 
 def getPagesCount(url, parent, child, regex):
@@ -46,10 +48,10 @@ def getPagesCount(url, parent, child, regex):
             except(ValueError):
                 continue
             max_page_count = val if val > max_page_count else max_page_count
-        log.info('common:getPagesCount: Found %s pages with offers. Scrapping further.', max_page_count)
+        log.debug('common:getPagesCount: Found %s pages with offers. Scrapping further.', max_page_count)
         return max_page_count
     except Exception as e:
-        log.error(f"common:getPagesCount: Exception: {e}.")
+        log.error('common:getPagesCount: Exception: %s.', e)
         return 1
         
 def updateExcel(sheet, jobs_dict):
@@ -73,12 +75,12 @@ def updateExcel(sheet, jobs_dict):
                 sheet.cell(row = 2, column = 5, value = replaceChars(str(v["Location"])))
                 sheet.cell(row = 2, column = 6, value = now.strftime("%d/%m/%Y, %H:%M"))
         if new_jobs > 0:
-            log.info(f"common:updateExcel: {new_jobs} new offers in {sheet.title}!")
+            log.info('common:updateExcel: %s new offers in %s!', new_jobs, sheet.title)
         else:
-            log.info(f"common:updateExcel: No new offers in {sheet.title}.")
+            log.info('common:updateExcel: No new offers in %s.', sheet.title)
         workbook.save(filename="jobs.xlsx")
     except Exception as e:
-        log.error(f"common:updateExcel: Exception: {e}.")
+        log.error('common:updateExcel: Exception: %s', e)
         
 def createLinks(**kwargs):
     if not all(key in kwargs for key in ('site','role','lvl','city')):
@@ -104,5 +106,5 @@ def createLinks(**kwargs):
         generated_link = f"https://nofluffjobs.com/pl/praca-zdalna/{role}?criteria=city%3D{unidecode(city)}%20%20seniority%3D{lvl}"
     elif site == "JustjoinIt":
         generated_link = f"https://justjoin.it/{unidecode(city).lower()}/{role}/experience-level_{lvl}/remote_yes"
-    log.info("common:createLinks: Generated link: %s", generated_link)    
+    log.debug("common:createLinks: Generated link: %s", generated_link)    
     return(generated_link)

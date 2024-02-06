@@ -49,9 +49,10 @@ usage: jobscrapper [-h] [--config CONFIG] [--init]
     readme: https://github.com/wkobiela/jobScrapper/blob/master/README.md
 
 options:
-  -h, --help       show this help message and exit
-  --config CONFIG  path to the configuration file
-  --init           create initial config.json file, if no custom is delivered
+  -h, --help           show this help message and exit
+  --config CONFIG      path to the configuration file
+  --init               create initial config.json file, if no custom is delivered
+  --loglevel LOGLEVEL  set the loglevel from INFO, DEBUG (default INFO)
 ```
 
 ## Start scrapper with sample configuration

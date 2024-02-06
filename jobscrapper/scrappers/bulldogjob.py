@@ -1,8 +1,10 @@
 import re
+import logging
 import requests
 from bs4 import BeautifulSoup
-from jobscrapper.modules.base_logger import log
 from jobscrapper.modules.common import updateExcel, getPagesCount
+
+log = logging.getLogger(__name__)
 
 class BulldogJob():
     def __init__(self):
@@ -59,9 +61,9 @@ class BulldogJob():
                                                     "Location": [text]}
                         text = ""
                     except Exception as ie:
-                        log.error(f"bulldogjob:updateJobsDict: Exception {ie} on {job}.") 
+                        log.error('bulldogjob:updateJobsDict: Exception %s on %s.', ie, job) 
         except Exception as e:
-            log.error(f"bulldogjob:updateJobsDict: Exception {e}.")                
+            log.error('bulldogjob:updateJobsDict: Exception %s.', e)                
             
 def run(sheet, url):  
     log.info("bulldogjob:run: Starting BulldogJob scrapper.")

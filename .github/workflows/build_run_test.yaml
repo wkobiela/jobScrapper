@@ -46,7 +46,25 @@ jobs:
 
       - name: Run scrapper
         run: |
-          jobscrapper --config jobscrapper/config.json
+          jobscrapper --config jobscrapper/config.json --loglevel DEBUG
+
+      - name: Check if files exists
+        run: |
+          if [ -f jobs.xlsx ]; then
+            echo "jobs.xlsx exists."
+          else
+            echo "jobs.xlsx does not exist. Exiting with failure." >&2
+            exit 1
+          fi
+          cp jobs.xlsx results.xlsx
+          if [ -f debug.log ]; then
+              echo "debug.log exists."
+          else
+              echo "debug.log does not exist. Exiting with failure." >&2
+              exit 1
+          fi
+          ls -ll
+          ls -ll dist/
 
       - name: Verify output
         run: |
@@ -56,14 +74,6 @@ jobs:
           else
             echo "All good"
           fi
-
-      - name: Check if files exists
-        run: |
-          test -f jobs.xlsx && echo "jobs.xlsx exists."
-          cp jobs.xlsx results.xlsx
-          test -f debug.log && echo "debug.log exists."
-          ls -ll
-          ls -ll dist/
 
       - name: Run tests
         run: |

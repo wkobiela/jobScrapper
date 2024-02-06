@@ -1,8 +1,10 @@
 import re
+import logging
 import requests
 from bs4 import BeautifulSoup
-from jobscrapper.modules.base_logger import log
 from jobscrapper.modules.common import getDomainName, updateExcel, getPagesCount
+
+log = logging.getLogger(__name__)
 
 class NoFluffJobs():
     def __init__(self):
@@ -32,7 +34,7 @@ class NoFluffJobs():
                                                 "Salary": [job_salary], 
                                                 "Location": [job_location]}
         except Exception as e:
-            log.error(f"nofluffjobs:updateJobsDict: Exception {e}.")                
+            log.error('nofluffjobs:updateJobsDict: Exception %s.', e)                
             
 def run(sheet, url):
     log.info("nofluffjobs:run: Starting NoFluffJobs scrapper.")
