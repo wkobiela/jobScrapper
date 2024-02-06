@@ -1,8 +1,10 @@
 import re
+import logging
 import requests
 from bs4 import BeautifulSoup
-from jobscrapper.modules.base_logger import log
 from jobscrapper.modules.common import updateExcel, getPagesCount
+
+log = logging.getLogger(__name__)
 
 class BulldogJob():
     def __init__(self):
