@@ -59,9 +59,19 @@ jobs:
 
       - name: Check if files exists
         run: |
-          test -f jobs.xlsx && echo "jobs.xlsx exists."
+          if [ -f jobs.xlsx ]; then
+            echo "jobs.xlsx exists."
+          else
+            echo "jobs.xlsx does not exist. Exiting with failure." >&2
+            exit 1
+          fi
           cp jobs.xlsx results.xlsx
-          test -f debug.log && echo "debug.log exists."
+          if [ -f debug.log ]; then
+              echo "debug.log exists."
+          else
+              echo "debug.log does not exist. Exiting with failure." >&2
+              exit 1
+          fi
           ls -ll
           ls -ll dist/
 
