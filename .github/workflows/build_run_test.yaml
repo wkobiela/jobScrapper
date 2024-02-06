@@ -48,15 +48,6 @@ jobs:
         run: |
           jobscrapper --config jobscrapper/config.json --loglevel DEBUG
 
-      - name: Verify output
-        run: |
-          if grep -q ERROR "debug.log"; then
-            echo "ERROR: Log is containing exception or error!"
-            exit 1
-          else
-            echo "All good"
-          fi
-
       - name: Check if files exists
         run: |
           if [ -f jobs.xlsx ]; then
@@ -74,6 +65,15 @@ jobs:
           fi
           ls -ll
           ls -ll dist/
+
+      - name: Verify output
+        run: |
+          if grep -q ERROR "debug.log"; then
+            echo "ERROR: Log is containing exception or error!"
+            exit 1
+          else
+            echo "All good"
+          fi
 
       - name: Run tests
         run: |
