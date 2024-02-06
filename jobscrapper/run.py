@@ -19,7 +19,9 @@ def main():
     parser.add_argument("--init", help="create initial config.json file, if no custom is delivered", 
                         required=False, 
                         action="store_true")
-    parser.add_argument("--loglevel", help="set the loglevel", required=False, default='INFO')
+    parser.add_argument("--loglevel", help="set the loglevel from INFO, DEBUG (default INFO)", 
+                        required=False, 
+                        default='INFO')
     args = parser.parse_args()
     
     if args.loglevel not in ('INFO', 'DEBUG'):
