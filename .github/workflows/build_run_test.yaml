@@ -46,7 +46,7 @@ jobs:
 
       - name: Run scrapper
         run: |
-          jobscrapper --config jobscrapper/config.json
+          jobscrapper --config jobscrapper/config.json --loglevel DEBUG
 
       - name: Verify output
         run: |
