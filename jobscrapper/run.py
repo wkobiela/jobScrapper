@@ -66,7 +66,7 @@ def main():
         sys.exit(1)
         
     try:
-        with open(args.config, 'r') as configuration:
+        with open(args.config, 'r', encoding="utf-8") as configuration:
             config = json.load(configuration)
     except FileNotFoundError as e:
         log.error(e)
