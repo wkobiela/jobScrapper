@@ -1,3 +1,4 @@
+import sys
 import argparse
 import logging
 import json
@@ -58,18 +59,18 @@ def main():
         else:
             log.info("runner: config.json file already exists.")
         if args.config is None:
-            exit(0)
+            sys.exit(0)
     
     if args.config is None:
         print(program_description)
-        exit(1)
+        sys.exit(1)
         
     try:
         with open(args.config, 'r') as configuration:
             config = json.load(configuration)
     except FileNotFoundError as e:
         log.error(e)
-        exit(1)
+        sys.exit(1)
         
     
 
