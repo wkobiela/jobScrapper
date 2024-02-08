@@ -68,8 +68,7 @@ class BulldogJob():
             raise     
         return self.jobs_dict           
             
-# pragma: not covered
-def run(sheet, url):  
+def run(sheet, url): # pragma: no cover
     log.info("bulldogjob:run: Starting BulldogJob scrapper.")
     bull = BulldogJob()
     jobs_list = bull.getJobsLinkList(url)
