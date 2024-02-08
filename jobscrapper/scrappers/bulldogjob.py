@@ -62,7 +62,7 @@ class BulldogJob():
                                                 "Location": [text]}
                     text = ""
                 except Exception as ie:
-                    log.error('bulldogjob:updateJobsDict: Exception %s on %s.', ie, job) 
+                    log.error('bulldogjob:updateJobsDict: Exception %s on %s.' % (ie, job)) 
         except Exception as e:
             log.error('bulldogjob:updateJobsDict: Exception %s.', e)     
         return self.jobs_dict           
