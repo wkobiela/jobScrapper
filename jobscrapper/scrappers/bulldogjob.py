@@ -1,6 +1,5 @@
 import re
 import logging
-import pytest
 import requests
 from bs4 import BeautifulSoup
 from jobscrapper.modules.common import updateExcel, getPagesCount
@@ -69,7 +68,7 @@ class BulldogJob():
             raise     
         return self.jobs_dict           
             
-@pytest.mark.no_cover
+# pragma: not covered
 def run(sheet, url):  
     log.info("bulldogjob:run: Starting BulldogJob scrapper.")
     bull = BulldogJob()
