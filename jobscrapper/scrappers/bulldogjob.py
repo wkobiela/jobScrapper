@@ -35,20 +35,20 @@ class BulldogJob():
 
                     job_link = job.get('href')
                     job_title = job.find(name="h3", class_=re.compile("md:mb-5 lg:mb-0 md:text-18 text", re.I))
-                    if job_title.find(text=True, recursive=True) is not None:
-                        job_title = job_title.find(text=True, recursive=False).text
+                    if job_title.find(string=True, recursive=True) is not None:
+                        job_title = job_title.find(string=True, recursive=False).text
                     else:
                         job_title="Regex error."
                     
                     job_company = job.find('div', class_=re.compile("text-xxs uppercase", re.I))
-                    if job_company.find(text=True, recursive=True) is not None:
-                        job_company = job_company.find(text=True, recursive=True) is not None
+                    if job_company.find(string=True, recursive=True) is not None:
+                        job_company = job_company.find(string=True, recursive=True) is not None
                     else:
                         job_company = "Regex error"
                     
                     job_salary = job.find('div', class_=re.compile("lg:font-extrabold md:text-xl text-dm", re.I))
                     if job_salary is not None:
-                        job_salary = job_salary.find(text=True, recursive=True).text
+                        job_salary = job_salary.find(string=True, recursive=True).text
                     else:
                         job_salary="No information or regex error"
                         
