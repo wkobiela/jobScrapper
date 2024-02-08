@@ -1,4 +1,5 @@
 import re
+import sys
 import logging
 import requests
 from bs4 import BeautifulSoup
@@ -35,13 +36,13 @@ class BulldogJob():
 
                     job_link = job.get('href')
                     job_title = job.find(name="h3", class_=re.compile("md:mb-5 lg:mb-0 md:text-18 text", re.I))
-                    if job_title.find(string=True, recursive=True) is not None:
+                    if job_title is not None:
                         job_title = job_title.find(string=True, recursive=False).text
                     else:
                         job_title="Regex error."
                     
                     job_company = job.find('div', class_=re.compile("text-xxs uppercase", re.I))
-                    if job_company.find(string=True, recursive=True) is not None:
+                    if job_company is not None:
                         job_company = job_company.find(string=True, recursive=True) is not None
                     else:
                         job_company = "Regex error"
@@ -62,9 +63,10 @@ class BulldogJob():
                                                 "Location": [text]}
                     text = ""
                 except Exception as ie:
-                    log.error('bulldogjob:updateJobsDict: Exception %s on %s.',ie ,job) 
+                    log.error('bulldogjob:updateJobsDict: Exception %s on %s.', ie, job) 
         except Exception as e:
-            log.error('bulldogjob:updateJobsDict: Exception %s.', e)     
+            log.error('bulldogjob:updateJobsDict: Exception %s.', e)
+            raise     
         return self.jobs_dict           
             
 def run(sheet, url):  
