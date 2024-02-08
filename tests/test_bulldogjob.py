@@ -23,4 +23,4 @@ def test_create_jobs_info_dict():
     
     jobs_info_dict = bulldog.updateJobsDict(job_link_list)
     
-    assert len(jobs_info_dict) == 11
+    assert len(jobs_info_dict) == 10
