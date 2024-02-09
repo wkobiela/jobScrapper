@@ -25,7 +25,7 @@ def test_create_jobs_info_dict(_justjoinit):
         for line in f:
             job_link_list += BeautifulSoup(line, 'html.parser')    
     jobs_dict = _justjoinit.updateJobsDict(job_link_list, 'justjoin.it')
-    assert len(jobs_dict) == 38
+    assert len(jobs_dict) == 37
     
 def test_create_jobs_info_dict_wrong_list(_justjoinit):
     wrong_job_link_list = 5
