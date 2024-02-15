@@ -34,7 +34,7 @@ def getDomainName(url):
         return domainName
     except Exception as e:
         log.error('common:getDomainName: Exception: %s.', e)
-        return url
+        raise
 
 def getPagesCount(url, parent, child, regex):
     try:
