@@ -84,7 +84,8 @@ def updateExcel(sheet, jobs_dict):
         
 def createLinks(**kwargs):
     if not all(key in kwargs for key in ('site','role','lvl','city')):
-        log.error("common:createLinks: Not enough arguments. Please fill the following: site, role, lvl, city.")
+        log.error("common:createLinks: Not enough or too much arguments. \
+            Please fill only and all of the following: site, role, lvl, city.")
         sys.exit()
         
     for key, item in kwargs.items():
@@ -96,9 +97,6 @@ def createLinks(**kwargs):
             lvl = item
         elif key == "city":
             city = item
-        else:
-            log.error("common:createLinks: Unknown key. Please fill the following: site, role, lvl, city.")
-            sys.exit()
     
     if site == "BulldogJob":
         generated_link = f"https://bulldogjob.pl/companies/jobs/s/role,{role}/experienceLevel,{lvl}/city,{unidecode(city)}"
