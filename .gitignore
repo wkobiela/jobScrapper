@@ -8,3 +8,5 @@ debug.log
 .pytest_cache
 dist
 *egg*
+.coverate
+test.xlsx
