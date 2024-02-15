@@ -14,6 +14,18 @@ def _test_create_excel():
 def test_createExcel_pass(_test_create_excel):
     assert common.checkFileExistance('test.xlsx') is True    
 
-def test_createExcel_throws_exception():
+def test_createExcel_throws_ValueError():
+    with pytest.raises(ValueError):
+        t1.createExcelFile(5, 'just', 'bull', 'noffuff')
+        
+def test_createExcel_throws_TypeError():
     with pytest.raises(TypeError):
-        t1.createExcelFile()
+        t1.createExcelFile('test.xlsx', 4, 'bull', 'noffuff')
+
+def test_createExcel_throws_TypeError2():
+    with pytest.raises(TypeError):
+        t1.createExcelFile('test.xlsx', 'just', 1, 'noffuff')
+        
+def test_createExcel_throws_TypeError3():
+    with pytest.raises(TypeError):
+        t1.createExcelFile('test.xlsx', 'just', 'bull', 4)   

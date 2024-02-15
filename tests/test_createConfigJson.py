@@ -14,5 +14,5 @@ def test_createConfig(_test_create_config):
     assert common.checkFileExistance('config.json') is True
     
 def test_createConfig_throws_exception():
-    with pytest.raises(TypeError):
-        t1.createConfigJson()
+    with pytest.raises(ValueError):
+        t1.createConfigJson(5)

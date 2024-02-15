@@ -55,7 +55,7 @@ class Setup():
                 data_frame3.to_excel(writer, sheet_name=sheetname3, index=False)
         except Exception as ex:
             log.error('setup:createExcelFile: Exception: %s', ex)
-            sys.exit()
+            raise
         
     def checkExcel(self, filename, sheetname1, sheetname2, sheetname3):
         try:
@@ -73,13 +73,15 @@ class Setup():
         
     def createConfigJson(self, filename):
         try:
+            if type(filename) != str:
+                raise ValueError('The input is not a string.')
             with open(filename, 'w', encoding="utf-8") as f:
                 f.write(unidecode(self.json_config))
         except Exception as ex:
             log.error('setup:createConfigJson: Exception: %s.', ex)
-            sys.exit()
+            raise
 
-def run(filename, sheetname1, sheetname2, sheetname3):
+def run(filename, sheetname1, sheetname2, sheetname3): # pragma: no cover
     setup = Setup()        
     if checkFileExistance(filename) is False:
         setup.createExcelFile(filename, sheetname1, sheetname2, sheetname3)
