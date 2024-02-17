@@ -1,5 +1,4 @@
 import os
-import sys
 import logging
 import pandas as pd
 from unidecode import unidecode
@@ -73,7 +72,7 @@ class Setup():
         
     def createConfigJson(self, filename):
         try:
-            if type(filename) != str:
+            if not isinstance(filename, str):
                 raise ValueError('The input is not a string.')
             with open(filename, 'w', encoding="utf-8") as f:
                 f.write(unidecode(self.json_config))

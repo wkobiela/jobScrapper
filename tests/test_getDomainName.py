@@ -46,3 +46,7 @@ random_urls_list = [
 @pytest.mark.parametrize('in_put, out_put', random_urls_list)    
 def test_getDomainName_random_urls(in_put, out_put):
     assert common.getDomainName(in_put) == out_put
+    
+def test_getDomainName_wrong_input():
+    with pytest.raises(AttributeError):
+        common.getDomainName(5)
