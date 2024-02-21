@@ -63,7 +63,7 @@ def main():
     
     if args.config is None:
         print(program_description)
-        sys.exit(1)
+        sys.exit(0)
         
     try:
         with open(args.config, 'r', encoding="utf-8") as configuration:
