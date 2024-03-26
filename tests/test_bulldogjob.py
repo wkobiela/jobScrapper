@@ -21,7 +21,7 @@ def test_create_jobs_info_dict(_bulldogjob):
         for line in f:
             job_link_list += BeautifulSoup(line, 'html.parser')
     jobs_info_dict = _bulldogjob.updateJobsDict(job_link_list)
-    assert len(jobs_info_dict) == 11
+    assert len(jobs_info_dict) == 13
     
 def test_create_jobs_info_dict_wrong_list(_bulldogjob):
     wrong_job_link_list = 5

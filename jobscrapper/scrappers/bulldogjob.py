@@ -30,11 +30,11 @@ class BulldogJob():
             for job in job_link_list:
                 try:
                     #workarount for false job objects
-                    if not job.find('div', class_=re.compile("flex flex-col items-center relative my-auto", re.I)): 
+                    if not job.find('div', class_=re.compile("JobListItem_item__title__Ae2Pm", re.I)): 
                         continue
 
                     job_link = job.get('href')
-                    job_title = job.find(name="h3", class_=re.compile("md:mb-5 lg:mb-0 md:text-18 text", re.I))
+                    job_title = job.find(name="h3", class_=re.compile("JobListItem_item__title__Ae2Pm", re.I))
                     if job_title is not None:
                         job_title = job_title.find(string=True, recursive=False).text
                     else:
