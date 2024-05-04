@@ -53,6 +53,7 @@ setup(
     'openpyxl',
     'pandas',
     'Requests',
+    'selenium',
     'unidecode',
     'XlsxWriter' 
     ],
