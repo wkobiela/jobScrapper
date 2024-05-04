@@ -6,6 +6,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.remote.remote_connection import LOGGER
 
 from bs4 import BeautifulSoup
 from jobscrapper.modules.common import getDomainName, updateExcel
@@ -20,6 +21,8 @@ class JustJoinIt():
         
     def getJobsLinkList(self, url):
         self.domainName = getDomainName(url)
+        
+        LOGGER.setLevel(logging.WARNING)
         
         options = Options()
         options.add_argument("--window-size=1920,1080")
