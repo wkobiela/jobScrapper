@@ -1,6 +1,12 @@
 import re
 import logging
-import requests
+
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+
 from bs4 import BeautifulSoup
 from jobscrapper.modules.common import getDomainName, updateExcel
 
@@ -11,12 +17,39 @@ class JustJoinIt():
         self.jobs_dict = {}    
         self.job_link_list = []
         self.domain_name = ""
+        self.header = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) \
+                Chrome/58.0.3029.110 Safari/537.36'
+            }
         
     def getJobsLinkList(self, url):
         self.domainName = getDomainName(url)
-        page = requests.get(url, timeout=120)
-        page_soup = BeautifulSoup(page.content, "html.parser")
+        # print(url)
+        # url = "https://justjoin.it/gdansk/testing/experience-level_mid.senior/remote_yes"
+        # page = requests.get(url, timeout=120, headers=self.header)
+        
+        options = Options()
+        options.add_argument("--window-size=1920,1080")
+        options.add_argument("--disable-gpu")
+        options.add_argument("--disable-extensions")
+        options.add_experimental_option("useAutomationExtension", "false")
+        options.add_argument("--proxy-server='direct://'")
+        options.add_argument("--proxy-bypass-list=*")
+        options.add_argument("--start-maximized")
+        options.add_argument("--headless")
+        
+        driver = webdriver.Chrome(options=options) 
+        driver.get(url)
+        
+        WebDriverWait(driver, 5).until(
+                EC.presence_of_all_elements_located((By.XPATH, '//*[@id="Warstwa_1"]'))
+            )
+        
+        page_content = driver.page_source    
+
+        page_soup = BeautifulSoup(page_content, "html.parser")
         self.job_links_list = page_soup.find_all("div", {"class": "css-1iq2gw3"}) 
+        
         return self.job_links_list, self.domainName
 
     def updateJobsDict(self, job_links_list, domainName):
