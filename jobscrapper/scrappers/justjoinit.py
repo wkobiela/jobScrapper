@@ -44,33 +44,34 @@ class JustJoinIt():
         page_content = driver.page_source    
 
         page_soup = BeautifulSoup(page_content, "html.parser")
-        self.job_links_list = page_soup.find_all("div", {"class": "css-1iq2gw3"}) 
-        
+        self.job_links_list = page_soup.find_all("div", {"class": "MuiBox-root css-1jbajow"}) 
+ 
         return self.job_links_list, self.domainName
 
     def updateJobsDict(self, job_links_list, domainName):
         try:
             for job in job_links_list:
                 try:
-                    job_link = "https://"+domainName+job.find('a',  class_='css-4lqp8g')['href']
-                    job_title = job.find('h2')
+                    job_link = "https://"+domainName+job.find('a',  class_='offer_list_offer_link css-3qyn8a')['href']
+                    job_title = job.find('h3')
                     if job_title is not None:
                         job_title = job_title.find(string=True, recursive=False).text
                     else:
                         job_title = "Regex error."
-                    job_company = job.find('div', class_=re.compile("css-aryx9u", re.I))
+                    job_company = job.find('div', class_=re.compile("MuiBox-root css-1mx97sn", re.I))
                     if job_company is not None:
                         job_company = job_company.find(string=True, recursive=True).text
                     else:
                         job_company = "Regex error"
-                    job_salary = job.find('div', class_=re.compile("css-17pspck", re.I))
+                    job_salary = job.find('div', class_=re.compile("MuiBox-root css-18ypp16", re.I))
                     if job_salary is not None:
                         job_salary = job_salary.find(string=True, recursive=True).text
                     else: 
                         job_salary = "Regex error"
-                    job_location = job.find('div', class_=re.compile("css-11qgze1", re.I))
+                    job_location = job.find('div', class_=re.compile("MuiBox-root css-1un5sk1", re.I))
                     if job_location is not None:
-                        job_location = job_location.find(string=True, recursive=True).text
+                        spans = job_location.find_all('span')
+                        job_location = ''.join(spans[i].get_text() for i in range(min(2, len(spans))))
                     else: 
                         job_location = "Regex error"
 
