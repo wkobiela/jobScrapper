@@ -45,14 +45,14 @@ class JustJoinIt():
 
         page_soup = BeautifulSoup(page_content, "html.parser")
         self.job_links_list = page_soup.find_all("div", {"class": "MuiBox-root css-1jbajow"}) 
- 
+
         return self.job_links_list, self.domainName
 
     def updateJobsDict(self, job_links_list, domainName):
         try:
             for job in job_links_list:
                 try:
-                    job_link = "https://"+domainName+job.find('a',  class_='offer_list_offer_link css-3qyn8a')['href']
+                    job_link = "https://"+domainName+job.find('a',  target='_parent')['href']
                     job_title = job.find('h3')
                     if job_title is not None:
                         job_title = job_title.find(string=True, recursive=False).text
