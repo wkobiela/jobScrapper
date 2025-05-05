@@ -7,6 +7,6 @@ pytest-cov==6.1.1
 pytest-html==4.1.1
 selenium==4.31.0
 Requests==2.32.3
-setuptools==80.1.0
+setuptools==80.3.1
 unidecode==1.4.0
 XlsxWriter==3.2.3
