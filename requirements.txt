@@ -5,7 +5,7 @@ pandas==2.2.3
 pytest==8.4.0
 pytest-cov==6.1.1
 pytest-html==4.1.1
-selenium==4.32.0
+selenium==4.33.0
 Requests==2.32.4
 setuptools==80.8.0
 unidecode==1.4.0
