@@ -9,4 +9,4 @@ selenium==4.35.0
 Requests==2.32.5
 setuptools==80.9.0
 unidecode==1.4.0
-XlsxWriter==3.2.8
+XlsxWriter==3.2.9
