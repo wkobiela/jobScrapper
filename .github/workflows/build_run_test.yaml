@@ -90,21 +90,21 @@ jobs:
           mv dist/*.tar.gz .
 
       - name: 'Upload results.xlsx'
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: Results excel (${{ steps.commit.outputs.short }})
           path: |
             **/*.xlsx
 
       - name: 'Upload whl package'
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: Wheel package (${{ steps.commit.outputs.short }})
           path: |
             **/*.whl
 
       - name: 'Upload source.tar.gz package'
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: Source package (${{ steps.commit.outputs.short }})
           path: |
